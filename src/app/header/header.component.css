@@ -1,0 +1,166 @@
+#header {
+    margin-bottom: 20px;
+    padding-top: 30px;
+    position: relative;
+    z-index: 99;
+}
+
+#header.headerLid .headerContent {
+    padding-left: 325px;
+}
+
+#header .headerContent {
+    align-items: center;
+    display: flex;
+    height: 82px;
+    justify-content: space-between;
+    padding-left: 150px;
+    padding-right: 12px;
+}
+
+#header .headerTitle {
+    color: #fff;
+    font-size: 2.5em;
+    font-weight: 300;
+    line-height: 1em;
+}
+
+#inventoryDiv {
+    flex-shrink: 0;
+}
+
+#inventoryDiv button.inventoryStatus .status {
+    color: #aeaeae;
+    display: block;
+    font-size: .85em;
+}
+
+#inventoryDiv.Inventoryloading button.inventoryStatus .status.loaded, #inventoryDiv.Inventoryloading button.inventoryStatus .status.notLoaded, #inventoryDiv.Inventoryloading button.loadInventory, #inventoryDiv button.inventoryStatus .label, #inventoryDiv button.inventoryStatus .loader, #inventoryDiv button.inventoryStatus .status.loaded, #inventoryDiv button.inventoryStatus .status.loading, #inventoryDiv button.logOut {
+    display: none;
+}
+
+#inventoryDiv button.loadInventory {
+    border-bottom-left-radius: 4px !important;
+    border-top-left-radius: 4px !important;
+}
+#inventoryDiv button {
+    height: 50px;
+}
+#inventoryDiv button.inventoryStatus {
+    -moz-user-select: auto;
+    -ms-touch-action: auto;
+    -ms-user-select: auto;
+    -webkit-user-select: auto;
+    background-color: #fff !important;
+    border-color: #ccc !important;
+    color: #333 !important;
+    cursor: auto !important;
+    text-align: left;
+    touch-action: auto;
+    user-select: auto;
+    white-space: nowrap;
+}
+
+#inventoryDiv button.inventoryStatus {
+    color: #333 !important;
+    cursor: auto !important;
+    text-align: left;
+    white-space: nowrap;
+}
+
+
+
+.navigationMenu .desktop {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    padding-left: 25px;
+}
+
+.navigationMenu .mobile {
+    display: none;
+}
+
+.navigationMenu .menuLogo {
+    cursor: pointer;
+    height: 94px;
+    left: 26px;
+    position: absolute;
+    top: 12px;
+    width: 94px;
+}
+
+.navigationMenu .desktop a {
+    background-color: #f8f8f8;
+    border: 1px solid #e7e7e7;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color: #777;
+    display: inline;
+    font-size: 18px;
+    margin-bottom: 2px;
+    margin-right: 5px;
+    padding-bottom: 2px;
+    padding-left: 7px;
+    padding-right: 7px;
+    text-decoration: none;
+}
+
+.navigationMenu .desktop a.active {
+    border-color: #b8b8b8;
+    box-shadow: 0 1px 4px rgba(0,0,0,.15);
+}
+
+#header .headerTopButtons {
+    align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#languages .lang.selected {
+    box-shadow: 0 0 5px 2px #3166ff;
+}
+#languages .lang {
+    margin: 0 2px;
+}
+
+#header .switchServer {
+    padding: 0 12px 0 16px;
+}
+
+#header .bannerBackground {
+    background-color: #f8f8f8;
+    border: 1px solid #e7e7e7;
+    height: 83px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 30px;
+    z-index: -1;
+}
+
+#header .bannerPicture {
+    background-image: url(/img/banner/banner_blank.png);
+}
+#header .bannerPicture, #header .bannerPicturePerson {
+    background-repeat: no-repeat;
+    background-size: auto 110px;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 2px;
+    z-index: -1;
+}
+
+#header.headerLid .bannerPicturePerson {
+    background-image: url(/img/banner/Lid.png);
+}
+#header .bannerPicturePerson {
+    left: 110px;
+}
+
