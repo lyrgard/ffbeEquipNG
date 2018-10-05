@@ -35,7 +35,7 @@
     font-size: .85em;
 }
 
-#inventoryDiv.Inventoryloading button.inventoryStatus .status.loaded, #inventoryDiv.Inventoryloading button.inventoryStatus .status.notLoaded, #inventoryDiv.Inventoryloading button.loadInventory, #inventoryDiv button.inventoryStatus .label, #inventoryDiv button.inventoryStatus .loader, #inventoryDiv button.inventoryStatus .status.loaded, #inventoryDiv button.inventoryStatus .status.loading, #inventoryDiv button.logOut {
+#inventoryDiv.inventoryloading button.inventoryStatus .status.loaded, #inventoryDiv.inventoryloading button.inventoryStatus .status.notLoaded, #inventoryDiv.inventoryloading button.loadInventory, #inventoryDiv button.inventoryStatus .label, #inventoryDiv button.inventoryStatus .loader, #inventoryDiv button.inventoryStatus .status.loaded, #inventoryDiv button.inventoryStatus .status.loading, #inventoryDiv button.logOut {
     display: none;
 }
 
@@ -144,7 +144,7 @@
 }
 
 #header .bannerPicture {
-    background-image: url(/img/banner/banner_blank.png);
+    background-image: url(/assets/img/banner/banner_blank.png);
 }
 #header .bannerPicture, #header .bannerPicturePerson {
     background-repeat: no-repeat;
@@ -158,7 +158,7 @@
 }
 
 #header.headerLid .bannerPicturePerson {
-    background-image: url(/img/banner/Lid.png);
+    background-image: url(/assets/img/banner/Lid.png);
 }
 #header .bannerPicturePerson {
     left: 110px;
