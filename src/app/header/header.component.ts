@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {LoginService} from "../services/login.service";
+import {LoginService, LoggingState} from "../services/login.service";
 
 @Component({
   selector: 'app-header',
@@ -8,12 +8,15 @@ import {LoginService} from "../services/login.service";
 })
 export class HeaderComponent implements OnInit {
 
-  loading:boolean = true;
+  LoggingState = LoggingState;
+  loggingState:LoggingState = LoggingState.LOADING;
 
   constructor(private loggingService:LoginService) {}
 
   ngOnInit() {
-    this.loggingService.getLoggingState().subscribe(() => this.loading = false);
+    this.loggingService.getLoggingState().subscribe(
+      state => this.loggingState = state
+    );
   }
 
 }
