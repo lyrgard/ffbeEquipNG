@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject} from "rxjs/index";
-import {serializePath} from "@angular/router/src/url_tree";
 
 enum Server {
-  GL, JP
+  GL = "GL", JP = "JP"
 }
 
 enum Language {
@@ -22,6 +20,6 @@ export class ContextService {
 
 
   get server(): Server {
-    return this.server;
+    return this._server;
   }
 }

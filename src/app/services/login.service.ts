@@ -1,10 +1,17 @@
-import { Injectable } from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, of, Subject} from "rxjs/index";
 import {LocalStorageService} from "./local-storage.service";
 import {UserDataService} from "./user-data.service";
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment";
+import {DOCUMENT} from "@angular/common";
 
 class isLoggedResponse {
   isLogged:boolean;
+}
+
+class GoogleOAuthUrlResponse {
+  url:string;
 }
 
 export enum LoggingState {
@@ -20,31 +27,31 @@ export class LoginService {
 
   private logged:BehaviorSubject<LoggingState>;
 
-  constructor(private localStorage: LocalStorageService, private userDataService: UserDataService) { }
+  constructor(private localStorage: LocalStorageService, private userDataService: UserDataService, private http:HttpClient, @Inject(DOCUMENT) private document: Document) { }
 
   getLoggingState():Observable<LoggingState> {
     if (!this.logged) {
+      console.log(this.localStorage);
+      console.log(this.userDataService);
       this.logged = new BehaviorSubject<LoggingState>(LoggingState.LOADING);
-      if (this.isSessionCookiePresent()) {
-        this.userDataService.getUserData().subscribe(
-          r => this.logged.next(LoggingState.LOGGED_IN),
-          () => this.logged.next(LoggingState.LOGGED_OUT)
-        );
-      } else {
-        this.logged.next(LoggingState.LOGGED_OUT);
-      }
+      this.userDataService.getUserData().subscribe(
+        r => this.logged.next(LoggingState.LOGGED_IN),
+        err => {this.logged.next(LoggingState.LOGGED_OUT); console.log(err)}
+      );
     }
     return this.logged;
-  }
-
-  private isSessionCookiePresent(): boolean {
-    return !!document.cookie.match(/^(.*;)?[ ]{0,1}OAuthSession=[^;]+(.*)?$/);
   }
 
   logout() {
     document.cookie = 'OAuthSession=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     this.localStorage.clear();
     this.logged.next(LoggingState.LOGGED_OUT);
+  }
+
+  login() {
+    this.http.get<GoogleOAuthUrlResponse>(`${environment.baseUrl}/googleOAuthUrl`).subscribe(({url}) => {
+      this.document.location.href = url + "&state=" + encodeURIComponent(document.location.href.replace(".lyrgard.fr",".com"));
+    });
   }
 
   /**
@@ -62,4 +69,6 @@ export class LoginService {
       return of(result as T);
     };
   }
+
+
 }

@@ -25,44 +25,9 @@
     line-height: 1em;
 }
 
-#inventoryDiv {
-    flex-shrink: 0;
-}
 
-#inventoryDiv button.inventoryStatus .status {
-    color: #aeaeae;
-    display: block;
-    font-size: .85em;
-}
 
-#inventoryDiv button.loadInventory {
-    border-bottom-left-radius: 4px !important;
-    border-top-left-radius: 4px !important;
-}
-#inventoryDiv button {
-    height: 50px;
-}
-#inventoryDiv button.inventoryStatus {
-    -moz-user-select: auto;
-    -ms-touch-action: auto;
-    -ms-user-select: auto;
-    -webkit-user-select: auto;
-    background-color: #fff !important;
-    border-color: #ccc !important;
-    color: #333 !important;
-    cursor: auto !important;
-    text-align: left;
-    touch-action: auto;
-    user-select: auto;
-    white-space: nowrap;
-}
 
-#inventoryDiv button.inventoryStatus {
-    color: #333 !important;
-    cursor: auto !important;
-    text-align: left;
-    white-space: nowrap;
-}
 
 
 
@@ -160,3 +125,33 @@
     left: 110px;
 }
 
+
+#inventoryDiv {
+  display: flex;
+}
+
+#inventoryDiv button {
+  height: 50px;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  border-right: 0;
+}
+.inventoryStatus {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 50px;
+  text-align: left !important;
+  border: 1px solid #ccc;
+  padding: 3px 12px;
+  line-height: 1;
+  color: #aeaeae;
+}
+
+.inventoryStatus .status {
+  font-size: .85em;
+}
+
+.inventoryStatus .badge {
+  margin-right: 6px;
+}

@@ -10,14 +10,15 @@ import {tap} from "rxjs/internal/operators";
 })
 export class UserDataService {
 
-  private units:BehaviorSubject<any[]>;
-  private itemInventory:BehaviorSubject<any[]>;
-  private espers:BehaviorSubject<any[]>;
-  private settings:BehaviorSubject<any[]>;
+  units:BehaviorSubject<any> = new BehaviorSubject<any>({});
+  itemInventory:BehaviorSubject<any> = new BehaviorSubject<any>({});
+  espers:BehaviorSubject<any> = new BehaviorSubject<any>({});
+  settings:BehaviorSubject<any> = new BehaviorSubject<any>({});
 
   constructor(private http:HttpClient, private context: ContextService) { }
 
   getUserData():Observable<any> {
+
     return this.http.get<any>(`${environment.baseUrl}/${this.context.server}/userData`).pipe(tap(data => {
       this.units.next(data["units"]);
       this.itemInventory.next(data["itemInventory"]);

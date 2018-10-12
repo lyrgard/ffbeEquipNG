@@ -3,21 +3,26 @@
         <div class="headerTitle">
             Builder
         </div>
-        <div id="inventoryDiv" class="btn-group" role="group">
-            <button type="button" *ngIf="loggingState == LoggingState.LOGGED_IN" class="btn btn-light logOut" onclick="unloadInventory()">
-                <span class="glyphicon glyphicon-off" title="logout"></span>
+        <div id="inventoryDiv">
+            <button type="button" *ngIf="loggingState == LoggingState.LOGGED_IN" class="btn btn-light logOut" (click)="logOut()">
+                <span class="fas fa-sign-out-alt" title="logout"></span>
             </button>
-            <button type="button" *ngIf="loggingState == LoggingState.LOGGED_OUT" class="btn btn-secondary loadInventory" onclick="loadInventory()">
+            <button type="button" *ngIf="loggingState == LoggingState.LOGGED_OUT" class="btn btn-secondary loadInventory" (click)="logIn()">
                 Log in
             </button>
-            <button type="button" class="btn btn-light inventoryStatus">
+            <button type="button" *ngIf="loggingState == LoggingState.LOADING" class="btn btn-light" >
+              <span class="fas fa-spinner rotating"></span>
+            </button>
+            <div class="inventoryStatus">
                 <span class="status loading" *ngIf="loggingState == LoggingState.LOADING">Loading inventory</span>
                 <span class="status loaded" *ngIf="loggingState == LoggingState.LOGGED_IN">Inventory loaded</span>
                 <span class="status notLoaded" *ngIf="loggingState == LoggingState.LOGGED_OUT">Inventory not loaded</span>
                 <div class="loader" *ngIf="loggingState == LoggingState.LOADING"></div>
-                <span class="label label-default unitsNumber" *ngIf="loggingState == LoggingState.LOGGED_IN">? units</span>
-                <span class="label label-default itemsNumber" *ngIf="loggingState == LoggingState.LOGGED_IN">? items</span>
-            </button>
+                <div *ngIf="loggingState == LoggingState.LOGGED_IN">
+                  <span class="badge badge-secondary unitsNumber">{{unitCount}} units</span>
+                  <span class="badge badge-secondary itemsNumber">{{itemCount}} items</span>
+                </div>
+            </div>
         </div>
     </div>
     <div class="navigationMenu">
