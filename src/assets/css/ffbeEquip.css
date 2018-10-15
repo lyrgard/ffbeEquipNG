@@ -15,3 +15,12 @@
 .rotating {
   -webkit-animation: rotating 2s linear infinite;
 }
+
+
+i.img {
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  vertical-align: middle;
+}
