@@ -1,0 +1,5 @@
+<span class='category discord-admin' *ngIf="adminNumber"><span class='fas fa-chess-king '></span>{{adminNumber |i18nPlural: itemPluralMapping['admin']}}</span>
+<span class='category discord-knowledgeable' *ngIf="knowledgableUsersNumber"><span class='fas fa-graduation-cap'></span>{{knowledgableUsersNumber |i18nPlural: itemPluralMapping['knowledgable user']}}</span>
+<span class='category discord-developer' *ngIf="developersNumber"><span class='fas fa-cogs'></span>{{developersNumber |i18nPlural: itemPluralMapping['developer']}}</span>
+<span class='category discord-connected' *ngIf="otherMemberNumber"><span class='fas fa-user'></span>{{otherMemberNumber |i18nPlural: itemPluralMapping['user']}}</span>
+<span class='category discord-idle' *ngIf="idleNumber">(and {{idleNumber |i18nPlural: itemPluralMapping['idle']}})</span>

@@ -49,11 +49,11 @@
   <div class="col-sm-6">
     <div id="panel-github" class="card">
       <div class="card-header">
-        <img src='img/icons/github.svg' class='logo' alt='' />
+        <img src='../../assets/img/external/github.svg' class='externalLogo' alt='' />
         Latest changes
       </div>
       <div class="card-body">
-        <app-git-tag *ngFor="let tagData of $gitTags" [tagData]="tagData"></app-git-tag>
+        <app-git-commit *ngFor="let commitData of $gitCommits" [commitData]="commitData"></app-git-commit>
       </div>
       <div class="card-footer">
         Want to contribute?
@@ -66,10 +66,11 @@
   <div class="col-sm-6">
     <div id="panel-discord" class="card">
       <div class="card-header">
-        <img src='img/icons/discord.svg' class='logo' alt='' />
+        <img src='../../assets/img/external/discord.svg' class='externalLogo' alt='' />
         From our Discord server
       </div>
       <div class="card-body">
+        <app-discord-users></app-discord-users>
       </div>
       <div class="card-footer">
         Want to join the fun?

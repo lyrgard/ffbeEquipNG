@@ -1,8 +1,0 @@
-<div class="hidden tagline" [ngClass]="{'improvement':tagType == TagType.IMPROVEMENT, 'feature':tagType == TagType.nEW_FEATURE, 'dataUpdate':tagType == TagType.DATA_UPDATE}">
-  <div>
-    <span class='tagtype'><span class='fas' [ngClass]="{'fa-caret-square-up':tagType == TagType.IMPROVEMENT, 'fa-plus-square':tagType == TagType.NEW_FEATURE, 'fa-database':tagType == TagType.DATA_UPDATE}"></span>{{tagType}}</span>
-    <span class='tagauthor'>{{$tagAuthor}}</span>
-    <span class='tagdate'>{{$tagDate}}</span>
-  </div>
-  <div class='tagdesc'>{{$tagDesc}}</div>
-</div>

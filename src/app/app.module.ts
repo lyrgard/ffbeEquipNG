@@ -7,14 +7,18 @@ import {HttpClientModule} from "@angular/common/http";
 import { HomeComponent } from './home/home.component';
 import {RouterModule} from "@angular/router";
 import {routes} from "./routes";
-import { GitTagComponent } from './home/git-tag/git-tag.component';
+import { GitCommitComponent } from './home/git-commit/git-commit.component';
+import { DiscordUsersComponent } from './home/discord-users/discord-users.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     HomeComponent,
-    GitTagComponent
+    GitCommitComponent,
+    DiscordUsersComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,8 @@
+<div class="hidden tagline" [ngClass]="{'improvement':commitType == CommitType.IMPROVEMENT, 'feature':commitType == CommitType.nEW_FEATURE, 'dataUpdate':commitType == CommitType.DATA_UPDATE}">
+  <div>
+    <span class='tagtype'><span class='fas' [ngClass]="{'fa-caret-square-up':commitType == CommitType.IMPROVEMENT, 'fa-plus-square':commitType == CommitType.NEW_FEATURE, 'fa-database':commitType == CommitType.DATA_UPDATE}"></span>{{commitType}}</span>
+    <span class='tagauthor'>{{commitData.commit.author.name}}</span>
+    <span class='tagdate'>{{$commitDate}}</span>
+  </div>
+  <div class='tagdesc'>{{$commitDesc}}</div>
+</div>

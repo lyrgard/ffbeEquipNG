@@ -155,6 +155,11 @@
   }
 }
 
+img.externalLogo {
+  height: 18px;
+  margin-right: 6px;
+  width: auto;
+}
 
 @media (max-width: 1200px) {
 

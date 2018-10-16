@@ -1,0 +1,23 @@
+.category {
+  padding-right: 8px;
+}
+
+.fas {
+  padding-right: 4px;
+}
+
+.discord-admin {
+  color: #ff0000;
+}
+.discord-knowledgeable {
+  color: #3498db;
+}
+.discord-developer {
+  color: #2ecc71;
+}
+.discord-connected {
+  color: #6b6b6b;
+}
+.discord-idle {
+  color: #d1d1d1;
+}

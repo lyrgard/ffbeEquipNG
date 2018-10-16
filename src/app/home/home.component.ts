@@ -1,14 +1,7 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Observable, Subscription, fromEvent} from "rxjs/index";
+import {Observable, Subscription, fromEvent, forkJoin} from "rxjs/index";
 import {debounceTime, distinctUntilChanged, throttleTime} from "rxjs/internal/operators";
-import {$} from "protractor";
 import {HttpClient} from "@angular/common/http";
-
-// Discord widget JSON doesn't give the user's role
-// Hence the need to trace it manually...
-const DISCORD_USER_ADMIN = ['Lyrgard#1585'];
-const DISCORD_USER_KNOWLEDGEABLE = ['Darwe#7148', 'Spuuky#1546', 'tmtl#5880', 'Kujo#6865', 'sic#9510'];
-const DISCORD_USER_DEVS = ['Indigo#1164', 'biovenger#4295', 'Xist#5200'];
 
 @Component({
   selector: 'app-home',
@@ -25,7 +18,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   @ViewChild('layerBorder') layerBorder:ElementRef;
   @ViewChild('moreInformation') moreInformation:ElementRef;
 
-  $gitTags:any[];
+  $gitCommits:any[];
 
   private mouseMoveSubscription: Subscription;
   private documentScrollSubscription: Subscription;
@@ -35,58 +28,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.handleBackgroundAnimation();
 
-    this.http.get<any[]>("https://api.github.com/repos/lyrgard/ffbeEquip/tags").subscribe(tags => {
-      this.$gitTags = tags;//.slice(tags.length - 5);
-    })
-
-
-    // $.get("https://discordapp.com/api/guilds/389844892853075969/widget.json", function(widget) {
-    //   var adminsNb = 0, userNb = 0, knowledgeableNb = 0, devNb = 0, idleNb = 0;
-    //   for (var id = 0; id < widget.members.length; id++) {
-    //     var member = widget.members[id];
-    //     if (member.status === 'online') {
-    //       var memberName = member.username+'#'+member.discriminator;
-    //       if (DISCORD_USER_ADMIN.includes(memberName)) {
-    //         adminsNb++;
-    //       } else if (DISCORD_USER_KNOWLEDGEABLE.includes(memberName)) {
-    //         knowledgeableNb++;
-    //       } else if (DISCORD_USER_DEVS.includes(memberName)) {
-    //         devNb++;
-    //       } else {
-    //         userNb++;
-    //       }
-    //     } else {
-    //       idleNb++;
-    //     }
-    //   }
-    //   var html = '';
-    //   if (adminsNb > 0) {
-    //     html += "<span class='discord-admin'>";
-    //     html += "<span class='glyphicon glyphicon-king'></span>";
-    //     html += adminsNb + " admin" + (adminsNb>1?'s':'');
-    //     html += "</span>";
-    //   }
-    //   if (knowledgeableNb > 0) {
-    //     html += "<span class='discord-knowledgeable'>";
-    //     html += "<span class='glyphicon glyphicon-education'></span>";
-    //     html += knowledgeableNb + " knowledgable user" + (knowledgeableNb>1?'s':'');
-    //     html += "</span>";
-    //   }
-    //   if (devNb > 0) {
-    //     html += "<span class='discord-developer'>";
-    //     html += "<span class='glyphicon glyphicon-cog'></span>";
-    //     html += devNb + " developer" + (devNb>1?'s':'');
-    //     html += "</span>";
-    //   }
-    //   html += "<span class='discord-connected'>";
-    //   html += "<span class='glyphicon glyphicon-user'></span>";
-    //   html += userNb + " user" + (userNb>1?'s':'');
-    //   html += "</span>";
-    //   html += "<span class='discord-idle'>(and " + idleNb + " idle)</span>";
-    //   $('#panel-discord .panel-body').html(html);
-    // }, 'json').fail(function(jqXHR, textStatus, errorThrown ) {
-    //   $('#panel-discord .panel-body').html("Error while loading list...");
-    // });
+    this.http.get<any[]>("https://api.github.com/repos/lyrgard/ffbeEquip/commits").subscribe(commits => {
+      this.$gitCommits = commits
+        .filter(commit => commit.commit.message && (commit.commit.message.startsWith('IMPROVEMENT') || commit.commit.message.startsWith('NEW_FEATURE') || commit.commit.message.startsWith('DATA_UPDATE')))
+        .slice(0, 5);
+    });
   }
 
   ngOnDestroy(): void {

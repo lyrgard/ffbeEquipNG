@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GitTagComponent } from './git-tag.component';
+import { GitCommitComponent } from './git-commit.component';
 
-describe('GitTagComponent', () => {
-  let component: GitTagComponent;
-  let fixture: ComponentFixture<GitTagComponent>;
+describe('GitCommitComponent', () => {
+  let component: GitCommitComponent;
+  let fixture: ComponentFixture<GitCommitComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GitTagComponent ]
+      declarations: [ GitCommitComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GitTagComponent);
+    fixture = TestBed.createComponent(GitCommitComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
