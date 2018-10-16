@@ -47,14 +47,15 @@
 </div>
 <div #moreInformation  class="more_information">
   <div class="col-sm-6">
-    <div id="panel-github" class="panel panel-default">
-      <div class="panel-heading">
+    <div id="panel-github" class="card">
+      <div class="card-header">
         <img src='img/icons/github.svg' class='logo' alt='' />
         Latest changes
       </div>
-      <div class="panel-body">
+      <div class="card-body">
+        <app-git-tag *ngFor="let tagData of $gitTags" [tagData]="tagData"></app-git-tag>
       </div>
-      <div class="panel-footer">
+      <div class="card-footer">
         Want to contribute?
         <a href="https://github.com/lyrgard/ffbeEquip" target="_blank" rel="noreferrer">
           Fork the repo and submit a PR!
@@ -63,14 +64,14 @@
     </div>
   </div>
   <div class="col-sm-6">
-    <div id="panel-discord" class="panel panel-default">
-      <div class="panel-heading">
+    <div id="panel-discord" class="card">
+      <div class="card-header">
         <img src='img/icons/discord.svg' class='logo' alt='' />
         From our Discord server
       </div>
-      <div class="panel-body">
+      <div class="card-body">
       </div>
-      <div class="panel-footer">
+      <div class="card-footer">
         Want to join the fun?
         <a href="https://discord.gg/rgXnjhP" target="_blank" rel="noreferrer">
           Come to our server!

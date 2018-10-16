@@ -7,12 +7,14 @@ import {HttpClientModule} from "@angular/common/http";
 import { HomeComponent } from './home/home.component';
 import {RouterModule} from "@angular/router";
 import {routes} from "./routes";
+import { GitTagComponent } from './home/git-tag/git-tag.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    HomeComponent
+    HomeComponent,
+    GitTagComponent
   ],
   imports: [
     BrowserModule,

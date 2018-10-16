@@ -130,6 +130,16 @@
   animation: bounce 0.4s ease;
 }
 
+.more_information {
+  display: flex;
+}
+
+#panel-github .panel-heading img.logo {
+  height: 18px;
+  width: auto;
+  margin-right: 6px;
+}
+
 @keyframes bounce {
   0% {
     transform: scale(1.0);

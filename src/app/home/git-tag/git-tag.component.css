@@ -1,0 +1,37 @@
+.tagtype {
+  display: inline-block;
+  background-color: #424242;
+  color: #ffffff;
+  border-radius: 3px;
+  font-size: 0.8em;
+  font-weight: bold;
+  padding: 2px 6px;
+  margin-right: 6px;
+}
+
+.tagtype .fas,
+.tagauthor {
+  margin-right: 6px;
+}
+
+.tagline.improvement .tagtype {
+  background-color: #e08c15;
+}
+
+.tagline.feature .tagtype {
+  background-color: #468544;
+}
+
+.tagline.dataUpdate .tagtype {
+  background-color: cornflowerblue;
+}
+
+.tagdate,
+.tagauthor {
+  color: #c2c2c2;
+  font-size: 0.9em;
+}
+
+.tagdesc {
+  color: #6b6b6b;
+}
