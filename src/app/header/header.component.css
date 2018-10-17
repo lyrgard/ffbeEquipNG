@@ -26,11 +26,6 @@
 }
 
 
-
-
-
-
-
 .navigationMenu .desktop {
     align-items: flex-start;
     display: flex;
@@ -61,14 +56,19 @@
     font-size: 18px;
     margin-bottom: 2px;
     margin-right: 5px;
-    padding-bottom: 2px;
+    padding-bottom: 5px;
     padding-left: 7px;
     padding-right: 7px;
     text-decoration: none;
 }
 
+.navigationMenu .desktop a:hover {
+  background-color: #f0f0f0;
+}
+
 .navigationMenu .desktop a.active {
     border-color: #b8b8b8;
+    background-color: #e7e7e7;
     box-shadow: 0 1px 4px rgba(0,0,0,.15);
 }
 
@@ -154,4 +154,11 @@
 
 .inventoryStatus .badge {
   margin-right: 6px;
+}
+
+
+.switchServer button.btn {
+  margin-left: 0 !important;
+  padding: 2px 8px;
+  line-height: 1;
 }

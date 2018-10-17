@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable} from "rxjs/index";
+import {AsyncSubject, BehaviorSubject, Observable} from "rxjs/index";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {ContextService} from "./context.service";
-import {tap} from "rxjs/internal/operators";
+import {map, tap, flatMap} from "rxjs/internal/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +17,26 @@ export class UserDataService {
 
   constructor(private http:HttpClient, private context: ContextService) { }
 
-  getUserData():Observable<any> {
+  getUserData():AsyncSubject<any> {
 
-    return this.http.get<any>(`${environment.baseUrl}/${this.context.server}/userData`).pipe(tap(data => {
-      this.units.next(data["units"]);
-      this.itemInventory.next(data["itemInventory"]);
-      this.espers.next(data["espers"]);
-      this.settings.next(data["settings"]);
-    }));
+    let result:AsyncSubject<boolean> = new AsyncSubject<boolean>();
+    this.context.server.subscribe(server => {
+      this.http.get<any>(`${environment.baseUrl}/${server}/userData`).subscribe(
+        data => {
+          this.units.next(data["units"]);
+          this.itemInventory.next(data["itemInventory"]);
+          this.espers.next(data["espers"]);
+          this.settings.next(data["settings"]);
+
+          result.next(true);
+          result.complete();
+        },
+        e => {
+          result.next(false);
+          result.complete();
+        });
+    });
+
+    return result;
   }
 }

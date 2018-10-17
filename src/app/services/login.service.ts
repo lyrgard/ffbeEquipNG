@@ -31,12 +31,15 @@ export class LoginService {
 
   getLoggingState():Observable<LoggingState> {
     if (!this.logged) {
-      console.log(this.localStorage);
-      console.log(this.userDataService);
       this.logged = new BehaviorSubject<LoggingState>(LoggingState.LOADING);
       this.userDataService.getUserData().subscribe(
-        r => this.logged.next(LoggingState.LOGGED_IN),
-        err => {this.logged.next(LoggingState.LOGGED_OUT); console.log(err)}
+        logged => {
+          if (logged) {
+            this.logged.next(LoggingState.LOGGED_IN)
+          } else {
+            this.logged.next(LoggingState.LOGGED_OUT)
+          }
+        }
       );
     }
     return this.logged;

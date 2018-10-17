@@ -2,6 +2,7 @@ import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core
 import {Observable, Subscription, fromEvent, forkJoin} from "rxjs/index";
 import {debounceTime, distinctUntilChanged, throttleTime} from "rxjs/internal/operators";
 import {HttpClient} from "@angular/common/http";
+import {ContextService, Pages} from "../services/context.service";
 
 @Component({
   selector: 'app-home',
@@ -23,9 +24,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   private mouseMoveSubscription: Subscription;
   private documentScrollSubscription: Subscription;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private contextService:ContextService) { }
 
   ngOnInit() {
+    this.contextService.setCurrentPage(Pages.HOME);
     this.handleBackgroundAnimation();
 
     this.http.get<any[]>("https://api.github.com/repos/lyrgard/ffbeEquip/commits").subscribe(commits => {

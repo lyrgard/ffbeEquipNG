@@ -28,56 +28,56 @@
     <div class="navigationMenu">
         <div class="desktop">
             <div class="menuLogo" onclick="window.location.href='/' + (server == 'GL' ? '' : '?server=' + server)" title="Return to homepage"></div>
-            <a href="/" data-internal-link="/">Home</a>
-            <a class="active" href="builder.html" data-internal-link="builder.html">Unit builder</a>
-            <a href="encyclopedia.html" data-internal-link="encyclopedia.html">Encyclopedia</a>
-            <a href="unitSearch.html" data-internal-link="unitSearch.html">Unit Search</a>
-            <a href="inventory.html" data-internal-link="inventory.html">My inventory</a>
-            <a href="units.html" data-internal-link="units.html">My units</a>
-            <a href="espers.html" data-internal-link="espers.html">My Espers</a>
-            <a href="contribute.html" data-internal-link="contribute.html">Contribute</a>
+            <a [ngClass]="{active:$page == Pages.HOME}" href="/" data-internal-link="/">Home</a>
+            <a [ngClass]="{active:$page == Pages.BUILDER}" href="builder.html" data-internal-link="builder.html">Unit builder</a>
+            <a [ngClass]="{active:$page == Pages.ENCYCLOPEDIA}" href="encyclopedia.html" data-internal-link="encyclopedia.html">Encyclopedia</a>
+            <a [ngClass]="{active:$page == Pages.UNIT_SEARCH}" href="unitSearch.html" data-internal-link="unitSearch.html">Unit Search</a>
+            <a [ngClass]="{active:$page == Pages.MY_INVENTORY}" href="inventory.html" data-internal-link="inventory.html">My inventory</a>
+            <a [ngClass]="{active:$page == Pages.MY_UNITS}" href="units.html" data-internal-link="units.html">My units</a>
+            <a [ngClass]="{active:$page == Pages.MY_ESPER}" href="espers.html" data-internal-link="espers.html">My Espers</a>
+            <a [ngClass]="{active:$page == Pages.CONTRIBUTE}" href="contribute.html" data-internal-link="contribute.html">Contribute</a>
         </div>
         <div class="mobile">
             <div class="menuLogo dropdown-toggle" data-toggle="dropdown">
                 <span class="glyphicon glyphicon-chevron-down"></span>
             </div>
             <ul class="dropdown-menu">
-                <li>
+                <li [ngClass]="{active:$page == Pages.HOME}">
                     <a href="/" data-internal-link="/">
                         <span class="glyphicon glyphicon-chevron-right"></span> Home
                     </a>
                 </li>
-                <li class="active">
+                <li [ngClass]="{active:$page == Pages.BUILDER}">
                     <a href="builder.html" data-internal-link="builder.html">
                         <span class="glyphicon glyphicon-chevron-right"></span> Unit builder
                     </a>
                 </li>
-                <li>
+                <li [ngClass]="{active:$page == Pages.ENCYCLOPEDIA}">
                     <a href="encyclopedia.html" data-internal-link="encyclopedia.html">
                         <span class="glyphicon glyphicon-chevron-right"></span> Encyclopedia
                     </a>
                 </li>
-                <li>
+                <li [ngClass]="{active:$page == Pages.UNIT_SEARCH}">
                     <a href="unitSearch.html" data-internal-link="unitSearch.html">
                         <span class="glyphicon glyphicon-chevron-right"></span> Unit Search
                     </a>
                 </li>
-                <li>
+                <li [ngClass]="{active:$page == Pages.MY_INVENTORY}">
                     <a href="inventory.html" data-internal-link="inventory.html">
                         <span class="glyphicon glyphicon-chevron-right"></span> My inventory
                     </a>
                 </li>
-                <li>
+                <li [ngClass]="{active:$page == Pages.MY_UNITS}">
                     <a href="units.html" data-internal-link="units.html">
                         <span class="glyphicon glyphicon-chevron-right"></span> My units
                     </a>
                 </li>
-                <li>
+                <li [ngClass]="{active:$page == Pages.MY_ESPERS}">
                     <a href="espers.html" data-internal-link="espers.html">
                         <span class="glyphicon glyphicon-chevron-right"></span> My Espers
                     </a>
                 </li>
-                <li>
+                <li [ngClass]="{active:$page == Pages.CONTRIBUTE}">
                     <a href="contribute.html" data-internal-link="contribute.html">
                         <span class="glyphicon glyphicon-chevron-right"></span> Contribute
                     </a>
@@ -86,17 +86,17 @@
         </div>
     </div>
     <div class="headerTopButtons">
-        <div id="languages">
-            <span class="lang lang-sm" lang="en" onclick="switchToLanguage('en')"></span>
-            <span class="lang lang-sm" lang="zh" onclick="switchToLanguage('zh')"></span>
-            <span class="lang lang-sm" lang="ko" onclick="switchToLanguage('ko')"></span>
-            <span class="lang lang-sm" lang="fr" onclick="switchToLanguage('fr')"></span>
-            <span class="lang lang-sm" lang="de" onclick="switchToLanguage('de')"></span>
-            <span class="lang lang-sm" lang="es" onclick="switchToLanguage('es')"></span>
+        <div id="languages" *ngIf="$server == Server.GL">
+            <span class="lang lang-sm" [ngClass]="{selected:($language == Language.EN || $language == Language.DEFAULT)}" lang="en" onclick="switchToLanguage('en')"></span>
+            <span class="lang lang-sm" [ngClass]="{selected:$language == Language.ZH}" lang="zh" onclick="switchToLanguage('zh')"></span>
+            <span class="lang lang-sm" [ngClass]="{selected:$language == Language.KO}" lang="ko" onclick="switchToLanguage('ko')"></span>
+            <span class="lang lang-sm" [ngClass]="{selected:$language == Language.FR}" lang="fr" onclick="switchToLanguage('fr')"></span>
+            <span class="lang lang-sm" [ngClass]="{selected:$language == Language.DE}" lang="de" onclick="switchToLanguage('de')"></span>
+            <span class="lang lang-sm" [ngClass]="{selected:$language == Language.ES}" lang="es" onclick="switchToLanguage('es')"></span>
         </div>
         <div class="switchServer btn-group">
-            <button class="GL btn btn-default" onclick="switchTo('GL')">GL</button>
-            <button class="JP btn btn-default" onclick="switchTo('JP')">JP</button>
+            <button class="GL btn" [ngClass]="{'btn-primary':$server == Server.GL, 'btn-light':$server == Server.JP}" onclick="switchTo('GL')">GL</button>
+            <button class="JP btn" [ngClass]="{'btn-primary':$server == Server.JP, 'btn-light':$server == Server.GL}" onclick="switchTo('JP')">JP</button>
         </div>
     </div>
     <div class="bannerBackground"></div>
