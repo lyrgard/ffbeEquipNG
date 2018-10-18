@@ -28,9 +28,9 @@
     <div class="navigationMenu">
         <div class="desktop">
             <div class="menuLogo" onclick="window.location.href='/' + (server == 'GL' ? '' : '?server=' + server)" title="Return to homepage"></div>
-            <a [ngClass]="{active:$page == Pages.HOME}" href="/" data-internal-link="/">Home</a>
+            <a [ngClass]="{active:$page == Pages.HOME}" [routerLink]="['/', $language]">Home</a>
             <a [ngClass]="{active:$page == Pages.BUILDER}" href="builder.html" data-internal-link="builder.html">Unit builder</a>
-            <a [ngClass]="{active:$page == Pages.ENCYCLOPEDIA}" href="encyclopedia.html" data-internal-link="encyclopedia.html">Encyclopedia</a>
+            <a [ngClass]="{active:$page == Pages.ENCYCLOPEDIA}" [routerLink]="['/', $language, 'encyclopedia']" data-internal-link="encyclopedia.html">Encyclopedia</a>
             <a [ngClass]="{active:$page == Pages.UNIT_SEARCH}" href="unitSearch.html" data-internal-link="unitSearch.html">Unit Search</a>
             <a [ngClass]="{active:$page == Pages.MY_INVENTORY}" href="inventory.html" data-internal-link="inventory.html">My inventory</a>
             <a [ngClass]="{active:$page == Pages.MY_UNITS}" href="units.html" data-internal-link="units.html">My units</a>

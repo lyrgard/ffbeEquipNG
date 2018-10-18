@@ -10,6 +10,7 @@ import {routes} from "./routes";
 import { GitCommitComponent } from './home/git-commit/git-commit.component';
 import { DiscordUsersComponent } from './home/discord-users/discord-users.component';
 import { FooterComponent } from './footer/footer.component';
+import { EncyclopediaComponent } from './encyclopedia/encyclopedia.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FooterComponent } from './footer/footer.component';
     HomeComponent,
     GitCommitComponent,
     DiscordUsersComponent,
-    FooterComponent
+    FooterComponent,
+    EncyclopediaComponent
   ],
   imports: [
     BrowserModule,
