@@ -3,6 +3,7 @@ import {ContextService} from "./context.service";
 import {AsyncSubject, forkJoin} from "rxjs/index";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
+import {LZStringService} from "ng-lz-string";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class LocalStorageService {
   private server:string;
 
 
-  constructor(private context:ContextService, private http:HttpClient) {
+  constructor(private context:ContextService, private http:HttpClient, private lz: LZStringService) {
     var localStorageAvailable = false;
     if (window.localStorage) {
       var test = "test";
@@ -54,6 +55,23 @@ export class LocalStorageService {
     }
   }
 
+  getFile(filename:string): any {
+    if (this.localStorageAvailable) {
+      try {
+        var dataString = localStorage.getItem(filename);
+        if (dataString) {
+          // Decompress string and parse
+          return JSON.parse(this.lz.decompress(dataString));
+        }
+      } catch (error) {
+        window.console && window.console.warn("An error occured while trying to retrieve the file "+filename+" from your local storage", error);
+        // Failsafe: remove item in case of error (to free space if needed)
+        try { localStorage.removeItem(filename); } catch(e){}
+      }
+    }
+    return null;
+  }
+
   clear() {
     this.localStorageReady.subscribe(() => this.reInitLocalStorage());
   }
@@ -62,4 +80,5 @@ export class LocalStorageService {
     this.clear();
     localStorage.setItem("dataVersion", JSON.stringify({"version": this.version, "server": this.server, "language": this.language}));
   }
+
 }

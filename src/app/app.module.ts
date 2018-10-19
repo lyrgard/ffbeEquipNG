@@ -12,6 +12,8 @@ import { DiscordUsersComponent } from './home/discord-users/discord-users.compon
 import { FooterComponent } from './footer/footer.component';
 import { EncyclopediaComponent } from './encyclopedia/encyclopedia.component';
 
+import { LZStringModule, LZStringService } from 'ng-lz-string';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,9 +27,12 @@ import { EncyclopediaComponent } from './encyclopedia/encyclopedia.component';
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    LZStringModule
   ],
-  providers: [],
+  providers: [
+    LZStringService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
