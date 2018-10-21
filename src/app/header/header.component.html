@@ -1,7 +1,7 @@
-<div id="header" class="headerLid">
+<div id="header" [ngClass]="{'headerMogChocobo': $page == Pages.HOME, 'headerSakura': $page == Pages.ENCYCLOPEDIA}">
     <div class="headerContent">
         <div class="headerTitle">
-            Builder
+            {{$titles.get($page)}}
         </div>
         <div id="inventoryDiv">
             <button type="button" *ngIf="loggingState == LoggingState.LOGGED_IN" class="btn btn-light logOut" (click)="logOut()">

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {SearchFilter} from "./search-filter";
+import {SearchFilter} from './search-filter';
+import {ContextService, Pages} from '../services/context.service';
 
 @Component({
   selector: 'app-encyclopedia',
@@ -8,11 +9,12 @@ import {SearchFilter} from "./search-filter";
 })
 export class EncyclopediaComponent implements OnInit {
 
-  searchFilter:SearchFilter = new SearchFilter();
+  searchFilter: SearchFilter = new SearchFilter();
 
-  constructor() { }
+  constructor(private contextService: ContextService) { }
 
   ngOnInit() {
+      this.contextService.setCurrentPage(Pages.ENCYCLOPEDIA);
   }
 
 }

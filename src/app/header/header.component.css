@@ -5,8 +5,60 @@
     z-index: 99;
 }
 
+#header.headerSakura .bannerPicturePerson {
+    background-image: url(../../assets/img/banner/Sakura.png) ;
+}
+#header.headerSakura .headerContent {
+    padding-left: 350px;
+}
+
+#header.headerLasswell .bannerPicturePerson {
+    background-image: url(../../assets/img/banner/Lasswell.png) ;
+}
+#header.headerLasswell .headerContent {
+    padding-left: 300px;
+}
+
+#header.headerJake .bannerPicturePerson {
+    background-image: url(../../assets/img/banner/Jake.png) ;
+}
+#header.headerJake .headerContent {
+    padding-left: 360px;
+}
+
+#header.headerRain .bannerPicturePerson {
+    background-image: url(../../assets/img/banner/Rain.png) ;
+}
+#header.headerRain .headerContent {
+    padding-left: 340px;
+}
+
+#header.headerNichol .bannerPicturePerson {
+    background-image: url(../../assets/img/banner/Nichol.png) ;
+}
+#header.headerNichol .headerContent {
+    padding-left: 330px;
+}
+
+#header.headerLid .bannerPicturePerson {
+    background-image: url(../../assets/img/banner/Lid.png) ;
+}
 #header.headerLid .headerContent {
     padding-left: 325px;
+}
+
+#header.headerFina .bannerPicturePerson {
+    background-image: url(../../assets/img/banner/Fina.png) ;
+}
+#header.headerFina .headerContent {
+    padding-left: 330px;
+}
+
+#header.headerMogChocobo .bannerPicturePerson {
+    background-image: url(../../assets/img/banner/MogChocobo.png) ;
+}
+#header.headerMogChocobo .headerContent {
+    padding-left: 310px;
 }
 
 #header .headerContent {
@@ -119,9 +171,6 @@
     z-index: -1;
 }
 
-#header.headerLid .bannerPicturePerson {
-    background-image: url(/assets/img/banner/Lid.png);
-}
 #header .bannerPicturePerson {
     left: 110px;
 }
@@ -147,6 +196,9 @@
   padding: 3px 12px;
   line-height: 1;
   color: #aeaeae;
+  background-color: #f8f9fa;
+  border-bottom-right-radius: 0.25em;
+  border-top-right-radius: 0.25em;
 }
 
 .inventoryStatus .status {
