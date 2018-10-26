@@ -18,19 +18,19 @@ export class LocalStorageService {
 
 
   constructor(private context:ContextService, private http:HttpClient, private lz: LZStringService) {
-    var localStorageAvailable = false;
+    this.localStorageAvailable = false;
     if (window.localStorage) {
       var test = "test";
       try {
         localStorage.setItem(test, test);
-        localStorageAvailable = test === localStorage.getItem(test);
+        this.localStorageAvailable = test === localStorage.getItem(test);
         localStorage.removeItem(test);
       } catch(e) {
-        localStorageAvailable = false;
+        this.localStorageAvailable = false;
       }
     }
 
-    if (localStorageAvailable) {
+    if (this.localStorageAvailable) {
       forkJoin(
         context.server,
         context.language
@@ -70,6 +70,15 @@ export class LocalStorageService {
       }
     }
     return null;
+  }
+
+  setFile(filename:string, data:any) {
+    if (this.localStorageAvailable) {
+      if (typeof data === 'object') {
+        data = this.lz.compress(JSON.stringify(data));
+      }
+      localStorage.setItem(filename, data);
+    }
   }
 
   clear() {

@@ -13,6 +13,7 @@ import { FooterComponent } from './footer/footer.component';
 import { EncyclopediaComponent } from './encyclopedia/encyclopedia.component';
 
 import { LZStringModule, LZStringService } from 'ng-lz-string';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { LZStringModule, LZStringService } from 'ng-lz-string';
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    LZStringModule
+    LZStringModule,
+    FormsModule
   ],
   providers: [
     LZStringService

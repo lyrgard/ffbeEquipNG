@@ -1,11 +1,13 @@
 <div id="filtersContainer" class="col-xs-12 col-md-6">
-  <div class="input-group">
-    <div class="input-group-prepend">
-      <span class="input-group-text">Search</span>
+  <form #filterForm="ngForm">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Search</span>
+      </div>
+      <input type="text" [(ngModel)]="searchFilter.searchText" name="searchText" class="form-control" id="searchText" placeholder="Enter search text. Will search in item name, stats, abilities, TMR's unit, ...">
     </div>
-    <input type="text" class="form-control" id="searchText" placeholder="Enter search text. Will search in item name, stats, abilities, TMR's unit, ...">
-  </div>
+  </form>
 </div>
 <div id="resultsContainer" class="col-xs-12 col-md-6">
-
+  <div *ngFor="let item of $filteredItems">{{item.name}}</div>
 </div>
