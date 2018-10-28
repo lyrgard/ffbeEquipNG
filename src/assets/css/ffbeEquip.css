@@ -28,3 +28,9 @@ i.img {
   background-position: center;
   vertical-align: middle;
 }
+
+i.img.miniIcon {
+  border-radius: 5px;
+  height: 22px;
+  width: 22px;
+}

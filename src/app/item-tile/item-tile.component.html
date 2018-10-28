@@ -1,0 +1,49 @@
+<div class="item">
+  <div class="firstLine">
+    <img *ngIf="itemIcon" src="{{itemIcon}}" class="icon"/>
+    <i *ngIf="itemIconClass" class="img {{itemIconClass}} icon"></i>
+    <div class="nameAndStats">
+      <span class="rarity" *ngIf="item.rarity">{{item.rarity}}★</span>
+      <app-item-link [item]="item"></app-item-link>
+      <span class="jpname" *ngIf="item.jpname">{{item.jpname}}</span>
+      <div>
+        <i *ngIf="itemTypeIconClass" class='itemType img {{itemTypeIconClass}} miniIcon'></i>
+        <span class="stats">
+          <ng-container *ngFor="let stat of baseStats">
+            <span *ngIf="item[stat]" class="stat {{stat}}">{{stat | uppercase}}+{{item[stat]}}<span class="separator">, </span></span>
+            <span *ngIf="item[stat + '%']" class="stat {{stat}}">{{stat | uppercase}}+{{item[stat + '%']}}%<span class="separator">, </span></span>
+          </ng-container>
+        </span>
+      </div>
+      <div class="statTypeCategory" *ngIf="itemElements || item.killers || item.ailments">
+        <div class="statTypeCategoryIcon"><span class="fas fa-anchor"></span></div>
+        <div>
+          <span *ngIf="itemElements" class="statType">
+            <i *ngFor="let element of itemElements" class='img img-element-{{element}} miniIcon'></i>
+          </span>
+          <span *ngIf="item.killers" class="statType">
+            <app-killer-list [killers]="item.killers"></app-killer-list>
+          </span>
+          <span *ngIf="item.ailments" class="statType">
+            <app-ailment-element-list [list]="item.ailments" [type]="'ailment'"></app-ailment-element-list>
+          </span>
+        </div>
+      </div>
+      <div class="statTypeCategory" *ngIf="item.resist">
+        <div class="statTypeCategoryIcon"><span class="fas fa-angular"></span></div>
+        <div>
+          <span *ngIf="ailmentResists.length > 0" class="statType">
+            <app-ailment-element-list [list]="ailmentResists" [type]="'ailment'"></app-ailment-element-list>
+          </span>
+          <span *ngIf="elementResists.length > 0" class="statType">
+            <app-ailment-element-list [list]="elementResists" [type]="'element'"></app-ailment-element-list>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="special">
+
+  </div>
+  <div class="access"></div>
+</div>

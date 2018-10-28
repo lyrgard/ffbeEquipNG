@@ -14,6 +14,10 @@ import { EncyclopediaComponent } from './encyclopedia/encyclopedia.component';
 
 import { LZStringModule, LZStringService } from 'ng-lz-string';
 import {FormsModule} from "@angular/forms";
+import { ItemTileComponent } from './item-tile/item-tile.component';
+import { ItemLinkComponent } from './item-link/item-link.component';
+import { KillerListComponent } from './killer-list/killer-list.component';
+import { AilmentElementListComponent } from './ailment-element-list/ailment-element-list.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,11 @@ import {FormsModule} from "@angular/forms";
     GitCommitComponent,
     DiscordUsersComponent,
     FooterComponent,
-    EncyclopediaComponent
+    EncyclopediaComponent,
+    ItemTileComponent,
+    ItemLinkComponent,
+    KillerListComponent,
+    AilmentElementListComponent
   ],
   imports: [
     BrowserModule,

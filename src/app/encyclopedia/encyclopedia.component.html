@@ -1,13 +1,17 @@
-<div id="filtersContainer" class="col-xs-12 col-md-6">
-  <form #filterForm="ngForm">
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text">Search</span>
-      </div>
-      <input type="text" [(ngModel)]="searchFilter.searchText" name="searchText" class="form-control" id="searchText" placeholder="Enter search text. Will search in item name, stats, abilities, TMR's unit, ...">
+<div class="container-fluid">
+  <div class="row">
+    <div id="filtersContainer" class="col-xs-12 col-md-6">
+      <form #filterForm="ngForm">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Search</span>
+          </div>
+          <input type="text" [(ngModel)]="searchFilter.searchText" name="searchText" class="form-control" id="searchText" placeholder="Enter search text. Will search in item name, stats, abilities, TMR's unit, ...">
+        </div>
+      </form>
     </div>
-  </form>
-</div>
-<div id="resultsContainer" class="col-xs-12 col-md-6">
-  <div *ngFor="let item of $filteredItems">{{item.name}}</div>
+    <div id="resultsContainer" class="col-xs-12 col-md-6">
+      <app-item-tile *ngFor="let item of $filteredItems" [item]="item"></app-item-tile>
+    </div>
+  </div>
 </div>

@@ -1,0 +1,42 @@
+.item {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-top: 1px solid #ddd;
+}
+
+.icon {
+  height: 64px;
+  width: 64px;
+  margin-top: -8px;
+}
+
+.firstLine {
+  display: flex;
+}
+
+i.miniIcon.itemType {
+  margin-right: 5px;
+}
+
+.stats {
+  font-size: .8em;
+}
+.stats .stat:last-child .separator {
+  display: none;
+}
+
+.statTypeCategory {
+  display: flex;
+}
+
+.statTypeCategoryIcon {
+  border-right: 1px solid #ddd;
+  padding-right: 2px;
+  margin-right: 3px;
+  display: flex;
+  align-items: center;
+}
+
+.statType {
+  margin-right: 5px;
+}

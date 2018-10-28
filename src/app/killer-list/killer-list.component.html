@@ -1,0 +1,6 @@
+<span *ngFor="let value of physicalValues" class="killerValue">
+  <i *ngFor="let killer of physicalKillersByValue.get(value)" class='img img-killer-physical-{{killer}} miniIcon'></i>:{{value}}%
+</span>
+<span *ngFor="let value of magicalValues" class="killerValue">
+  <i *ngFor="let killer of magicalKillersByValue.get(value)" class='img img-killer-magical-{{killer}} miniIcon'></i>:{{value}}%
+</span>
