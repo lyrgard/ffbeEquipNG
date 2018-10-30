@@ -77,6 +77,10 @@
     line-height: 1em;
 }
 
+.btn.btn-light {
+  border-color: #ccc !important;
+}
+
 
 .navigationMenu .desktop {
     align-items: flex-start;

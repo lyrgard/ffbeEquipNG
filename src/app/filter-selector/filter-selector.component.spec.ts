@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ItemLinkComponent } from './item-link.component';
+import { FilterSelectorComponent } from './filter-selector.component';
 
-describe('ItemLinkComponent', () => {
-  let component: ItemLinkComponent;
-  let fixture: ComponentFixture<ItemLinkComponent>;
+describe('FilterSelectorComponent', () => {
+  let component: FilterSelectorComponent;
+  let fixture: ComponentFixture<FilterSelectorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItemLinkComponent ]
+      declarations: [ FilterSelectorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ItemLinkComponent);
+    fixture = TestBed.createComponent(FilterSelectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

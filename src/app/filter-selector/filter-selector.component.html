@@ -1,0 +1,6 @@
+<div class="btn-group btn-group-toggle group" ngbRadioGroup >
+  <label *ngFor="let value of values" ngbButtonLabel class="btn-outline-secondary">
+    <input *ngIf="!multipleChoice" ngbButton type="radio" [value]="value">
+    <i class="img img-{{cssType}}-{{value}}"></i>
+  </label>
+</div>

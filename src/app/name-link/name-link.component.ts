@@ -1,26 +1,34 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ContextService, Server} from "../services/context.service";
 import {common} from "../common";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-item-link',
-  templateUrl: './item-link.component.html',
-  styleUrls: ['./item-link.component.css']
+  templateUrl: './name-link.component.html',
+  styleUrls: ['./name-link.component.css']
 })
 export class ItemLinkComponent implements OnInit {
 
-  @Input() item:any;
+  @Input() name:string;
+  @Input() wikiEntry:string;
+  @Input() icon:string;
 
   itemLink:string;
+  iconUrl:string;
 
   constructor(private contextService:ContextService) { }
 
   ngOnInit() {
     this.contextService.server.subscribe(server => {
       if (server == Server.GL) {
-        this.itemLink = common.toUrl(this.item);
+        this.itemLink = common.toUrl(this.name, this.wikiEntry);
       }
     });
+
+    if (this.icon) {
+      this.iconUrl = `${environment.baseUrl}img/items/${this.icon}`;
+    }
   }
 
 }

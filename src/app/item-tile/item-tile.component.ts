@@ -4,6 +4,7 @@ import {common} from "../common";
 import {ContextService, Server} from "../services/context.service";
 
 import {constants} from '../model/constants';
+import {StaticDataService} from "../services/static-data.service";
 
 @Component({
   selector: 'app-item-tile',
@@ -14,6 +15,8 @@ export class ItemTileComponent implements OnInit {
 
   @Input() item:any;
 
+  environment = environment;
+
   itemIcon:string;
   itemIconClass:string;
   itemTypeIconClass:string;
@@ -22,9 +25,12 @@ export class ItemTileComponent implements OnInit {
   elementResists: any[] = [];
   ailmentResists: any[] = [];
   specials:any[] = [];
+  tmrUnit:any;
+  stmrUnit:any;
+  exclusiveUnits:any[];
 
 
-  constructor(private contextService:ContextService) { }
+  constructor(private contextService:ContextService, private statDataService:StaticDataService) { }
 
   ngOnInit() {
     if (this.item.icon) {
@@ -58,87 +64,53 @@ export class ItemTileComponent implements OnInit {
       })
     }
 
-    if (this.item.special.includes('dualWield')) {
-      this.specials.push({'name':'Dual Wield', 'icon':'ability_72.png'});
-    }
-    if (this.item.partialDualWield) {
-      this.specials.push({'name':'Dual Wield', 'icon':'ability_72.png', 'text':' of '}); // TODO
-    }
-    /*if (item.allowUseOf) {
-      special += "<li>Allow use of <i class='img img-equipment-" + item.allowUseOf + " inline'></i></li>";
-    }
-    if (item.evade) {
-      if (item.evade.physical) {
-        special += "<li>Evade physical attacks " + item.evade.physical + "%</li>";
-      }
-      if (item.evade.magical) {
-        special += "<li>Evade magical attacks " + item.evade.magical + "%</li>";
-      }
-    }
-    if (item.singleWielding) {
-      for (var index in baseStats) {
-        if (item.singleWielding[baseStats[index]]) {
-          special += "<li>Increase equipment " + baseStats[index].toUpperCase() + " (" + item.singleWielding[baseStats[index]] + "%) when single wielding</li>";
+    if (this.item.special) {
+      this.item.special.filter(special => special != "twoHanded" && special != "notStackable" && special != "dualWield").forEach(special => {
+        let specialData:any = {};
+        let skillsFound = special.match(/(\[[^\]]*\])/g);
+        if (skillsFound.length == 0) {
+          specialData.text = special;
+        } else {
+          let skillFound = skillsFound[0];
+          let index = special.indexOf(skillFound);
+          if (index > 0) {
+            specialData.before = special.substr(0, index);
+          }
+          specialData.text = special.substr(index + skillFound.length);
+          let tokens = skillFound.substring(1, skillFound.length - 1).split("|");
+          if (tokens.length == 1) {
+            specialData.skillName = tokens[0];
+          } else if (tokens.length == 2) {
+            specialData.skillName = tokens[0];
+            specialData.icon = tokens[1];
+          } else if (tokens.length == 3) {
+            specialData.wikiEntry = tokens[0];
+            specialData.skillName = tokens[1];
+            specialData.icon = tokens[2];
+          }
         }
-      }
-    }
-    if (item.singleWieldingOneHanded) {
-      for (var index in baseStats) {
-        if (item.singleWieldingOneHanded[baseStats[index]]) {
-          special += "<li>Increase equipment " + baseStats[index].toUpperCase() + " (" + item.singleWieldingOneHanded[baseStats[index]] + "%) when single wielding a one-handed weapon</li>";
-        }
-      }
-    }
-    if (item.dualWielding) {
-      for (var index in baseStats) {
-        if (item.dualWielding[baseStats[index]]) {
-          special += "<li>Increase equipment " + baseStats[index].toUpperCase() + " (" + item.dualWielding[baseStats[index]] + "%) when dual wielding</li>";
-        }
-      }
+        this.specials.push(specialData);
+      });
     }
 
-    if (item.accuracy) {
-      special += "<li>Increase Accuracy (" + item.accuracy + "%)</li>";
+    if (this.item.tmrUnit) {
+      this.statDataService.getUnits().subscribe(units => {
+        this.tmrUnit = units[this.item.tmrUnit];
+      });
     }
-    if (item.singleWielding && item.singleWielding.accuracy) {
-      special += "<li>Increase Accuracy (" + item.singleWielding.accuracy + "%) when single wielding</li>";
+
+    if (this.item.stmrUnit) {
+      this.statDataService.getUnits().subscribe(units => {
+        this.stmrUnit = units[this.item.stmrUnit];
+      });
     }
-    if (item.singleWieldingOneHanded && item.singleWieldingOneHanded.accuracy) {
-      special += "<li>Increase Accuracy (" + item.singleWieldingOneHanded.accuracy + "%) when single wielding a one-handed wreapon</li>";
+
+    if (this.item.exclusiveUnits) {
+      this.statDataService.getUnits().subscribe(units => {
+        this.exclusiveUnits = this.item.exclusiveUnits.map(id => units[id]);
+      });
     }
-    if (item.damageVariance) {
-      special += "<li>Damage variance from x" + item.damageVariance.min + " to x"  + item.damageVariance.max + " (average : x" + (item.damageVariance.min + item.damageVariance.max)/2 + ")</li>";
-    }
-    if (item.mpRefresh) {
-      special += "<li>Recover MP (" + item.mpRefresh + "%) per turn</li>";
-    }
-    if (item.jumpDamage) {
-      special += "<li>Increase damage dealt by jump attacks by "+ item.jumpDamage + "%</li>";
-    }
-    if (item.lbFillRate) {
-      special += "<li>Increase LB gauge fill rate (" + item.lbFillRate + "%)</li>";
-    }
-    if (item.lbDamage) {
-      special += "<li>Increase LB damage (+" + item.lbDamage + "%)</li>";
-    }
-    if (item.lbPerTurn) {
-      var value;
-      if (item.lbPerTurn.min == item.lbPerTurn.max) {
-        value = item.lbPerTurn.min;
-      } else {
-        value = item.lbPerTurn.min + "-" + item.lbPerTurn.max;
-      }
-      special += "<li>Increase LB gauge each turn (" + value + ")</li>";
-    }
-    if (item.evoMag) {
-      special += "<li>Increase Esper summon damage by "+ item.evoMag + "%</li>";
-    }
-    if (item.esperStatsBonus) {
-      special += "<li>Increase esper's bonus stats ("+ item.esperStatsBonus.hp + "%)</li>";
-    }
-    if (item.special) {
-      special += getSpecialHtml(item);
-    }*/
+
 
   }
 

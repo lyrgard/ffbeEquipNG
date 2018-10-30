@@ -5,11 +5,7 @@ export const common = {
     return String(string).replace(/[+%&': \(\)]/g, function (s) {
       return "_";
     })},
-  toUrl: function (item) {
-      let baseName = item.name;
-      if (item.wikiEntry) {
-        baseName = item.wikiEntry;
-      }
-      return `${wikiBaseUrl}${encodeURIComponent(baseName.replace(/ /g, '_'))}`;
+  toUrl: function (name, wikientry = name) {
+      return `${wikiBaseUrl}${encodeURIComponent(wikientry.replace(/ /g, '_'))}`;
     }
 }

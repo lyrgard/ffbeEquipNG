@@ -8,6 +8,14 @@
           </div>
           <input type="text" [(ngModel)]="searchFilter.searchText" name="searchText" class="form-control" id="searchText" placeholder="Enter search text. Will search in item name, stats, abilities, TMR's unit, ...">
         </div>
+        <div class="section"><span>Desired stat (filter and sort)</span></div>
+        <app-filter-selector [values]="sortStats" [cssType]="'sort'" [multipleChoice]="false"></app-filter-selector>
+        <div class="section"><span>Equipment type</span></div>
+        <app-filter-selector [values]="equipmentTypeList" [cssType]="'equipment'" [multipleChoice]="false"></app-filter-selector>
+        <div class="section"><span>Elements</span></div>
+        <app-filter-selector [values]="elementList" [cssType]="'element'" [multipleChoice]="false"></app-filter-selector>
+        <div class="section"><span>Ailments</span></div>
+        <app-filter-selector [values]="ailmentList" [cssType]="'ailment'" [multipleChoice]="false"></app-filter-selector>
       </form>
     </div>
     <div id="resultsContainer" class="col-xs-12 col-md-6">

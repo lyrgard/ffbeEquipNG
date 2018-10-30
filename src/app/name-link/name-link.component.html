@@ -1,4 +1,5 @@
-<span>{{item.name}}</span>
+<img *ngIf="iconUrl" src="{{iconUrl}}" class="icon"/>
+<span>{{name}}</span>
 <a *ngIf="itemLink" href="{{itemLink}}" target="_blank" rel="noreferrer" onclick="event.stopPropagation();">
   <span class="fas fa-external-link-alt wikiLink"></span>
 </a>

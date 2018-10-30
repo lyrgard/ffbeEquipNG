@@ -15,9 +15,11 @@ import { EncyclopediaComponent } from './encyclopedia/encyclopedia.component';
 import { LZStringModule, LZStringService } from 'ng-lz-string';
 import {FormsModule} from "@angular/forms";
 import { ItemTileComponent } from './item-tile/item-tile.component';
-import { ItemLinkComponent } from './item-link/item-link.component';
+import { ItemLinkComponent } from './name-link/name-link.component';
 import { KillerListComponent } from './killer-list/killer-list.component';
 import { AilmentElementListComponent } from './ailment-element-list/ailment-element-list.component';
+import { FilterSelectorComponent } from './filter-selector/filter-selector.component';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
@@ -31,14 +33,16 @@ import { AilmentElementListComponent } from './ailment-element-list/ailment-elem
     ItemTileComponent,
     ItemLinkComponent,
     KillerListComponent,
-    AilmentElementListComponent
+    AilmentElementListComponent,
+    FilterSelectorComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
     LZStringModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [
     LZStringService

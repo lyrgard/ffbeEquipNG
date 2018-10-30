@@ -1,0 +1,14 @@
+.wikiLink {
+  color: #00f;
+  font-size: 11px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.icon {
+  border-radius: 5px;
+  width: 38px;
+  margin-top: -5px;
+  margin-bottom: -5px;
+  margin-left: -5px;
+}

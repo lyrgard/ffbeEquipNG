@@ -3,6 +3,8 @@ import {SearchFilter} from './search-filter';
 import {ContextService, Pages} from '../services/context.service';
 import {StaticDataService} from "../services/static-data.service";
 import {FormControl} from "@angular/forms";
+import {SiteStateService} from "../services/site-state.service";
+import {constants} from "../model/constants";
 
 @Component({
   selector: 'app-encyclopedia',
@@ -11,12 +13,17 @@ import {FormControl} from "@angular/forms";
 })
 export class EncyclopediaComponent implements OnInit {
 
-  searchTextFormControl = FormControl;
-  searchFilter: SearchFilter = new SearchFilter();
+  searchFilter: SearchFilter;
   $items:any[];
   $filteredItems:any[];
+  sortStats = constants.BASE_STATS.concat(["evade", "inflict", "resist"]);
+  equipmentTypeList = constants.EQUIPMENT_TYPE_LIST;
+  elementList = constants.ELEMENT_LIST;
+  ailmentList = constants.AILMENT_LIST;
 
-  constructor(private contextService: ContextService, private staticDataService: StaticDataService) { }
+  constructor(private contextService: ContextService, private staticDataService: StaticDataService, private siteState:SiteStateService) {
+    this.searchFilter = siteState.encyclopediaSearchFilter;
+  }
 
   ngOnInit() {
       this.contextService.setCurrentPage(Pages.ENCYCLOPEDIA);

@@ -1,0 +1,9 @@
+i.img {
+  height: 38px;
+  width: 38px;
+}
+
+.group {
+  display: flex;
+  flex-wrap: wrap;
+}

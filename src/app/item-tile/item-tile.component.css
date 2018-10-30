@@ -2,16 +2,40 @@
   padding-top: 8px;
   padding-bottom: 8px;
   border-top: 1px solid #ddd;
+  position: relative;
 }
 
 .icon {
   height: 64px;
   width: 64px;
-  margin-top: -8px;
+  margin-top: -5px;
+  position: absolute;
+  left: 5px;
+}
+
+.iconModifier {
+  position: absolute;
+  height: 24px;
+  left: 8px;
+  top: 36px;
 }
 
 .firstLine {
   display: flex;
+  margin-left: 64px;
+}
+
+.rarity {
+  color: #747474;
+  font-size: .9em;
+}
+
+.name {
+  font-weight: 600;
+}
+
+.statsContainer {
+  margin-top: 2px;
 }
 
 i.miniIcon.itemType {
@@ -21,7 +45,7 @@ i.miniIcon.itemType {
 .stats {
   font-size: .8em;
 }
-.stats .stat:last-child .separator {
+.list:last-child .separator {
   display: none;
 }
 
@@ -39,4 +63,24 @@ i.miniIcon.itemType {
 
 .statType {
   margin-right: 5px;
+}
+
+.special {
+  margin-left: 64px;
+}
+
+.skillIcon {
+  border-radius: 5px;
+  width: 38px;
+  margin-top: -5px;
+  margin-bottom: -5px;
+  margin-left: -5px;
+}
+
+.accesses {
+  margin-left: 64px;
+}
+
+.exclusive {
+  font-weight: 600;
 }
