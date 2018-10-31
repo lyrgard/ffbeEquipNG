@@ -7,3 +7,22 @@ i.img {
   display: flex;
   flex-wrap: wrap;
 }
+
+.btn-group {
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+.btn-filter {
+  padding: 1px;
+  margin: 1px;
+}
+
+.btn-filter:hover {
+  background-color: #e2e6ea;
+}
+
+.btn-filter.active {
+  background-color: #337ab7;
+}

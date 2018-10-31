@@ -79,7 +79,7 @@
   <div class="accesses">
     <div *ngIf="item.equipedConditions" class="exclusive">if <span *ngFor="let condition of item.equipedConditions" class="list"><i class="img img-equipment-{{condition}} miniIcon"></i><span class="separator">, </span></span> equiped</div>
     <div *ngIf="item.exclusiveSex" class="exclusive">Only {{item.exclusiveSex}}</div>
-    <div *ngIf="exclusiveUnits" class="exclusive">Only <span *ngFor="let unit of exclusiveUnits" class="list"><app-item-link [name]="unit.name" [wikiEntry]="unit.wikiEntry"></app-item-link><span class="separator">, </span></span></div>
+    <div *ngIf="exclusiveUnits" class="exclusive">Only <span *ngFor="let unit of exclusiveUnits" class="list"><app-item-link *ngIf="unit" [name]="unit.name" [wikiEntry]="unit.wikiEntry"></app-item-link><span *ngIf="!unit">unknown unit</span><span class="separator">, </span></span></div>
     <div *ngIf="item.access">Access :
       <span *ngFor="let access of item.access" class="list">
         {{access}}

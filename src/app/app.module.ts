@@ -13,7 +13,7 @@ import { FooterComponent } from './footer/footer.component';
 import { EncyclopediaComponent } from './encyclopedia/encyclopedia.component';
 
 import { LZStringModule, LZStringService } from 'ng-lz-string';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ItemTileComponent } from './item-tile/item-tile.component';
 import { ItemLinkComponent } from './name-link/name-link.component';
 import { KillerListComponent } from './killer-list/killer-list.component';
@@ -42,6 +42,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
     RouterModule.forRoot(routes),
     LZStringModule,
     FormsModule,
+    ReactiveFormsModule,
     NgbModule
   ],
   providers: [

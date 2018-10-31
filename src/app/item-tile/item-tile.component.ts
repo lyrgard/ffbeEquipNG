@@ -95,19 +95,29 @@ export class ItemTileComponent implements OnInit {
 
     if (this.item.tmrUnit) {
       this.statDataService.getUnits().subscribe(units => {
-        this.tmrUnit = units[this.item.tmrUnit];
+        if (this.item.tmrUnit) {
+          this.tmrUnit = units[this.item.tmrUnit];
+        }
       });
     }
 
     if (this.item.stmrUnit) {
       this.statDataService.getUnits().subscribe(units => {
-        this.stmrUnit = units[this.item.stmrUnit];
+        if (this.item.stmrUnit) {
+          this.stmrUnit = units[this.item.stmrUnit];
+        }
       });
     }
 
     if (this.item.exclusiveUnits) {
       this.statDataService.getUnits().subscribe(units => {
-        this.exclusiveUnits = this.item.exclusiveUnits.map(id => units[id]);
+        this.exclusiveUnits = this.item.exclusiveUnits.map(id => {
+          if (units[id]) {
+            return units[id];
+          } else {
+            return null;
+          }
+        });
       });
     }
 

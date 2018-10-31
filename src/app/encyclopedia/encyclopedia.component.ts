@@ -18,7 +18,7 @@ export class EncyclopediaComponent implements OnInit {
   $filteredItems:any[];
   sortStats = constants.BASE_STATS.concat(["evade", "inflict", "resist"]);
   equipmentTypeList = constants.EQUIPMENT_TYPE_LIST;
-  elementList = constants.ELEMENT_LIST;
+  elementList = constants.ELEMENT_LIST.concat(["noElement"]);
   ailmentList = constants.AILMENT_LIST;
 
   constructor(private contextService: ContextService, private staticDataService: StaticDataService, private siteState:SiteStateService) {
@@ -35,6 +35,10 @@ export class EncyclopediaComponent implements OnInit {
   }
 
   applyFilter() {
-    this.$filteredItems = this.$items.filter(item => this.searchFilter.isSelected(item));
+    if (this.searchFilter.isEmpty()) {
+      this.$filteredItems = [];.
+    } else {
+      this.$filteredItems = this.$items.filter(item => this.searchFilter.isSelected(item));
+    }
   }
 }

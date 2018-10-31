@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-filter-selector',
@@ -10,12 +11,29 @@ export class FilterSelectorComponent implements OnInit {
   @Input() values:string[];
   @Input() cssType:string;
   @Input() multipleChoice:boolean = true;
+  @Input() filterData:any;
+  @Input() filterName:string;
 
-  selectedValue:string;
+  public radioGroupForm: FormGroup;
+  public checkboxGroupForm: FormGroup;
 
-  constructor() { }
+
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-  }
+    if (!this.multipleChoice) {
+      this.radioGroupForm = this.formBuilder.group({
+        'value': this.filterData[this.filterName]
+      });
+      this.radioGroupForm.valueChanges.subscribe(() => this.filterData[this.filterName] = this.radioGroupForm.value['value']);
+    } else {
+      let controlsConfig = {};
+      this.values.forEach(value => controlsConfig[value] = this.filterData[this.filterName].includes(value));
 
+      this.checkboxGroupForm = this.formBuilder.group(controlsConfig);
+      this.checkboxGroupForm.valueChanges.subscribe(value => {
+        this.filterData[this.filterName] = Object.keys(value).filter(key => value[key]);
+      })
+    }
+  }
 }
