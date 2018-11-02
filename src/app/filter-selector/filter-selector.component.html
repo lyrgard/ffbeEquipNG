@@ -1,16 +1,16 @@
 <form *ngIf="!multipleChoice" [formGroup]="radioGroupForm">
   <div class="btn-group btn-group-toggle group" ngbRadioGroup formControlName="value">
-    <label *ngFor="let value of values" ngbButtonLabel class="btn-filter">
-      <input ngbButton type="radio" [value]="value">
-      <i class="img img-{{cssType}}-{{value}}"></i>
+    <label *ngFor="let iconValue of valuesWithIcons" ngbButtonLabel class="btn-filter">
+      <input ngbButton type="radio" [value]="iconValue.value" ngbTooltip="{{iconValue.tooltip}}">
+      <i class="img img-{{cssType}}-{{iconValue.icon}}"></i>
     </label>
   </div>
 </form>
 <form *ngIf="multipleChoice" [formGroup]="checkboxGroupForm">
   <div class="btn-group btn-group-toggle group" >
-    <label *ngFor="let value of values" ngbButtonLabel class="btn-filter">
-      <input ngbButton type="checkbox" formControlName="{{value}}">
-      <i class="img img-{{cssType}}-{{value}}"></i>
+    <label *ngFor="let iconValue of valuesWithIcons" ngbButtonLabel class="btn-filter" >
+      <input ngbButton type="checkbox" formControlName="{{iconValue.value}}">
+      <i class="img img-{{cssType}}-{{iconValue.icon}}" ngbTooltip="{{iconValue.tooltip}}"></i>
     </label>
   </div>
 </form>

@@ -26,3 +26,8 @@ i.img {
 .btn-filter.active {
   background-color: #337ab7;
 }
+
+.tooltip {
+  width: 150px;
+  min-width: 150px;
+}

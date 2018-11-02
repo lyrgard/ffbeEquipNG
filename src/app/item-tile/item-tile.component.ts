@@ -5,6 +5,7 @@ import {ContextService, Server} from "../services/context.service";
 
 import {constants} from '../model/constants';
 import {StaticDataService} from "../services/static-data.service";
+import {Item} from "../model/item";
 
 @Component({
   selector: 'app-item-tile',
@@ -13,7 +14,7 @@ import {StaticDataService} from "../services/static-data.service";
 })
 export class ItemTileComponent implements OnInit {
 
-  @Input() item:any;
+  @Input() item:Item;
 
   environment = environment;
 
@@ -21,9 +22,6 @@ export class ItemTileComponent implements OnInit {
   itemIconClass:string;
   itemTypeIconClass:string;
   baseStats = constants.BASE_STATS;
-  itemElements:string[];
-  elementResists: any[] = [];
-  ailmentResists: any[] = [];
   specials:any[] = [];
   tmrUnit:any;
   stmrUnit:any;
@@ -48,24 +46,8 @@ export class ItemTileComponent implements OnInit {
       this.itemTypeIconClass = `img-equipment-${this.item.type}`;
     }
 
-    if (constants.WEAPON_TYPES.includes(this.item.type)) {
-      if (this.item.element) {
-        this.itemElements = this.item.element;
-      }
-    }
-
-    if (this.item.resist) {
-      this.item.resist.forEach(resist => {
-        if (constants.AILMENT_LIST.includes(resist.name)) {
-          this.ailmentResists.push(resist);
-        } else {
-          this.elementResists.push(resist);
-        }
-      })
-    }
-
     if (this.item.special) {
-      this.item.special.filter(special => special != "twoHanded" && special != "notStackable" && special != "dualWield").forEach(special => {
+      this.item.special.forEach(special => {
         let specialData:any = {};
         let skillsFound = special.match(/(\[[^\]]*\])/g);
         if (skillsFound.length == 0) {

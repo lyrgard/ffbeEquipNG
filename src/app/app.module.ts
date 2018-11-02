@@ -17,7 +17,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ItemTileComponent } from './item-tile/item-tile.component';
 import { ItemLinkComponent } from './name-link/name-link.component';
 import { KillerListComponent } from './killer-list/killer-list.component';
-import { AilmentElementListComponent } from './ailment-element-list/ailment-element-list.component';
+import { ByValueListComponent } from './by-value-list/by-value-list.component';
 import { FilterSelectorComponent } from './filter-selector/filter-selector.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
@@ -33,7 +33,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
     ItemTileComponent,
     ItemLinkComponent,
     KillerListComponent,
-    AilmentElementListComponent,
+    ByValueListComponent,
     FilterSelectorComponent
   ],
   imports: [

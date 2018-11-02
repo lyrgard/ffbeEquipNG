@@ -29,3 +29,8 @@ i.img.miniIcon {
   height: 24px;
   width: 24px;
 }
+
+.tooltip-inner {
+  white-space: nowrap;
+  max-width: none !important;
+}

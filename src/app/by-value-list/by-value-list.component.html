@@ -1,0 +1,5 @@
+<ng-container *ngIf="values.length > 0">
+  <span *ngFor="let value of values" class="value">
+    <i *ngFor="let name of namesByValues.get(value)" class='img img-{{type}}-{{name}} miniIcon'></i>:{{value}}%
+  </span>
+</ng-container>

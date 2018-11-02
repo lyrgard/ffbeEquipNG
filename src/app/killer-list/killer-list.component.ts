@@ -7,34 +7,24 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class KillerListComponent implements OnInit {
 
-  @Input() killers:{name:string, physical:number|null, magical:number|null}[];
+  @Input() killers:Map<string, number>;
+  @Input() killerType:string;
 
-  physicalValues:number[] = [];
-  magicalValues:number[] = [];
-  physicalKillersByValue:Map<number,string[]> = new Map<number, string[]>();
-  magicalKillersByValue:Map<number,string[]> = new Map<number, string[]>();
+  values:number[] = [];
+  killersByValue:Map<number,string[]> = new Map<number, string[]>();
 
   constructor() { }
 
   ngOnInit() {
-    this.killers.forEach(killer => {
-      if (killer.physical) {
-        if (!this.physicalValues.includes(killer.physical)) {
-          this.physicalValues.push(killer.physical);
-          this.physicalKillersByValue.set(killer.physical, []);
-        }
-        this.physicalKillersByValue.get(killer.physical).push(killer.name);
+    this.killers.forEach((value, killer) => {
+      if (!this.values.includes(value)) {
+        this.values.push(value);
+        this.killersByValue.set(value, []);
       }
-      if (killer.magical) {
-        if (!this.magicalValues.includes(killer.magical)) {
-          this.magicalValues.push(killer.magical);
-          this.magicalKillersByValue.set(killer.magical, []);
-        }
-        this.magicalKillersByValue.get(killer.magical).push(killer.name);
-      }
+      this.killersByValue.get(value).push(killer);
+
     });
-    this.physicalValues.sort((a, b) => b - a);
-    this.magicalValues.sort((a, b) => b - a);
+    this.values.sort((a, b) => b - a);
   }
 
 }

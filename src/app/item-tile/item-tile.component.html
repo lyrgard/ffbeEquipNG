@@ -2,8 +2,8 @@
   <div class="firstLine">
     <img *ngIf="itemIcon" src="{{itemIcon}}" class="icon"/>
     <i *ngIf="itemIconClass" class="img {{itemIconClass}} icon"></i>
-    <img *ngIf="item.special && item.special.includes('twoHanded')" class="iconModifier" src="{{environment.baseUrl}}img/icons/twoHanded.png" title="Two-handed">
-    <img *ngIf="item.special && item.special.includes('notStackable')" class="iconModifier" src="{{environment.baseUrl}}img/icons/notStackable.png" title="Two-handed">
+    <img *ngIf="item.twoHanded" class="iconModifier" src="{{environment.baseUrl}}img/icons/twoHanded.png" title="Two-handed">
+    <img *ngIf="item.notStackable" class="iconModifier" src="{{environment.baseUrl}}img/icons/notStackable.png" title="Two-handed">
     <div class="nameAndStats">
       <span class="rarity" *ngIf="item.rarity">{{item.rarity}}★</span>
       <span class="name"><app-item-link [name]="item.name" [wikiEntry]="item.wikiEntry"></app-item-link></span>
@@ -12,45 +12,38 @@
         <i *ngIf="itemTypeIconClass" class='itemType img {{itemTypeIconClass}} miniIcon'></i>
         <span class="stats">
           <ng-container *ngFor="let stat of baseStats">
-            <span *ngIf="item[stat]" class="stat list {{stat}}">{{stat | uppercase}}+{{item[stat]}}<span class="separator">, </span></span>
-            <span *ngIf="item[stat + '%']" class="stat {{stat}}">{{stat | uppercase}}+{{item[stat + '%']}}%<span class="separator">, </span></span>
+            <span *ngIf="item[stat].flat" class="stat list {{stat}}">{{stat | uppercase}}+{{item[stat].flat}}<span class="separator">, </span></span>
+            <span *ngIf="item[stat].percent" class="stat {{stat}}">{{stat | uppercase}}+{{item[stat].percent}}%<span class="separator">, </span></span>
           </ng-container>
         </span>
       </div>
-      <div class="statTypeCategory" *ngIf="itemElements || item.killers || item.ailments">
+      <div class="statTypeCategory" *ngIf="item.elements.length > 0 || item.physicalKillers.size > 0 || item.magicalKillers.size > 0 || item.ailments.size > 0">
         <div class="statTypeCategoryIcon"><span class="fas fa-arrow-alt-circle-right"></span></div>
         <div>
-          <span *ngIf="itemElements" class="statType">
-            <i *ngFor="let element of itemElements" class='img img-element-{{element}} miniIcon'></i>
+          <span *ngIf="item.elements.length > 0" class="statType">
+            <i *ngFor="let element of item.elements" class='img img-element-{{element}} miniIcon'></i>
           </span>
-          <span *ngIf="item.killers" class="statType">
-            <app-killer-list [killers]="item.killers"></app-killer-list>
-          </span>
-          <span *ngIf="item.ailments" class="statType">
-            <app-ailment-element-list [list]="item.ailments" [type]="'ailment'"></app-ailment-element-list>
-          </span>
+          <app-by-value-list [list]="item.physicalKillers" [type]="'killer-physical'"></app-by-value-list>
+          <app-by-value-list [list]="item.magicalKillers" [type]="'magical'"></app-by-value-list>
+          <app-by-value-list [list]="item.ailments" [type]="'ailment'"></app-by-value-list>
         </div>
       </div>
-      <div class="statTypeCategory" *ngIf="item.resist">
+      <div class="statTypeCategory" *ngIf="item.elementalResists.size > 0 || item.ailmentResists.size > 0">
         <div class="statTypeCategoryIcon"><span class="fas fa-arrow-alt-circle-left"></span></div>
         <div>
-          <span *ngIf="ailmentResists.length > 0" class="statType">
-            <app-ailment-element-list [list]="ailmentResists" [type]="'ailment'"></app-ailment-element-list>
-          </span>
-          <span *ngIf="elementResists.length > 0" class="statType">
-            <app-ailment-element-list [list]="elementResists" [type]="'element'"></app-ailment-element-list>
-          </span>
+          <app-by-value-list [list]="item.ailmentResists" [type]="'ailment'"></app-by-value-list>
+          <app-by-value-list [list]="item.elementalResists" [type]="'element'"></app-by-value-list>
         </div>
       </div>
     </div>
   </div>
   <div class="special">
     <div *ngIf="item.damageVariance"><img src="{{environment.baseUrl}}img/items/ability_54.png" class="img skillIcon"/>x{{(item.damageVariance.min + item.damageVariance.max)/2}} damage variance (x{{item.damageVariance.min}} to x{{item.damageVariance.max}})</div>
-    <app-item-link *ngIf="item.special && item.special.includes('dualWield')" [name]="'Dual Wield'" [icon]="'ability_72.png'"></app-item-link>
-    <div *ngIf="item.partialDualWield"><img src="{{environment.baseUrl}}img/items/ability_72.png" class="img skillIcon"/>Dual Wield of <i *ngFor="let weaponType of item.partialDualWield" class='img img-equipment-{{weaponType}} miniIcon'></i></div>
+    <app-item-link *ngIf="item.dualWield" [name]="'Dual Wield'" [icon]="'ability_72.png'"></app-item-link>
+    <div *ngIf="item.partialDualWield.length > 0"><img src="{{environment.baseUrl}}img/items/ability_72.png" class="img skillIcon"/>Dual Wield of <i *ngFor="let weaponType of item.partialDualWield" class='img img-equipment-{{weaponType}} miniIcon'></i></div>
     <div *ngIf="item.allowUseOf">Allow use of <i class='img img-equipment-{{item.allowUseOf}} miniIcon'></i></div>
-    <div *ngIf="item.evade && item.evade.physical"><img src="{{environment.baseUrl}}img/items/ability_75.png" class="img skillIcon"/>+{{item.evade.physical}}% physical evasion</div>
-    <div *ngIf="item.evade && item.evade.magical"><img src="{{environment.baseUrl}}img/items/ability_75.png" class="img skillIcon"/>+{{item.evade.magical}}% magical evasion</div>
+    <div *ngIf="item.physicalEvade"><img src="{{environment.baseUrl}}img/items/ability_75.png" class="img skillIcon"/>+{{item.physicalEvade}}% physical evasion</div>
+    <div *ngIf="item.magicalEvade"><img src="{{environment.baseUrl}}img/items/ability_75.png" class="img skillIcon"/>+{{item.magicalEvade}}% magical evasion</div>
     <ng-container *ngIf="item.singleWielding">
       <ng-container *ngFor="let stat of item.singleWielding | keyvalue">
         <div *ngIf="stat.key === 'accuracy'"><img src="{{environment.baseUrl}}img/items/ability_40.png" class="img skillIcon"/>+{{stat.value}}% accuracy when single wielding</div>
@@ -77,9 +70,9 @@
     <div *ngFor="let special of specials">{{special.before}}<app-item-link [name]="special.skillName" [icon]="special.icon" [wikiEntry]="special.wikiEntry"></app-item-link>{{special.text}}</div>
   </div>
   <div class="accesses">
-    <div *ngIf="item.equipedConditions" class="exclusive">if <span *ngFor="let condition of item.equipedConditions" class="list"><i class="img img-equipment-{{condition}} miniIcon"></i><span class="separator">, </span></span> equiped</div>
+    <div *ngIf="item.equipedConditions.length > 0" class="exclusive">if <span *ngFor="let condition of item.equipedConditions" class="list"><i class="img img-equipment-{{condition}} miniIcon"></i><span class="separator">, </span></span> equiped</div>
     <div *ngIf="item.exclusiveSex" class="exclusive">Only {{item.exclusiveSex}}</div>
-    <div *ngIf="exclusiveUnits" class="exclusive">Only <span *ngFor="let unit of exclusiveUnits" class="list"><app-item-link *ngIf="unit" [name]="unit.name" [wikiEntry]="unit.wikiEntry"></app-item-link><span *ngIf="!unit">unknown unit</span><span class="separator">, </span></span></div>
+    <div *ngIf="item.exclusiveUnits.length > 0" class="exclusive">Only <span *ngFor="let unit of exclusiveUnits" class="list"><app-item-link *ngIf="unit" [name]="unit.name" [wikiEntry]="unit.wikiEntry"></app-item-link><span *ngIf="!unit">unknown unit</span><span class="separator">, </span></span></div>
     <div *ngIf="item.access">Access :
       <span *ngFor="let access of item.access" class="list">
         {{access}}

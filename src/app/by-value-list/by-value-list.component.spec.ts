@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AilmentElementListComponent } from './ailment-element-list.component';
+import { ByValueListComponent } from './by-value-list.component';
 
-describe('AilmentElementListComponent', () => {
-  let component: AilmentElementListComponent;
-  let fixture: ComponentFixture<AilmentElementListComponent>;
+describe('ByValueListComponent', () => {
+  let component: ByValueListComponent;
+  let fixture: ComponentFixture<ByValueListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AilmentElementListComponent ]
+      declarations: [ ByValueListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AilmentElementListComponent);
+    fixture = TestBed.createComponent(ByValueListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

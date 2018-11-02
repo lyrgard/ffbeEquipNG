@@ -4,7 +4,15 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 @Component({
   selector: 'app-filter-selector',
   templateUrl: './filter-selector.component.html',
-  styleUrls: ['./filter-selector.component.css', '../../assets/css-img/sorts.css', '../../assets/css-img/equipments.css', '../../assets/css-img/elements.css', '../../assets/css-img/ailments.css']
+  styleUrls: [
+    './filter-selector.component.css',
+    '../../assets/css-img/sorts.css',
+    '../../assets/css-img/equipments.css',
+    '../../assets/css-img/elements.css',
+    '../../assets/css-img/ailments.css',
+    '../../assets/css-img/killers.css',
+    '../../assets/css-img/stats.css',
+    '../../assets/css-img/access.css']
 })
 export class FilterSelectorComponent implements OnInit {
 
@@ -13,6 +21,8 @@ export class FilterSelectorComponent implements OnInit {
   @Input() multipleChoice:boolean = true;
   @Input() filterData:any;
   @Input() filterName:string;
+  @Input() valuesWithIcons:{icon:string, value:string, tooltip:string}[];
+  @Input() tooltipProvider:(string) => string = (value) => "";
 
   public radioGroupForm: FormGroup;
   public checkboxGroupForm: FormGroup;
@@ -21,6 +31,10 @@ export class FilterSelectorComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    if (this.values) {
+      this.valuesWithIcons = [];
+      this.values.forEach(value => this.valuesWithIcons.push({icon:value, 'value':value, tooltip:this.tooltipProvider(value)}));
+    }
     if (!this.multipleChoice) {
       this.radioGroupForm = this.formBuilder.group({
         'value': this.filterData[this.filterName]
@@ -28,7 +42,7 @@ export class FilterSelectorComponent implements OnInit {
       this.radioGroupForm.valueChanges.subscribe(() => this.filterData[this.filterName] = this.radioGroupForm.value['value']);
     } else {
       let controlsConfig = {};
-      this.values.forEach(value => controlsConfig[value] = this.filterData[this.filterName].includes(value));
+      this.valuesWithIcons.forEach(iconValue => controlsConfig[iconValue.value] = this.filterData[this.filterName].includes(iconValue.value));
 
       this.checkboxGroupForm = this.formBuilder.group(controlsConfig);
       this.checkboxGroupForm.valueChanges.subscribe(value => {

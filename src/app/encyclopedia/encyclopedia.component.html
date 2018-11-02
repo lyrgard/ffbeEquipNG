@@ -16,6 +16,13 @@
         <app-filter-selector [values]="elementList" [cssType]="'element'" [filterData]="searchFilter" [filterName]="'elements'"></app-filter-selector>
         <div class="section"><span>Ailments</span></div>
         <app-filter-selector [values]="ailmentList" [cssType]="'ailment'" [filterData]="searchFilter" [filterName]="'ailments'"></app-filter-selector>
+        <div class="section"><span>Killers</span></div>
+        <app-filter-selector [values]="killerList" [cssType]="'killer-physical'" [filterData]="searchFilter" [filterName]="'physicalKillers'" [tooltipProvider]="physicalKillerTooltipProvider"></app-filter-selector>
+        <app-filter-selector [values]="killerList" [cssType]="'killer-magical'" [filterData]="searchFilter" [filterName]="'magicalKillers'" [tooltipProvider]="magicalKillerTooltipProvider"></app-filter-selector>
+        <div class="section"><span>Access to remove</span></div>
+        <app-filter-selector [valuesWithIcons]="accessList" [cssType]="'access'" [filterData]="searchFilter" [filterName]="'accessToRemove'"></app-filter-selector>
+        <div class="section"><span>Additional stats</span></div>
+        <app-filter-selector [values]="stats" [cssType]="'stat'" [filterData]="searchFilter" [filterName]="'additionalStats'"></app-filter-selector>
       </form>
     </div>
     <div id="resultsContainer" class="col-xs-12 col-md-6">

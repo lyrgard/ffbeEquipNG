@@ -1,5 +1,7 @@
 import {Observable, Subject} from "rxjs/index";
 import {debounceTime, distinctUntilChanged} from "rxjs/internal/operators";
+import {constants} from "../model/constants";
+import {Item} from "../model/item";
 
 export class SearchFilter {
 
@@ -11,6 +13,10 @@ export class SearchFilter {
   private _equipmentTypes:string[] = [];
   private _elements:string[] = [];
   private _ailments:string[] = [];
+  private _physicalKillers:string[] = [];
+  private _magicalKillers:string[] = [];
+  private _accessToRemove:string[] = [];
+  private _additionalStats:string[] = [];
 
 
   constructor() {
@@ -63,30 +69,101 @@ export class SearchFilter {
     this.allChanges.next();
   }
 
+  get physicalKillers(): string[] {
+    return this._physicalKillers;
+  }
+
+  set physicalKillers(value: string[]) {
+    this._physicalKillers = value;
+    this.allChanges.next();
+  }
+
+  get magicalKillers(): string[] {
+    return this._magicalKillers;
+  }
+
+  set magicalKillers(value: string[]) {
+    this._magicalKillers = value;
+    this.allChanges.next();
+  }
+
+
+  get accessToRemove(): string[] {
+    return this._accessToRemove;
+  }
+
+  set accessToRemove(value: string[]) {
+    this._accessToRemove = value;
+    this.allChanges.next();
+  }
+
+  get additionalStats(): string[] {
+    return this._additionalStats;
+  }
+
+  set additionalStats(value: string[]) {
+    this._additionalStats = value;
+    this.allChanges.next();
+  }
+
   isEmpty() {
     return this._searchText == ""
       && this._sort == ""
       && this._equipmentTypes.length == 0
       && this._elements.length == 0
       && this._ailments.length == 0
+      && this._physicalKillers.length == 0
+      && this._magicalKillers.length == 0
+      && this._accessToRemove.length == 0
   }
 
-  isSelected(item:any): boolean {
-    if (this._elements.length == 0 || (item.element && this._elements.some(e => item.element.includes(e))) || (this._elements.includes("noElement") && !item.element) || (item.resist && item.resist.map(r => r.name).some(e => this._elements.includes(e)))) {
-      if (ailments.length == 0 || (item.ailments && matches(ailments, item.ailments.map(function (ailment) {
-          return ailment.name;
-        }))) || (item.resist && matches(ailments, item.resist.map(function (res) {
-          return res.name;
-        })))) {
+  isSelected(item:Item): boolean {
+    if (this._elements.length == 0 || (this._elements.some(e => item.elements.includes(e))) || (this._elements.includes("noElement") && item.elements.length == 0) || (this.matches(item.elementalResists, this._elements))) {
+      if (this._ailments.length == 0 || this.matches(item.ailments, this._ailments) || this.matches(item.ailmentResists, this._ailments)) {
         if (this._equipmentTypes.length == 0 || this._equipmentTypes.includes(item.type)) {
-          if (this._searchText == "" || this.containsText(this._searchText, item)) {
-            return true;
+          if (this._physicalKillers.length == 0 || this._physicalKillers.some(killer => item.physicalKillers.get(killer) > 0)) {
+            if (this._magicalKillers.length == 0 || this._magicalKillers.some(killer => item.magicalKillers.get(killer) > 0)) {
+              if (this._accessToRemove.length == 0 || this.haveAuthorizedAccess(this._accessToRemove, item)) {
+                if (this._additionalStats.length == 0 || this._additionalStats.some(stat => item[stat].flat + item[stat].percent > 0)) {
+                  if (this._sort == "" || this.hasSortedStat(item)) {
+                    if (this._searchText == "" || this.containsText(this._searchText, item)) {
+                      return true;
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
     }
     return false;
   }
+
+  private matches(map:Map<string, number>, values:string[]) {
+    let it = map.keys();
+    let v = it.next();
+    while(!v.done) {
+      if (values.includes(v.value)) {
+        return true;
+      }
+      v = it.next();
+    }
+    return false;
+  }
+
+  private hasSortedStat(item:Item) {
+    if (constants.BASE_STATS.includes(this._sort)) {
+      return item[this._sort].flat + item[this._sort].percent > 0
+    } else if (this._sort == "inflict") {
+      return item.elements.length > 0 || item.ailments.size > 0 || item.physicalKillers.size > 0 || item.magicalKillers.size > 0;
+    } else if (this._sort == "evade") {
+      return item.physicalEvade + item.magicalEvade > 0;
+    } else if (this._sort == "resist") {
+      return item.elementalResists.size > 0 || item.ailmentResists.size > 0
+    }
+    return false;
+  };
 
   containsText(text, item) {
     var result = true;
@@ -99,5 +176,29 @@ export class SearchFilter {
 
   escapeRegExp(str) {
     return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+  }
+
+  private haveAuthorizedAccess(forbiddenAccessList, item):boolean {
+    var hasAccess = false;
+    if (forbiddenAccessList.includes("unitExclusive") && item.exclusiveUnits) {
+      return false;
+    }
+    item.access.forEach(access => {
+      hasAccess = hasAccess || this.isAccessAllowed(forbiddenAccessList, access);
+    });
+    return hasAccess;
+  };
+
+  // Return true if one access is not forbidden by filters
+  private isAccessAllowed(forbiddenAccessList, access):boolean {
+    var accessAllowed = true;
+    forbiddenAccessList.forEach(accessToSplit => {
+      accessToSplit.split('/').forEach(forbiddenAccess => {
+        if (access.startsWith(forbiddenAccess) || access.endsWith(forbiddenAccess)) {
+          accessAllowed = false;
+        }
+      });
+    });
+    return accessAllowed;
   }
 }
