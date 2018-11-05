@@ -1,7 +1,7 @@
 .item {
   padding-top: 8px;
   padding-bottom: 8px;
-  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
   position: relative;
 }
 
@@ -10,7 +10,9 @@
   width: 64px;
   margin-top: -5px;
   position: absolute;
-  left: 5px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  left:0;
 }
 
 .iconModifier {
@@ -22,11 +24,11 @@
 
 .firstLine {
   display: flex;
-  margin-left: 64px;
+  margin-left: 68px;
 }
 
 .rarity {
-  color: #747474;
+  color: #e0e0e0;
   font-size: .9em;
 }
 
@@ -43,7 +45,7 @@ i.miniIcon.itemType {
 }
 
 .stats {
-  font-size: .8em;
+  font-size: .9em;
 }
 .list:last-child .separator {
   display: none;
@@ -66,7 +68,7 @@ i.miniIcon.itemType {
 }
 
 .special {
-  margin-left: 64px;
+  margin-left: 68px;
 }
 
 .skillIcon {
@@ -78,7 +80,7 @@ i.miniIcon.itemType {
 }
 
 .accesses {
-  margin-left: 64px;
+  margin-left: 68px;
 }
 
 .exclusive {

@@ -53,4 +53,7 @@ export class HeaderComponent implements OnInit {
     this.loggingService.logout();
   }
 
+  switchServer(newServer:string):void {
+
+  }
 }

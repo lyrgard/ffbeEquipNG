@@ -8,6 +8,7 @@ import {constants} from "../model/constants";
 import {Item} from "../model/item";
 import {SortService} from "../services/sort.service";
 import {ActivatedRoute} from "@angular/router";
+import {LoggingState, LoginService} from "../services/login.service";
 
 @Component({
   selector: 'app-encyclopedia',
@@ -16,6 +17,8 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class EncyclopediaComponent implements OnInit {
 
+  LoggingState = LoggingState;
+  loggingState: LoggingState = LoggingState.LOADING;
   searchFilter: SearchFilter;
   $items:Item[];
   $filteredItems:any[];
@@ -51,8 +54,11 @@ export class EncyclopediaComponent implements OnInit {
     { icon: 'premium', value: 'premium', tooltip: 'items from premium (paid) bundles' }
   ];
 
-  constructor(private contextService: ContextService, private staticDataService: StaticDataService, private siteState:SiteStateService, private sortService:SortService, private route:ActivatedRoute) {
+  constructor(private contextService: ContextService, private staticDataService: StaticDataService, private siteState:SiteStateService, private sortService:SortService, private route:ActivatedRoute, private loginService:LoginService) {
     this.searchFilter = siteState.encyclopediaSearchFilter;
+    loginService.getLoggingState().subscribe(
+      state => this.loggingState = state
+    );
   }
 
   ngOnInit() {

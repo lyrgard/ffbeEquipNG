@@ -3,39 +3,64 @@
   <div class="row">
     <div id="filtersContainer" class="col-xs-12 col-md-6">
       <form #filterForm="ngForm">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Search</span>
-          </div>
-          <input type="text" [(ngModel)]="searchFilter.searchText" name="searchText" class="form-control" id="searchText" placeholder="Enter search text. Will search in item name, stats, abilities, TMR's unit, ...">
-        </div>
-        <div class="section"><span>Desired stat (filter and sort)</span></div>
-        <app-filter-selector [values]="sortStats" [cssType]="'sort'" [multipleChoice]="false" [filterData]="searchFilter" [filterName]="'sort'"></app-filter-selector>
-        <div class="section"><span>Equipment type</span></div>
-        <app-filter-selector [values]="equipmentTypeList" [cssType]="'equipment'" [filterData]="searchFilter" [filterName]="'equipmentTypes'"></app-filter-selector>
-        <div class="section"><span>Elements</span></div>
-        <app-filter-selector [values]="elementList" [cssType]="'element'" [filterData]="searchFilter" [filterName]="'elements'"></app-filter-selector>
-        <div class="section"><span>Ailments</span></div>
-        <app-filter-selector [values]="ailmentList" [cssType]="'ailment'" [filterData]="searchFilter" [filterName]="'ailments'"></app-filter-selector>
-        <div class="section"><span>Killers</span></div>
-        <app-filter-selector [values]="killerList" [cssType]="'killer-physical'" [filterData]="searchFilter" [filterName]="'physicalKillers'" [tooltipProvider]="physicalKillerTooltipProvider"></app-filter-selector>
-        <app-filter-selector [values]="killerList" [cssType]="'killer-magical'" [filterData]="searchFilter" [filterName]="'magicalKillers'" [tooltipProvider]="magicalKillerTooltipProvider"></app-filter-selector>
-        <div class="section"><span>Access to remove</span></div>
-        <app-filter-selector [valuesWithIcons]="accessList" [cssType]="'access'" [filterData]="searchFilter" [filterName]="'accessToRemove'"></app-filter-selector>
-        <div class="section"><span>Additional stats</span></div>
-        <app-filter-selector [values]="stats" [cssType]="'stat'" [filterData]="searchFilter" [filterName]="'additionalStats'"></app-filter-selector>
+        <mat-card>
+          <mat-card-content><input type="text" [(ngModel)]="searchFilter.searchText" name="searchText" class="form-control" id="searchText" placeholder="Enter search text. Will search in item name, stats, abilities, TMR's unit, ..."></mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-title>Desired stat (filter and sort)</mat-card-title>
+          <mat-card-content><app-filter-selector [values]="sortStats" [cssType]="'sort'" [multipleChoice]="false" [filterData]="searchFilter" [filterName]="'sort'"></app-filter-selector></mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-title>Equipment type)</mat-card-title>
+          <mat-card-content><app-filter-selector [values]="equipmentTypeList" [cssType]="'equipment'" [filterData]="searchFilter" [filterName]="'equipmentTypes'"></app-filter-selector></mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-title>Elements</mat-card-title>
+          <mat-card-content><app-filter-selector [values]="elementList" [cssType]="'element'" [filterData]="searchFilter" [filterName]="'elements'"></app-filter-selector></mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-title>Ailments</mat-card-title>
+          <mat-card-content><app-filter-selector [values]="ailmentList" [cssType]="'ailment'" [filterData]="searchFilter" [filterName]="'ailments'"></app-filter-selector></mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-title>Killers</mat-card-title>
+          <mat-card-content>
+            <app-filter-selector [values]="killerList" [cssType]="'killer-physical'" [filterData]="searchFilter" [filterName]="'physicalKillers'" [tooltipProvider]="physicalKillerTooltipProvider"></app-filter-selector>
+            <app-filter-selector [values]="killerList" [cssType]="'killer-magical'" [filterData]="searchFilter" [filterName]="'magicalKillers'" [tooltipProvider]="magicalKillerTooltipProvider"></app-filter-selector>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-title>Access to remove</mat-card-title>
+          <mat-card-content><app-filter-selector [valuesWithIcons]="accessList" [cssType]="'access'" [filterData]="searchFilter" [filterName]="'accessToRemove'"></app-filter-selector></mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-title>Additional stats</mat-card-title>
+          <mat-card-content><app-filter-selector [values]="stats" [cssType]="'stat'" [filterData]="searchFilter" [filterName]="'additionalStats'"></app-filter-selector></mat-card-content>
+        </mat-card>
+        <mat-card class="others">
+          <mat-card-title>Other</mat-card-title>
+          <mat-card-content>
+            <mat-checkbox [(ngModel)]="searchFilter.excludeNotReleasedYet">Exclude not released yet items</mat-checkbox>
+            <mat-checkbox *ngIf="loggingState == LoggingState.LOGGED_IN" [ngModel]="searchFilter.onlyShowOwnedItems">Only show owned items</mat-checkbox>
+          </mat-card-content>
+        </mat-card>
       </form>
     </div>
-    <div class="col-xs-12 col-md-6 row">
-      <div class="resultContainer">
-        <ng-container *ngFor="let item of $filteredItems">
-          <div class="line">
-            <div *ngIf="searchFilter.sort != ''" class="calculatedValue">{{item.calculatedValue}}</div>
-            <app-item-tile [item]="item" class="item"></app-item-tile>
-          </div>
-        </ng-container>
-
-      </div>
+    <div id="resultsContainer" class="col-xs-12 col-md-6">
+      <mat-card>
+        <mat-card-title>
+          <span *ngIf="!$filteredItems || $filteredItems.length == 0">Add filter to display results</span>
+          <span *ngIf="$filteredItems && $filteredItems.length > 0">Results ({{$filteredItems.length}}):</span>
+        </mat-card-title>
+        <mat-card-content>
+          <ng-container *ngFor="let item of $filteredItems">
+            <div class="line">
+              <div *ngIf="searchFilter.sort != ''" class="calculatedValue">{{item.calculatedValue}}</div>
+              <app-item-tile [item]="item" class="item"></app-item-tile>
+            </div>
+          </ng-container>
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
 </div>

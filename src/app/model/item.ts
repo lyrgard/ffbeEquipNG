@@ -377,4 +377,8 @@ export class Item {
     }
     this.searchText = textToSearch;
   }
+
+  isNotReleasedYet() {
+    return this.access.includes("not released yet");
+  }
 }

@@ -20,6 +20,8 @@ import { KillerListComponent } from './killer-list/killer-list.component';
 import { ByValueListComponent } from './by-value-list/by-value-list.component';
 import { FilterSelectorComponent } from './filter-selector/filter-selector.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatCardModule, MatCheckboxModule, MatTabsModule, MatButtonToggleModule} from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -43,7 +45,12 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
     LZStringModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule,
+    MatTabsModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatButtonToggleModule
   ],
   providers: [
     LZStringService

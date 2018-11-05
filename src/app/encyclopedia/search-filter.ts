@@ -17,6 +17,8 @@ export class SearchFilter {
   private _magicalKillers:string[] = [];
   private _accessToRemove:string[] = [];
   private _additionalStats:string[] = [];
+  private _excludeNotReleasedYet:boolean = true;
+  private _onlyShowOwnedItems = false;
 
 
   constructor() {
@@ -106,6 +108,24 @@ export class SearchFilter {
     this.allChanges.next();
   }
 
+  get excludeNotReleasedYet(): boolean {
+    return this._excludeNotReleasedYet;
+  }
+
+  set excludeNotReleasedYet(value: boolean) {
+    this._excludeNotReleasedYet = value;
+    this.allChanges.next();
+  }
+
+  get onlyShowOwnedItems(): boolean {
+    return this._onlyShowOwnedItems;
+  }
+
+  set onlyShowOwnedItems(value: boolean) {
+    this._onlyShowOwnedItems = value;
+    this.allChanges.next();
+  }
+
   isEmpty() {
     return this._searchText == ""
       && this._sort == ""
@@ -118,16 +138,18 @@ export class SearchFilter {
   }
 
   isSelected(item:Item): boolean {
-    if (this._elements.length == 0 || (this._elements.some(e => item.elements.includes(e))) || (this._elements.includes("noElement") && item.elements.length == 0) || (this.matches(item.elementalResists, this._elements))) {
-      if (this._ailments.length == 0 || this.matches(item.ailments, this._ailments) || this.matches(item.ailmentResists, this._ailments)) {
-        if (this._equipmentTypes.length == 0 || this._equipmentTypes.includes(item.type)) {
-          if (this._physicalKillers.length == 0 || this._physicalKillers.some(killer => item.physicalKillers.get(killer) > 0)) {
-            if (this._magicalKillers.length == 0 || this._magicalKillers.some(killer => item.magicalKillers.get(killer) > 0)) {
-              if (this._accessToRemove.length == 0 || this.haveAuthorizedAccess(this._accessToRemove, item)) {
-                if (this._additionalStats.length == 0 || this._additionalStats.some(stat => item[stat].flat + item[stat].percent > 0)) {
-                  if (this._sort == "" || this.hasSortedStat(item)) {
-                    if (this._searchText == "" || this.containsText(this._searchText, item)) {
-                      return true;
+    if (this._excludeNotReleasedYet && !item.isNotReleasedYet()) {
+      if (this._elements.length == 0 || (this._elements.some(e => item.elements.includes(e))) || (this._elements.includes("noElement") && item.elements.length == 0) || (this.matches(item.elementalResists, this._elements))) {
+        if (this._ailments.length == 0 || this.matches(item.ailments, this._ailments) || this.matches(item.ailmentResists, this._ailments)) {
+          if (this._equipmentTypes.length == 0 || this._equipmentTypes.includes(item.type)) {
+            if (this._physicalKillers.length == 0 || this._physicalKillers.some(killer => item.physicalKillers.get(killer) > 0)) {
+              if (this._magicalKillers.length == 0 || this._magicalKillers.some(killer => item.magicalKillers.get(killer) > 0)) {
+                if (this._accessToRemove.length == 0 || this.haveAuthorizedAccess(this._accessToRemove, item)) {
+                  if (this._additionalStats.length == 0 || this._additionalStats.some(stat => item[stat].flat + item[stat].percent > 0)) {
+                    if (this._sort == "" || this.hasSortedStat(item)) {
+                      if (this._searchText == "" || this.containsText(this._searchText, item)) {
+                        return true;
+                      }
                     }
                   }
                 }

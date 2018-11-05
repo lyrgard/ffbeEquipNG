@@ -28,14 +28,16 @@
     <div class="navigationMenu">
         <div class="desktop">
             <div class="menuLogo" onclick="window.location.href='/' + (server == 'GL' ? '' : '?server=' + server)" title="Return to homepage"></div>
-            <a [ngClass]="{active:$page == Pages.HOME}" [routerLink]="['/', $language]">Home</a>
-            <a [ngClass]="{active:$page == Pages.BUILDER}" href="builder.html" data-internal-link="builder.html">Unit builder</a>
-            <a [ngClass]="{active:$page == Pages.ENCYCLOPEDIA}" [routerLink]="['/', $language, 'encyclopedia']" data-internal-link="encyclopedia.html">Encyclopedia</a>
-            <a [ngClass]="{active:$page == Pages.UNIT_SEARCH}" href="unitSearch.html" data-internal-link="unitSearch.html">Unit Search</a>
-            <a [ngClass]="{active:$page == Pages.MY_INVENTORY}" href="inventory.html" data-internal-link="inventory.html">My inventory</a>
-            <a [ngClass]="{active:$page == Pages.MY_UNITS}" href="units.html" data-internal-link="units.html">My units</a>
-            <a [ngClass]="{active:$page == Pages.MY_ESPER}" href="espers.html" data-internal-link="espers.html">My Espers</a>
-            <a [ngClass]="{active:$page == Pages.CONTRIBUTE}" href="contribute.html" data-internal-link="contribute.html">Contribute</a>
+            <nav mat-tab-nav-bar>
+              <a mat-tab-link [routerLink]="['/', $language, 'home']" [active]="$page == Pages.HOME">Home</a>
+              <a mat-tab-link href="builder.html">Builder</a>
+              <a mat-tab-link [routerLink]="['/', $language, 'encyclopedia']" [active]="$page == Pages.ENCYCLOPEDIA">Encyclopedia</a>
+              <a mat-tab-link href="builder.html">Unit search</a>
+              <a mat-tab-link href="builder.html">My Inventory</a>
+              <a mat-tab-link href="builder.html">My units</a>
+              <a mat-tab-link href="builder.html">My espers</a>
+              <a mat-tab-link href="builder.html">Contribute</a>
+            </nav>
         </div>
         <div class="mobile">
             <div class="menuLogo dropdown-toggle" data-toggle="dropdown">
@@ -94,9 +96,11 @@
             <span class="lang lang-sm" [ngClass]="{selected:$language == Language.DE}" lang="de" onclick="switchToLanguage('de')"></span>
             <span class="lang lang-sm" [ngClass]="{selected:$language == Language.ES}" lang="es" onclick="switchToLanguage('es')"></span>
         </div>
-        <div class="switchServer btn-group">
-            <button class="GL btn" [ngClass]="{'btn-primary':$server == Server.GL, 'btn-light':$server == Server.JP}" onclick="switchTo('GL')">GL</button>
-            <button class="JP btn" [ngClass]="{'btn-primary':$server == Server.JP, 'btn-light':$server == Server.GL}" onclick="switchTo('JP')">JP</button>
+        <div class="switchServer">
+          <mat-button-toggle-group appearance="legacy" (change)="switchServer($event.value)">
+            <mat-button-toggle value="GL" [checked]="$server == Server.GL">GL</mat-button-toggle>
+            <mat-button-toggle value="JP" [checked]="$server == Server.JP">JP</mat-button-toggle>
+          </mat-button-toggle-group>
         </div>
     </div>
     <div class="bannerBackground"></div>

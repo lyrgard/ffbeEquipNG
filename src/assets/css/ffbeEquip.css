@@ -30,7 +30,17 @@ i.img.miniIcon {
   width: 24px;
 }
 
+
 .tooltip-inner {
   white-space: nowrap;
   max-width: none !important;
+}
+
+
+body.dark {
+  background-color: #707070;
+}
+
+.dark input {
+  background-color: #f0f0f0;
 }
