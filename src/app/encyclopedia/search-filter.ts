@@ -201,4 +201,32 @@ export class SearchFilter {
     });
     return accessAllowed;
   }
+
+  toHashString(): string {
+    let state:any = {};
+    ['searchText', 'sort'].forEach(stat => {
+      if (this[stat] != "") {
+        state[stat] = this[stat];
+      }
+    });
+    ['equipmentTypes', 'elements', 'ailments', 'physicalKillers', 'magicalKillers', 'accessToRemove', 'additionalStats'].forEach(stat => {
+      if (this[stat].length > 0) {
+        state[stat] = this[stat];
+      }
+    });
+    return window.btoa(encodeURIComponent(JSON.stringify(state)));
+  }
+
+  fromHashString(hash:string) {
+    try {
+      let state = JSON.parse(decodeURIComponent(window.atob(hash)));
+      ['searchText', 'sort', 'equipmentTypes', 'elements', 'ailments', 'physicalKillers', 'magicalKillers', 'accessToRemove', 'additionalStats'].forEach(stat => {
+        if (state[stat]) {
+          this['_' + stat] = state[stat];
+        }
+      });
+      this.allChanges.next();
+    } catch (e) {
+    }
+  }
 }

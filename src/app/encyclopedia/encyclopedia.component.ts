@@ -7,6 +7,7 @@ import {SiteStateService} from "../services/site-state.service";
 import {constants} from "../model/constants";
 import {Item} from "../model/item";
 import {SortService} from "../services/sort.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-encyclopedia',
@@ -30,6 +31,7 @@ export class EncyclopediaComponent implements OnInit {
   magicalKillerTooltipProvider= (killer:string) => {
     return `${killer.charAt(0).toUpperCase() + killer.slice(1)} magical killer`;
   };
+  hash:string;
 
   accessList = [
     { icon: 'shop', value: 'shop', tooltip: 'items from town shops' },
@@ -49,7 +51,7 @@ export class EncyclopediaComponent implements OnInit {
     { icon: 'premium', value: 'premium', tooltip: 'items from premium (paid) bundles' }
   ];
 
-  constructor(private contextService: ContextService, private staticDataService: StaticDataService, private siteState:SiteStateService, private sortService:SortService) {
+  constructor(private contextService: ContextService, private staticDataService: StaticDataService, private siteState:SiteStateService, private sortService:SortService, private route:ActivatedRoute) {
     this.searchFilter = siteState.encyclopediaSearchFilter;
   }
 
@@ -60,13 +62,24 @@ export class EncyclopediaComponent implements OnInit {
         this.applyFilter();
       });
       this.searchFilter.onChange.subscribe(() => this.applyFilter());
+      if (this.route.snapshot.fragment != "") {
+        this.searchFilter.fromHashString(this.route.snapshot.fragment);
+      }
   }
 
   applyFilter() {
     if (this.searchFilter.isEmpty()) {
+      window.location.hash = "";
       this.$filteredItems = [];
     } else {
-      this.$filteredItems = this.sortService.sort(this.$items.filter(item => this.searchFilter.isSelected(item)),0, this.searchFilter.sort, this.searchFilter.ailments, this.searchFilter.elements, []);
+      window.location.hash = this.searchFilter.toHashString();
+      let baseStat = 180;
+      if (this.searchFilter.sort == "hp") {
+        baseStat = 4000;
+      } else if (this.searchFilter.sort == "mp") {
+        baseStat = 300;
+      }
+      this.$filteredItems = this.sortService.sort(this.$items.filter(item => this.searchFilter.isSelected(item)),baseStat, this.searchFilter.sort, this.searchFilter.ailments, this.searchFilter.elements, []);
     }
   }
 }

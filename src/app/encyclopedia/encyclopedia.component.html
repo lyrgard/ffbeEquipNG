@@ -1,4 +1,5 @@
 <div class="container-fluid">
+  {{hash}}
   <div class="row">
     <div id="filtersContainer" class="col-xs-12 col-md-6">
       <form #filterForm="ngForm">
@@ -25,8 +26,16 @@
         <app-filter-selector [values]="stats" [cssType]="'stat'" [filterData]="searchFilter" [filterName]="'additionalStats'"></app-filter-selector>
       </form>
     </div>
-    <div id="resultsContainer" class="col-xs-12 col-md-6">
-      <app-item-tile *ngFor="let item of $filteredItems" [item]="item"></app-item-tile>
+    <div class="col-xs-12 col-md-6 row">
+      <div class="resultContainer">
+        <ng-container *ngFor="let item of $filteredItems">
+          <div class="line">
+            <div *ngIf="searchFilter.sort != ''" class="calculatedValue">{{item.calculatedValue}}</div>
+            <app-item-tile [item]="item" class="item"></app-item-tile>
+          </div>
+        </ng-container>
+
+      </div>
     </div>
   </div>
 </div>
