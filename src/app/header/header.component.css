@@ -82,11 +82,8 @@
 }
 
 
-.navigationMenu .desktop {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: row;
-    padding-left: 25px;
+.navigationMenu .desktop a {
+  text-decoration: none !important;
 }
 
 .navigationMenu .mobile {
@@ -100,22 +97,6 @@
     position: absolute;
     top: 12px;
     width: 94px;
-}
-
-.navigationMenu .desktop a {
-    background-color: #f8f8f8;
-    border: 1px solid #e7e7e7;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    color: #777;
-    display: inline;
-    font-size: 18px;
-    margin-bottom: 2px;
-    margin-right: 5px;
-    padding-bottom: 5px;
-    padding-left: 7px;
-    padding-right: 7px;
-    text-decoration: none;
 }
 
 .navigationMenu .desktop a:hover {

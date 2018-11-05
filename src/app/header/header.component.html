@@ -28,14 +28,16 @@
     <div class="navigationMenu">
         <div class="desktop">
             <div class="menuLogo" onclick="window.location.href='/' + (server == 'GL' ? '' : '?server=' + server)" title="Return to homepage"></div>
-            <a [ngClass]="{active:$page == Pages.HOME}" [routerLink]="['/', $language]">Home</a>
-            <a [ngClass]="{active:$page == Pages.BUILDER}" href="builder.html" data-internal-link="builder.html">Unit builder</a>
-            <a [ngClass]="{active:$page == Pages.ENCYCLOPEDIA}" [routerLink]="['/', $language, 'encyclopedia']" data-internal-link="encyclopedia.html">Encyclopedia</a>
-            <a [ngClass]="{active:$page == Pages.UNIT_SEARCH}" href="unitSearch.html" data-internal-link="unitSearch.html">Unit Search</a>
-            <a [ngClass]="{active:$page == Pages.MY_INVENTORY}" href="inventory.html" data-internal-link="inventory.html">My inventory</a>
-            <a [ngClass]="{active:$page == Pages.MY_UNITS}" href="units.html" data-internal-link="units.html">My units</a>
-            <a [ngClass]="{active:$page == Pages.MY_ESPER}" href="espers.html" data-internal-link="espers.html">My Espers</a>
-            <a [ngClass]="{active:$page == Pages.CONTRIBUTE}" href="contribute.html" data-internal-link="contribute.html">Contribute</a>
+            <nav mat-tab-nav-bar>
+              <a mat-tab-link [routerLink]="['/', $language, 'home']" [active]="$page == Pages.HOME">Home</a>
+              <a mat-tab-link href="builder.html">Builder</a>
+              <a mat-tab-link [routerLink]="['/', $language, 'encyclopedia']" [active]="$page == Pages.ENCYCLOPEDIA">Encyclopedia</a>
+              <a mat-tab-link href="builder.html">Unit search</a>
+              <a mat-tab-link href="builder.html">My Inventory</a>
+              <a mat-tab-link href="builder.html">My units</a>
+              <a mat-tab-link href="builder.html">My espers</a>
+              <a mat-tab-link href="builder.html">Contribute</a>
+            </nav>
         </div>
         <div class="mobile">
             <div class="menuLogo dropdown-toggle" data-toggle="dropdown">

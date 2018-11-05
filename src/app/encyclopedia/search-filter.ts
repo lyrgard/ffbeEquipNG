@@ -17,6 +17,8 @@ export class SearchFilter {
   private _magicalKillers:string[] = [];
   private _accessToRemove:string[] = [];
   private _additionalStats:string[] = [];
+  private _excludeNotReleasedYet:boolean = true;
+  private _onlyShowOwnedItems = false;
 
 
   constructor() {
@@ -103,6 +105,24 @@ export class SearchFilter {
 
   set additionalStats(value: string[]) {
     this._additionalStats = value;
+    this.allChanges.next();
+  }
+
+  get excludeNotReleasedYet(): boolean {
+    return this._excludeNotReleasedYet;
+  }
+
+  set excludeNotReleasedYet(value: boolean) {
+    this._excludeNotReleasedYet = value;
+    this.allChanges.next();
+  }
+
+  get onlyShowOwnedItems(): boolean {
+    return this._onlyShowOwnedItems;
+  }
+
+  set onlyShowOwnedItems(value: boolean) {
+    this._onlyShowOwnedItems = value;
     this.allChanges.next();
   }
 

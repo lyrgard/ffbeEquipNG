@@ -8,12 +8,6 @@ i.img {
   flex-wrap: wrap;
 }
 
-.btn-group {
-  border: 1px solid #ced4da;
-  border-radius: 5px;
-  padding: 2px;
-}
-
 .btn-filter {
   padding: 1px;
   margin: 1px;
