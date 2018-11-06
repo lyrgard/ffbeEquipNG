@@ -3,28 +3,28 @@
   padding-bottom: 8px;
   border-top: 1px solid #ddd;
   position: relative;
+  display: flex;
+  flex-direction: row;
 }
 
 .icon {
   height: 64px;
   width: 64px;
-  margin-top: -5px;
-  position: absolute;
-  background-color: #f0f0f0;
-  border-radius: 10px;
-  left:0;
+  background: url("../../assets/img/itemFrame.png");
 }
 
 .iconModifier {
   position: absolute;
   height: 24px;
-  left: 8px;
-  top: 36px;
+  left: 3px;
+  top: 43px;
 }
 
-.firstLine {
+.column {
   display: flex;
-  margin-left: 68px;
+  flex-direction: column;
+  padding-left: 5px;
+  flex: 1;
 }
 
 .rarity {
@@ -67,10 +67,6 @@ i.miniIcon.itemType {
   margin-right: 5px;
 }
 
-.special {
-  margin-left: 68px;
-}
-
 .skillIcon {
   border-radius: 5px;
   width: 38px;
@@ -80,7 +76,7 @@ i.miniIcon.itemType {
 }
 
 .accesses {
-  margin-left: 68px;
+  margin-top: 5px;
 }
 
 .exclusive {

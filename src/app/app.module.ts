@@ -21,7 +21,10 @@ import { ByValueListComponent } from './by-value-list/by-value-list.component';
 import { FilterSelectorComponent } from './filter-selector/filter-selector.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatCardModule, MatCheckboxModule, MatTabsModule, MatButtonToggleModule} from "@angular/material";
+import {
+  MatCardModule, MatCheckboxModule, MatTabsModule, MatButtonToggleModule,
+  MatButtonModule
+} from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -50,7 +53,8 @@ import {MatCardModule, MatCheckboxModule, MatTabsModule, MatButtonToggleModule} 
     MatTabsModule,
     MatCardModule,
     MatCheckboxModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatButtonModule
   ],
   providers: [
     LZStringService

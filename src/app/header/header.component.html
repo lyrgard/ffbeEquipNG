@@ -4,16 +4,17 @@
             {{$titles.get($page)}}
         </div>
         <div id="inventoryDiv">
-            <button type="button" *ngIf="loggingState == LoggingState.LOGGED_IN" class="btn btn-light logOut" (click)="logOut()">
+            <button mat-stroked-button *ngIf="loggingState == LoggingState.LOGGED_IN" (click)="logOut()">
                 <span class="fas fa-sign-out-alt" title="logout"></span>
             </button>
-            <button type="button" *ngIf="loggingState == LoggingState.LOGGED_OUT" class="btn btn-secondary loadInventory" (click)="logIn()">
+            <button mat-stroked-button *ngIf="loggingState == LoggingState.LOGGED_OUT" (click)="logIn()">
                 Log in
             </button>
-            <button type="button" *ngIf="loggingState == LoggingState.LOADING" class="btn btn-light" >
+            <button mat-stroked-button *ngIf="loggingState == LoggingState.LOADING">
               <span class="fas fa-spinner rotating"></span>
             </button>
             <div class="inventoryStatus">
+
                 <span class="status loading" *ngIf="loggingState == LoggingState.LOADING">Loading inventory</span>
                 <span class="status loaded" *ngIf="loggingState == LoggingState.LOGGED_IN">Inventory loaded</span>
                 <span class="status notLoaded" *ngIf="loggingState == LoggingState.LOGGED_OUT">Inventory not loaded</span>

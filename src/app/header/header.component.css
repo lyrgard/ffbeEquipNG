@@ -132,7 +132,8 @@
 }
 
 #header .bannerBackground {
-    background-color: #f8f8f8;
+    /*background-color: #f8f8f8; LIGHT*/
+    background-color: #424242;
     border: 1px solid #e7e7e7;
     height: 83px;
     left: 0;
@@ -163,25 +164,25 @@
 
 #inventoryDiv {
   display: flex;
+  color: white;
 }
 
 #inventoryDiv button {
-  height: 50px;
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
   border-right: 0;
 }
+
 .inventoryStatus {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   height: 50px;
   text-align: left !important;
-  border: 1px solid #ccc;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   padding: 3px 12px;
   line-height: 1;
-  color: #aeaeae;
-  background-color: #f8f9fa;
+  color: #f8f9fa;
   border-bottom-right-radius: 0.25em;
   border-top-right-radius: 0.25em;
 }

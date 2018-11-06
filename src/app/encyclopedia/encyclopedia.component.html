@@ -40,8 +40,8 @@
         <mat-card class="others">
           <mat-card-title>Other</mat-card-title>
           <mat-card-content>
-            <mat-checkbox [(ngModel)]="searchFilter.excludeNotReleasedYet">Exclude not released yet items</mat-checkbox>
-            <mat-checkbox *ngIf="loggingState == LoggingState.LOGGED_IN" [ngModel]="searchFilter.onlyShowOwnedItems">Only show owned items</mat-checkbox>
+            <mat-checkbox [(ngModel)]="searchFilter.excludeNotReleasedYet" [ngModelOptions]="{standalone: true}">Exclude not released yet items</mat-checkbox>
+            <mat-checkbox *ngIf="loggingState == LoggingState.LOGGED_IN" [(ngModel)]="searchFilter.onlyShowOwnedItems" [ngModelOptions]="{standalone: true}">Only show owned items</mat-checkbox>
           </mat-card-content>
         </mat-card>
       </form>
