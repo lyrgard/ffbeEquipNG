@@ -138,7 +138,7 @@ export class SearchFilter {
   }
 
   isSelected(item:Item): boolean {
-    if (this._excludeNotReleasedYet && !item.isNotReleasedYet()) {
+    if (!this._excludeNotReleasedYet || !item.isNotReleasedYet()) {
       if (this._elements.length == 0 || (this._elements.some(e => item.elements.includes(e))) || (this._elements.includes("noElement") && item.elements.length == 0) || (this.matches(item.elementalResists, this._elements))) {
         if (this._ailments.length == 0 || this.matches(item.ailments, this._ailments) || this.matches(item.ailmentResists, this._ailments)) {
           if (this._equipmentTypes.length == 0 || this._equipmentTypes.includes(item.type)) {

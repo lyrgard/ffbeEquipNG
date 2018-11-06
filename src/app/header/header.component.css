@@ -107,7 +107,7 @@
     border-color: #b8b8b8;
     box-shadow: 0 1px 4px rgba(0,0,0,.15);
     color:black;
-  font-weight: bold;
+    font-weight: bold;
 }
 
 #header .headerTopButtons {
@@ -121,7 +121,7 @@
 }
 
 #languages .lang.selected {
-    box-shadow: 0 0 5px 2px #3166ff;
+    box-shadow: 0 0 5px 2px white;
 }
 #languages .lang {
     margin: 0 2px;
@@ -134,7 +134,8 @@
 #header .bannerBackground {
     /*background-color: #f8f8f8; LIGHT*/
     background-color: #424242;
-    border: 1px solid #e7e7e7;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
     height: 83px;
     left: 0;
     position: absolute;
@@ -200,4 +201,8 @@
   margin-left: 0 !important;
   padding: 2px 8px;
   line-height: 1;
+}
+
+.mat-button-toggle-checked {
+  background-color: #3f51b5;
 }
