@@ -9,6 +9,7 @@ import {Item} from "../model/item";
 import {SortService} from "../services/sort.service";
 import {ActivatedRoute} from "@angular/router";
 import {LoggingState, LoginService} from "../services/login.service";
+import {UserDataService} from "../services/user-data.service";
 
 @Component({
   selector: 'app-encyclopedia',
@@ -35,6 +36,7 @@ export class EncyclopediaComponent implements OnInit {
     return `${killer.charAt(0).toUpperCase() + killer.slice(1)} magical killer`;
   };
   hash:string;
+  ownedItems;
 
   accessList = [
     { icon: 'shop', value: 'shop', tooltip: 'items from town shops' },
@@ -54,11 +56,18 @@ export class EncyclopediaComponent implements OnInit {
     { icon: 'premium', value: 'premium', tooltip: 'items from premium (paid) bundles' }
   ];
 
-  constructor(private contextService: ContextService, private staticDataService: StaticDataService, private siteState:SiteStateService, private sortService:SortService, private route:ActivatedRoute, private loginService:LoginService) {
+  constructor(private contextService: ContextService, private staticDataService: StaticDataService, private siteState:SiteStateService, private sortService:SortService, private route:ActivatedRoute, private loginService:LoginService, private userDateService:UserDataService) {
     this.searchFilter = siteState.encyclopediaSearchFilter;
     loginService.getLoggingState().subscribe(
       state => this.loggingState = state
     );
+    this.userDateService.itemInventory.subscribe(ownedItems => {
+      if (ownedItems && Object.keys(ownedItems).length > 0) {
+        this.ownedItems = ownedItems;
+      } else {
+        this.ownedItems = null;
+      }
+    });
   }
 
   ngOnInit() {
@@ -85,7 +94,8 @@ export class EncyclopediaComponent implements OnInit {
       } else if (this.searchFilter.sort == "mp") {
         baseStat = 300;
       }
-      this.$filteredItems = this.sortService.sort(this.$items.filter(item => this.searchFilter.isSelected(item)),baseStat, this.searchFilter.sort, this.searchFilter.ailments, this.searchFilter.elements, []);
+      this.$filteredItems = this.sortService.sort(this.$items.filter(item => this.searchFilter.isSelected(item, this.ownedItems)),baseStat, this.searchFilter.sort, this.searchFilter.ailments, this.searchFilter.elements, []);
+
     }
   }
 }

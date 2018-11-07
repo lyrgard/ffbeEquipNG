@@ -21,12 +21,22 @@
 
 .line .calculatedValue {
   border-top: 1px solid #ddd;
-  width: 40px;
+
   font-weight: bold;
   padding-top: 10px;
   padding-right: 5px;
   text-align: right;
   flex-shrink: 0;
+}
+
+.line .ownedNumber {
+  border-top: 1px solid #ddd;
+  width: 40px;
+  flex-shrink: 0;
+  text-align: center;
+  align-items: center;
+  padding-top: 10px;
+  font-weight: bold;
 }
 
 .line .item {
@@ -35,6 +45,12 @@
 
 mat-card, .searchText {
   margin-bottom: 10px;
+}
+
+mat-card-title a {
+  cursor: pointer;
+  font-size: 0.8em;
+  margin-left: 10px;
 }
 
 .searchText {

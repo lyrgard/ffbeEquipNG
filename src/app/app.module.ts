@@ -23,7 +23,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatCardModule, MatCheckboxModule, MatTabsModule, MatButtonToggleModule,
-  MatButtonModule
+  MatButtonModule, MatChipsModule
 } from "@angular/material";
 
 @NgModule({
@@ -54,7 +54,8 @@ import {
     MatCardModule,
     MatCheckboxModule,
     MatButtonToggleModule,
-    MatButtonModule
+    MatButtonModule,
+    MatChipsModule
   ],
   providers: [
     LZStringService

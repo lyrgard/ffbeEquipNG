@@ -7,11 +7,11 @@
           <mat-card-content><input type="text" [(ngModel)]="searchFilter.searchText" name="searchText" class="form-control" id="searchText" placeholder="Enter search text. Will search in item name, stats, abilities, TMR's unit, ..."></mat-card-content>
         </mat-card>
         <mat-card>
-          <mat-card-title>Desired stat (filter and sort)</mat-card-title>
+          <mat-card-title>Desired stat (filter and sort) <a (click)="searchFilter.sort = ''">unselect</a></mat-card-title>
           <mat-card-content><app-filter-selector [values]="sortStats" [cssType]="'sort'" [multipleChoice]="false" [filterData]="searchFilter" [filterName]="'sort'"></app-filter-selector></mat-card-content>
         </mat-card>
         <mat-card>
-          <mat-card-title>Equipment type)</mat-card-title>
+          <mat-card-title>Equipment type</mat-card-title>
           <mat-card-content><app-filter-selector [values]="equipmentTypeList" [cssType]="'equipment'" [filterData]="searchFilter" [filterName]="'equipmentTypes'"></app-filter-selector></mat-card-content>
         </mat-card>
         <mat-card>
@@ -57,6 +57,7 @@
             <div class="line">
               <div *ngIf="searchFilter.sort != ''" class="calculatedValue">{{item.calculatedValue}}</div>
               <app-item-tile [item]="item" class="item"></app-item-tile>
+              <div *ngIf="ownedItems" class="ownedNumber"><mat-chip-list *ngIf="ownedItems[item.id]"><mat-chip>{{ownedItems[item.id]}}</mat-chip></mat-chip-list></div>
             </div>
           </ng-container>
         </mat-card-content>
