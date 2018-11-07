@@ -60,3 +60,13 @@ mat-card-title a {
 .others mat-checkbox {
   display: block;
 }
+
+.resultTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.baseStatMessage {
+  font-size: 0.8em;
+}

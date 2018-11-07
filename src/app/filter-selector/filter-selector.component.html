@@ -1,7 +1,7 @@
 <form *ngIf="!multipleChoice" [formGroup]="radioGroupForm">
   <div class="btn-group btn-group-toggle group" ngbRadioGroup formControlName="value">
     <label *ngFor="let iconValue of valuesWithIcons" ngbButtonLabel class="btn-filter">
-      <input ngbButton type="radio" [value]="iconValue.value" ngbTooltip="{{iconValue.tooltip}}">
+      <input ngbButton type="radio" [value]="iconValue.value" matTooltip="{{iconValue.tooltip}}">
       <i class="img img-{{cssType}}-{{iconValue.icon}}"></i>
     </label>
   </div>
@@ -10,7 +10,7 @@
   <div class="btn-group btn-group-toggle group" >
     <label *ngFor="let iconValue of valuesWithIcons" ngbButtonLabel class="btn-filter" >
       <input ngbButton type="checkbox" formControlName="{{iconValue.value}}">
-      <i class="img img-{{cssType}}-{{iconValue.icon}}" ngbTooltip="{{iconValue.tooltip}}"></i>
+      <i class="img img-{{cssType}}-{{iconValue.icon}}" matTooltip="{{iconValue.tooltip}}" matTooltipShowDelay="0" matTooltipHideDelay="0"></i>
     </label>
   </div>
 </form>

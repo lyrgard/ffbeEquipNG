@@ -63,17 +63,19 @@
       <ng-container *ngIf="item.singleWielding">
         <ng-container *ngFor="let stat of item.singleWielding | keyvalue">
           <div *ngIf="stat.key === 'accuracy'"><img src="{{environment.baseUrl}}img/items/ability_40.png" class="img skillIcon"/>+{{stat.value}}% accuracy when single wielding</div>
-          <div *ngIf="stat.key != 'accuracy'"><img src="{{environment.baseUrl}}img/items/ability_76.png" class="img skillIcon"/>+{{stat.value}}% equipment {{stat.key | uppercase}} when single wielding</div>
+          <div *ngIf="stat.key != 'accuracy' && stat.value > 0"><img src="{{environment.baseUrl}}img/items/ability_76.png" class="img skillIcon"/>+{{stat.value}}% equipment {{stat.key | uppercase}} when single wielding</div>
         </ng-container>
       </ng-container>
       <ng-container *ngIf="item.singleWieldingOneHanded">
         <ng-container *ngFor="let stat of item.singleWieldingOneHanded | keyvalue">
           <div *ngIf="stat.key === 'accuracy'"><img src="{{environment.baseUrl}}img/items/ability_40.png" class="img skillIcon"/>+{{stat.value}}% accuracy when single wielding a one-handed weapon</div>
-          <div *ngIf="stat.key != 'accuracy'"><img src="{{environment.baseUrl}}img/items/ability_76.png" class="img skillIcon"/>+{{stat.value}}% equipment {{stat.key | uppercase}} when single wielding a one-handed weapon</div>
+          <div *ngIf="stat.key != 'accuracy' && stat.value > 0"><img src="{{environment.baseUrl}}img/items/ability_76.png" class="img skillIcon"/>+{{stat.value}}% equipment {{stat.key | uppercase}} when single wielding a one-handed weapon</div>
         </ng-container>
       </ng-container>
       <ng-container *ngIf="item.dualWielding">
-        <div *ngFor="let stat of item.dualWielding | keyvalue"><img src="{{environment.baseUrl}}img/items/ability_72.png" class="img skillIcon"/>+{{stat.value}}% equipment {{stat.key | uppercase}} when dual wielding</div>
+        <ng-container *ngFor="let stat of item.dualWielding | keyvalue">
+        <div *ngIf="stat.value"><img src="{{environment.baseUrl}}img/items/ability_72.png" class="img skillIcon"/>+{{stat.value}}% equipment {{stat.key | uppercase}} when dual wielding</div>
+        </ng-container>
       </ng-container>
       <div *ngIf="item.accuracy"><img src="{{environment.baseUrl}}img/items/ability_40.png" class="img skillIcon"/>+{{item.accuracy}}% accuracy</div>
       <div *ngIf="item.mpRefresh"><img src="{{environment.baseUrl}}img/items/ability_91.png" class="img skillIcon"/>Recover {{item.mpRefresh}}% MP per turn</div>

@@ -22,7 +22,9 @@ export class EncyclopediaComponent implements OnInit {
   loggingState: LoggingState = LoggingState.LOADING;
   searchFilter: SearchFilter;
   $items:Item[];
+  $searchResult:any[] = [];
   $filteredItems:any[];
+  currentPage = 0;
   sortStats = constants.BASE_STATS.concat(["evade", "inflict", "resist"]);
   equipmentTypeList = constants.EQUIPMENT_TYPE_LIST;
   elementList = constants.ELEMENT_LIST.concat(["noElement"]);
@@ -37,6 +39,7 @@ export class EncyclopediaComponent implements OnInit {
   };
   hash:string;
   ownedItems;
+  baseStatValue:number;
 
   accessList = [
     { icon: 'shop', value: 'shop', tooltip: 'items from town shops' },
@@ -88,14 +91,22 @@ export class EncyclopediaComponent implements OnInit {
       this.$filteredItems = [];
     } else {
       window.location.hash = this.searchFilter.toHashString();
-      let baseStat = 180;
+      this.baseStatValue = 180;
       if (this.searchFilter.sort == "hp") {
-        baseStat = 4000;
+        this.baseStatValue = 4000;
       } else if (this.searchFilter.sort == "mp") {
-        baseStat = 300;
+        this.baseStatValue = 300;
       }
-      this.$filteredItems = this.sortService.sort(this.$items.filter(item => this.searchFilter.isSelected(item, this.ownedItems)),baseStat, this.searchFilter.sort, this.searchFilter.ailments, this.searchFilter.elements, []);
-
+      this.currentPage = 0;
+      this.$searchResult = this.sortService.sort(this.$items.filter(item => this.searchFilter.isSelected(item, this.ownedItems)),this.baseStatValue, this.searchFilter.sort, this.searchFilter.ailments, this.searchFilter.elements, []);
+      if (this.$searchResult.length > 50) {
+        this.$filteredItems = this.$searchResult.slice(this.currentPage * 50, this.currentPage * 50 + 50);
+      }
     }
+  }
+
+  changePage(page) {
+    this.currentPage = page;
+    this.$filteredItems = this.$searchResult.slice(this.currentPage * 50, this.currentPage * 50 + 50);
   }
 }
