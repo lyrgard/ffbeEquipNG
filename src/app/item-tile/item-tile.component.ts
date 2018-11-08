@@ -7,6 +7,10 @@ import {constants} from '../model/constants';
 import {StaticDataService} from "../services/static-data.service";
 import {Item} from "../model/item";
 
+export enum Mode {
+  CONCISE, DETAILED,
+}
+
 @Component({
   selector: 'app-item-tile',
   templateUrl: './item-tile.component.html',
@@ -15,8 +19,10 @@ import {Item} from "../model/item";
 export class ItemTileComponent implements OnInit {
 
   @Input() item:Item;
+  @Input() mode:Mode = Mode.DETAILED;
 
   environment = environment;
+  Mode = Mode;
 
   itemIcon:string;
   itemIconClass:string;

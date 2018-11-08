@@ -25,6 +25,7 @@ import {
   MatCardModule, MatCheckboxModule, MatTabsModule, MatButtonToggleModule,
   MatButtonModule, MatChipsModule, MatTooltipModule, MatPaginatorModule
 } from "@angular/material";
+import { ItemInventoryComponent } from './item-inventory/item-inventory.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {
     ItemLinkComponent,
     KillerListComponent,
     ByValueListComponent,
-    FilterSelectorComponent
+    FilterSelectorComponent,
+    ItemInventoryComponent
   ],
   imports: [
     BrowserModule,

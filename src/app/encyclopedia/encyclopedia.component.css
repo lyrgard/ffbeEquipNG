@@ -17,11 +17,10 @@
 .line {
   display: flex;
   width: 100%;
+  border-top: 1px solid #ddd;
 }
 
 .line .calculatedValue {
-  border-top: 1px solid #ddd;
-
   font-weight: bold;
   padding-top: 10px;
   padding-right: 5px;
@@ -30,7 +29,6 @@
 }
 
 .line .ownedNumber {
-  border-top: 1px solid #ddd;
   width: 40px;
   flex-shrink: 0;
   text-align: center;
