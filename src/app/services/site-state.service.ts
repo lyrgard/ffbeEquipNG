@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {SearchFilter} from "../encyclopedia/search-filter";
+import {SearchFilter} from "../pages/encyclopedia/search-filter";
 
 @Injectable({
   providedIn: 'root'

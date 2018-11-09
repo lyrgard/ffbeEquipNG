@@ -1,0 +1,49 @@
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.itemCard {
+  width: 350px;
+  margin: 2px;
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  visibility: hidden;
+}
+
+.itemCard:hover .actions {
+  visibility: visible;
+}
+
+.actionIcon {
+  margin-right: 4px;
+  margin-left: 4px;
+  color: #616161;
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.actionImg {
+  height: 28px;
+  width: 28px;
+  filter: grayscale(100%);
+}
+
+.actionImg:hover {
+  filter: grayscale(50%);
+}
+
+.ownedNumber {
+  font-weight: bold;
+}

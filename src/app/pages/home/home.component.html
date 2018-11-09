@@ -1,0 +1,67 @@
+<div #homePage class="mainmenu">
+  <div class="mainmenu-content">
+    <div class="mainmenu-content-line">
+      <div class="mainmenu-button img-homepage-button" data-internal-link="builder.html">
+        <div class="mainmenu-title">Unit builder</div>
+        <i class="mainmenu-illustration img img-banner-Lid"></i>
+      </div>
+      <div class="mainmenu-message-kuppo img-homepage-kuppo_message">
+        Find the best equipments for your units, kupo!
+      </div>
+    </div>
+    <div class="mainmenu-content-line">
+      <div class="mainmenu-button img-homepage-button" data-internal-link="encyclopedia.html">
+        <div class="mainmenu-title">Encyclopedia</div>
+        <i class="mainmenu-illustration img img-banner-Sakura"></i>
+      </div>
+      <div class="mainmenu-button img-homepage-button" data-internal-link="unitSearch.html">
+        <div class="mainmenu-title">Unit search</div>
+        <i class="mainmenu-illustration img img-banner-Lasswell"></i>
+      </div>
+    </div>
+    <div class="mainmenu-content-line">
+      <div class="mainmenu-button img-homepage-button" data-internal-link="inventory.html">
+        <div class="mainmenu-title">My inventory</div>
+        <i class="mainmenu-illustration img img-banner-Jake"></i>
+      </div>
+      <div class="mainmenu-button img-homepage-button" data-internal-link="units.html">
+        <div class="mainmenu-title">My units</div>
+        <i class="mainmenu-illustration img img-banner-Rain"></i>
+      </div>
+      <div class="mainmenu-button img-homepage-button" data-internal-link="espers.html">
+        <div class="mainmenu-title">My Espers</div>
+        <i class="mainmenu-illustration img img-banner-Nichol"></i>
+      </div>
+    </div>
+  </div>
+  <div class="layer-1 img-homepage-background-1"></div>
+  <div #layer2 class="layer-2 img-homepage-background-2"></div>
+  <div #layer3 class="layer-3 img-homepage-background-3"></div>
+  <div #layer4 class="layer-4 img-homepage-background-4"></div>
+  <div #layerBorder class="layer-border">
+    <div class="layer-side-left img-homepage-border-left"></div>
+    <div class="layer-side-fill img-homepage-border-fill"></div>
+    <div class="layer-side-right img-homepage-border-right"></div>
+  </div>
+</div>
+<div #moreInformation  class="more_information">
+  <div class="col-sm-6">
+    <mat-card>
+      <mat-card-title id="panel-github"><img src='../../../assets/img/external/github.svg' class='externalLogo' alt='' />Latest changes</mat-card-title>
+      <mat-card-content>
+        <div class="content"><app-git-commit *ngFor="let commitData of $gitCommits" [commitData]="commitData"></app-git-commit></div>
+        <div class="footer">Want to contribute? <a href="https://github.com/lyrgard/ffbeEquip" target="_blank" rel="noreferrer">Fork the repo and submit a PR!</a></div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-sm-6">
+    <mat-card>
+      <mat-card-title><img src='../../../assets/img/external/discord.svg' class='externalLogo' alt='' />From our Discord server</mat-card-title>
+      <mat-card-content>
+        <div class="content"><app-discord-users></app-discord-users></div>
+        <div class="footer">Want to join the fun? <a href="https://discord.gg/rgXnjhP" target="_blank" rel="noreferrer">Come to our server!</a></div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+

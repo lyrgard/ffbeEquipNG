@@ -44,3 +44,9 @@ body.dark {
 .dark input {
   background-color: #f0f0f0;
 }
+
+.iconButton {
+  padding: 0 !important;
+  min-width: 0 !important;
+  line-height: 34px !important;
+}

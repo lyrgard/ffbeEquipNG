@@ -2,34 +2,37 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './components/header/header.component';
 import {HttpClientModule} from "@angular/common/http";
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './pages/home/home.component';
 import {RouterModule} from "@angular/router";
 import {routes} from "./routes";
-import { GitCommitComponent } from './home/git-commit/git-commit.component';
-import { DiscordUsersComponent } from './home/discord-users/discord-users.component';
-import { FooterComponent } from './footer/footer.component';
-import { EncyclopediaComponent } from './encyclopedia/encyclopedia.component';
+import { GitCommitComponent } from './pages/home/git-commit/git-commit.component';
+import { DiscordUsersComponent } from './pages/home/discord-users/discord-users.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { EncyclopediaComponent } from './pages/encyclopedia/encyclopedia.component';
 
 import { LZStringModule, LZStringService } from 'ng-lz-string';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { ItemTileComponent } from './item-tile/item-tile.component';
-import { ItemLinkComponent } from './name-link/name-link.component';
-import { KillerListComponent } from './killer-list/killer-list.component';
-import { ByValueListComponent } from './by-value-list/by-value-list.component';
-import { FilterSelectorComponent } from './filter-selector/filter-selector.component';
+import { ItemTileComponent } from './components/item-tile/item-tile.component';
+import { ItemLinkComponent } from './components/name-link/name-link.component';
+import { KillerListComponent } from './components/killer-list/killer-list.component';
+import { ByValueListComponent } from './components/by-value-list/by-value-list.component';
+import { FilterSelectorComponent } from './components/filter-selector/filter-selector.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatCardModule, MatCheckboxModule, MatTabsModule, MatButtonToggleModule,
-  MatButtonModule, MatChipsModule, MatTooltipModule, MatPaginatorModule
+  MatButtonModule, MatChipsModule, MatTooltipModule, MatPaginatorModule, MatRippleModule
 } from "@angular/material";
-import { ItemInventoryComponent } from './item-inventory/item-inventory.component';
-import { UnitCollectionComponent } from './unit-collection/unit-collection.component';
-import { EspersComponent } from './espers/espers.component';
-import { UnitSearchComponent } from './unit-search/unit-search.component';
-import { BuilderComponent } from './builder/builder.component';
+import { ItemInventoryComponent } from './pages/item-inventory/item-inventory.component';
+import { UnitCollectionComponent } from './pages/unit-collection/unit-collection.component';
+import { EspersComponent } from './pages/espers/espers.component';
+import { UnitSearchComponent } from './pages/unit-search/unit-search.component';
+import { BuilderComponent } from './pages/builder/builder.component';
+import { IconButtonComponent } from './components/icon-button/icon-button.component';
+import { ClickPropagationStopDirective } from './directives/click-propagation-stop.directive';
+import { CounterComponent } from './components/counter/counter.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,10 @@ import { BuilderComponent } from './builder/builder.component';
     EspersComponent,
     UnitSearchComponent,
     BuilderComponent,
-    //ItemInventoryComponent
+    ItemInventoryComponent,
+    IconButtonComponent,
+    ClickPropagationStopDirective,
+    CounterComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +74,7 @@ import { BuilderComponent } from './builder/builder.component';
     MatChipsModule,
     MatTooltipModule,
     MatPaginatorModule,
+    MatRippleModule,
   ],
   providers: [
     LZStringService
