@@ -34,7 +34,7 @@
               <a mat-tab-link href="builder.html">Builder</a>
               <a mat-tab-link [routerLink]="['/', $language, 'encyclopedia']" [active]="$page == Pages.ENCYCLOPEDIA">Encyclopedia</a>
               <a mat-tab-link href="builder.html">Unit search</a>
-              <a mat-tab-link href="builder.html">My Inventory</a>
+              <a mat-tab-link [routerLink]="['/', $language, 'itemInventory']" [active]="$page == Pages.ITEM_INVENTORY">Item inventory</a>
               <a mat-tab-link href="builder.html">My units</a>
               <a mat-tab-link href="builder.html">My espers</a>
               <a mat-tab-link href="builder.html">Contribute</a>
@@ -65,7 +65,7 @@
                         <span class="glyphicon glyphicon-chevron-right"></span> Unit Search
                     </a>
                 </li>
-                <li [ngClass]="{active:$page == Pages.MY_INVENTORY}">
+                <li [ngClass]="{active:$page == Pages.ITEM_INVENTORY}">
                     <a href="inventory.html" data-internal-link="inventory.html">
                         <span class="glyphicon glyphicon-chevron-right"></span> My inventory
                     </a>

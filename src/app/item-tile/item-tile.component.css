@@ -1,7 +1,6 @@
 .item {
   padding-top: 8px;
   padding-bottom: 8px;
-  border-top: 1px solid #ddd;
   position: relative;
   display: flex;
   flex-direction: row;
@@ -81,4 +80,8 @@ i.miniIcon.itemType {
 
 .exclusive {
   font-weight: 600;
+}
+
+.actions {
+  margin-top: 5px;
 }
