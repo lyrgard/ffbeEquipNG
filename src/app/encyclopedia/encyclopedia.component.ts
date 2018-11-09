@@ -77,12 +77,12 @@ export class EncyclopediaComponent implements OnInit {
       this.contextService.setCurrentPage(Pages.ENCYCLOPEDIA);
       this.staticDataService.getItems().subscribe(items => {
         this.$items = items;
+        this.searchFilter.onChange.subscribe(() => this.applyFilter());
+        if (this.route.snapshot.fragment != "") {
+          this.searchFilter.fromHashString(this.route.snapshot.fragment);
+        }
         this.applyFilter();
       });
-      this.searchFilter.onChange.subscribe(() => this.applyFilter());
-      if (this.route.snapshot.fragment != "") {
-        this.searchFilter.fromHashString(this.route.snapshot.fragment);
-      }
   }
 
   applyFilter() {

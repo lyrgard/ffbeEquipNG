@@ -57,7 +57,7 @@ import {
     MatButtonModule,
     MatChipsModule,
     MatTooltipModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
   providers: [
     LZStringService
