@@ -11,6 +11,6 @@ export class AppComponent {
   title = 'ffbeEquipNg';
 
   getState(outlet) {
-    return outlet.activatedRouteData.state;
+    return outlet.activatedRouteData.order;
   }
 }

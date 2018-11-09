@@ -101,6 +101,8 @@ export class EncyclopediaComponent implements OnInit {
       this.$searchResult = this.sortService.sort(this.$items.filter(item => this.searchFilter.isSelected(item, this.ownedItems)),this.baseStatValue, this.searchFilter.sort, this.searchFilter.ailments, this.searchFilter.elements, []);
       if (this.$searchResult.length > 50) {
         this.$filteredItems = this.$searchResult.slice(this.currentPage * 50, this.currentPage * 50 + 50);
+      } else {
+        this.$filteredItems = this.$searchResult
       }
     }
   }

@@ -26,6 +26,10 @@ import {
   MatButtonModule, MatChipsModule, MatTooltipModule, MatPaginatorModule
 } from "@angular/material";
 import { ItemInventoryComponent } from './item-inventory/item-inventory.component';
+import { UnitCollectionComponent } from './unit-collection/unit-collection.component';
+import { EspersComponent } from './espers/espers.component';
+import { UnitSearchComponent } from './unit-search/unit-search.component';
+import { BuilderComponent } from './builder/builder.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,11 @@ import { ItemInventoryComponent } from './item-inventory/item-inventory.componen
     KillerListComponent,
     ByValueListComponent,
     FilterSelectorComponent,
-    ItemInventoryComponent
+    UnitCollectionComponent,
+    EspersComponent,
+    UnitSearchComponent,
+    BuilderComponent,
+    //ItemInventoryComponent
   ],
   imports: [
     BrowserModule,

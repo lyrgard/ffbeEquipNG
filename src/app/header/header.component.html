@@ -31,12 +31,12 @@
             <div class="menuLogo" onclick="window.location.href='/' + (server == 'GL' ? '' : '?server=' + server)" title="Return to homepage"></div>
             <nav mat-tab-nav-bar>
               <a mat-tab-link [routerLink]="['/', $language, 'home']" [active]="$page == Pages.HOME">Home</a>
-              <a mat-tab-link href="builder.html">Builder</a>
+              <a mat-tab-link [routerLink]="['/', $language, 'builder']" [active]="$page == Pages.BUILDER">Builder</a>
               <a mat-tab-link [routerLink]="['/', $language, 'encyclopedia']" [active]="$page == Pages.ENCYCLOPEDIA">Encyclopedia</a>
-              <a mat-tab-link href="builder.html">Unit search</a>
+              <a mat-tab-link [routerLink]="['/', $language, 'unitSearch']" [active]="$page == Pages.UNIT_SEARCH">Unit search</a>
               <a mat-tab-link [routerLink]="['/', $language, 'itemInventory']" [active]="$page == Pages.ITEM_INVENTORY">Item inventory</a>
-              <a mat-tab-link href="builder.html">My units</a>
-              <a mat-tab-link href="builder.html">My espers</a>
+              <a mat-tab-link [routerLink]="['/', $language, 'unitCollection']" [active]="$page == Pages.UNIT_COLLECTION">My units</a>
+              <a mat-tab-link [routerLink]="['/', $language, 'espers']" [active]="$page == Pages.ESPERS">My espers</a>
               <a mat-tab-link href="builder.html">Contribute</a>
             </nav>
         </div>
