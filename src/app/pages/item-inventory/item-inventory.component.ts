@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {StaticDataService} from "../../services/static-data.service";
 import {Item} from "../../model/item";
 import {ContextService, Pages} from "../../services/context.service";
@@ -8,6 +8,7 @@ import {environment} from "../../../environments/environment";
 import {constants} from "../../model/constants";
 import {SearchFilter} from "./search-filter";
 import {SiteStateService} from "../../services/site-state.service";
+import {MatSidenav} from "@angular/material";
 
 @Component({
   selector: 'app-item-inventory',
@@ -15,6 +16,7 @@ import {SiteStateService} from "../../services/site-state.service";
   styleUrls: ['./item-inventory.component.css']
 })
 export class ItemInventoryComponent implements OnInit {
+  @ViewChild('sideDrawer') sideDrawer: MatSidenav;
 
   $items:Item[];
   $searchResult:Item[];
@@ -25,6 +27,7 @@ export class ItemInventoryComponent implements OnInit {
   itemTypes = constants.EQUIPMENT_TYPE_LIST;
   searchFilter:SearchFilter;
   currentPage:number = 0;
+  $selectedItem:Item;
 
   constructor(private contextService: ContextService,
               private staticDataService:StaticDataService,
@@ -130,5 +133,10 @@ export class ItemInventoryComponent implements OnInit {
     } else {
       return 1;
     }
+  }
+
+  openItemEnhancement(item: Item) {
+    this.$selectedItem = item;
+    this.sideDrawer.open();
   }
 }

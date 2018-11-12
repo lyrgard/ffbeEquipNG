@@ -50,3 +50,11 @@ body.dark {
 .dark .mat-paginator {
   background: none !important;
 }
+
+.dark .mat-drawer-container {
+  background: none !important;
+}
+
+.dark .mat-sidenav {
+  background-color: #303030 !important;
+}

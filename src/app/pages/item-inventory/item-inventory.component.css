@@ -52,8 +52,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  color:white;
 }
 
 .searchField {
   width: 100%;
+}
+
+.enhancementDrawer {
+  width: 372px;
+  padding: 10px;
+}
+
+.content {
+  min-height: 600px;
 }

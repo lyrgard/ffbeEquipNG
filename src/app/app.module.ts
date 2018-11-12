@@ -32,7 +32,9 @@ import {
   MatPaginatorModule,
   MatRippleModule,
   MatSnackBarModule,
-  MatFormFieldModule, MatInputModule
+  MatFormFieldModule,
+  MatInputModule,
+  MatSidenavModule
 } from "@angular/material";
 import { ItemInventoryComponent } from './pages/item-inventory/item-inventory.component';
 import { UnitCollectionComponent } from './pages/unit-collection/unit-collection.component';
@@ -42,6 +44,7 @@ import { BuilderComponent } from './pages/builder/builder.component';
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 import { ClickPropagationStopDirective } from './directives/click-propagation-stop.directive';
 import { CounterComponent } from './components/counter/counter.component';
+import { ItemEnhancementComponent } from './components/item-enhancement/item-enhancement.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +68,7 @@ import { CounterComponent } from './components/counter/counter.component';
     IconButtonComponent,
     ClickPropagationStopDirective,
     CounterComponent,
+    ItemEnhancementComponent,
   ],
   imports: [
     BrowserModule,
@@ -87,6 +91,7 @@ import { CounterComponent } from './components/counter/counter.component';
     MatSnackBarModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSidenavModule,
   ],
   providers: [
     LZStringService
