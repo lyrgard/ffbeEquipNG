@@ -23,7 +23,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatCardModule, MatCheckboxModule, MatTabsModule, MatButtonToggleModule,
-  MatButtonModule, MatChipsModule, MatTooltipModule, MatPaginatorModule, MatRippleModule
+  MatButtonModule, MatChipsModule, MatTooltipModule, MatPaginatorModule, MatRippleModule, MatSidenavModule
 } from "@angular/material";
 import { ItemInventoryComponent } from './pages/item-inventory/item-inventory.component';
 import { UnitCollectionComponent } from './pages/unit-collection/unit-collection.component';
@@ -75,6 +75,7 @@ import { CounterComponent } from './components/counter/counter.component';
     MatTooltipModule,
     MatPaginatorModule,
     MatRippleModule,
+    MatSidenavModule,
   ],
   providers: [
     LZStringService

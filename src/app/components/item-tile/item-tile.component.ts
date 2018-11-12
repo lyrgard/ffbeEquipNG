@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {common} from "../../common";
 import {ContextService, Server} from "../../services/context.service";
@@ -16,7 +16,7 @@ export enum Mode {
   templateUrl: './item-tile.component.html',
   styleUrls: ['./item-tile.component.css', '../../../assets/css-img/equipments.css', '../../../assets/css-img/elements.css']
 })
-export class ItemTileComponent implements OnInit {
+export class ItemTileComponent implements OnInit, OnChanges {
 
   @Input() item:Item;
   @Input() mode:Mode = Mode.DETAILED;
@@ -37,6 +37,16 @@ export class ItemTileComponent implements OnInit {
   constructor(private contextService:ContextService, private statDataService:StaticDataService) { }
 
   ngOnInit() {
+    if (this.item) {
+      this.onItemchange();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.onItemchange();
+  }
+
+  onItemchange() {
     if (this.item.icon) {
       this.itemIcon = `${environment.baseUrl}/img/items/${this.item.icon}`;
     } else if (this.item.type == "esper") {
@@ -108,8 +118,6 @@ export class ItemTileComponent implements OnInit {
         });
       });
     }
-
-
   }
 
 

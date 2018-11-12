@@ -1,21 +1,30 @@
 <div class="container-fluid">
-  <div class="items">
-    <mat-card *ngFor="let item of $items" class="itemCard">
-      <mat-card-content class="item" (click)="addItem(item.id)">
-        <app-item-tile [item]="item" [mode]="ItemMode.CONCISE">
-          <div *ngIf="$ownedItems" class="actions">
-            <button mat-button class="iconButton" clickPropagationStop (click)="addItem(item.id)">
-              <i class="fas fa-plus-square actionIcon"></i>
-            </button>
-            <button mat-button class="iconButton" clickPropagationStop (click)="removeItem(item.id)">
-              <i class="fas fa-minus-square actionIcon"></i>
-            </button>
-            <img class="actionIcon actionImg" src="{{environment.baseUrl}}img/icons/dwarf.png">
-            <img class="actionIcon actionImg" src="{{environment.baseUrl}}img/icons/excludeExpedition.png">
-          </div>
-        </app-item-tile>
-        <app-counter *ngIf="$ownedItems && $ownedItems[item.id]" [value]="$ownedItems[item.id]"></app-counter>
-      </mat-card-content>
-    </mat-card>
-  </div>
+  <mat-sidenav-container>
+    <mat-sidenav-content>
+      <div class="items">
+        <mat-card *ngFor="let item of $items" class="itemCard">
+          <mat-card-content class="item" (click)="addItem(item.id)">
+            <app-item-tile [item]="item" [mode]="ItemMode.CONCISE">
+              <div *ngIf="$ownedItems" class="actions">
+                <button mat-button class="iconButton" clickPropagationStop (click)="addItem(item.id)">
+                  <i class="fas fa-plus-square actionIcon"></i>
+                </button>
+                <button mat-button class="iconButton" clickPropagationStop (click)="removeItem(item.id)">
+                  <i class="fas fa-minus-square actionIcon"></i>
+                </button>
+                <img class="actionIcon actionImg" src="{{environment.baseUrl}}img/icons/dwarf.png" (click)="openItemEnhancement(item)">
+                <img class="actionIcon actionImg" src="{{environment.baseUrl}}img/icons/excludeExpedition.png">
+              </div>
+            </app-item-tile>
+            <app-counter *ngIf="$ownedItems && $ownedItems[item.id]" [value]="$ownedItems[item.id]"></app-counter>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-sidenav-content>
+    <mat-sidenav #sideDrawer position="end" class="enhancementDrawer">
+      <app-item-tile [item]="$selectedItem" [mode]="ItemMode.CONCISE">
+          <img class="actionIcon actionImg" src="{{environment.baseUrl}}img/icons/dwarf.png">
+      </app-item-tile>
+    </mat-sidenav>
+  </mat-sidenav-container>
 </div>
