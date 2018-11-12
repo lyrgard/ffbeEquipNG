@@ -1,5 +1,5 @@
 import {Observable, Subject} from "rxjs/index";
-import {debounceTime, distinctUntilChanged} from "rxjs/internal/operators";
+import {debounceTime} from "rxjs/internal/operators";
 import {constants} from "../../model/constants";
 import {Item} from "../../model/item";
 
@@ -193,7 +193,7 @@ export class SearchFilter {
     var result = true;
     let self = this;
     text.split(" ").forEach(function (token) {
-      result = result && item.searchString.match(new RegExp(self.escapeRegExp(token),'i'));
+      result = result && item.searchText.match(new RegExp(self.escapeRegExp(token),'i'));
     });
     return result;
   }

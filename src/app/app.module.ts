@@ -22,8 +22,17 @@ import { FilterSelectorComponent } from './components/filter-selector/filter-sel
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  MatCardModule, MatCheckboxModule, MatTabsModule, MatButtonToggleModule,
-  MatButtonModule, MatChipsModule, MatTooltipModule, MatPaginatorModule, MatRippleModule
+  MatCardModule,
+  MatCheckboxModule,
+  MatTabsModule,
+  MatButtonToggleModule,
+  MatButtonModule,
+  MatChipsModule,
+  MatTooltipModule,
+  MatPaginatorModule,
+  MatRippleModule,
+  MatSnackBarModule,
+  MatFormFieldModule, MatInputModule
 } from "@angular/material";
 import { ItemInventoryComponent } from './pages/item-inventory/item-inventory.component';
 import { UnitCollectionComponent } from './pages/unit-collection/unit-collection.component';
@@ -75,6 +84,9 @@ import { CounterComponent } from './components/counter/counter.component';
     MatTooltipModule,
     MatPaginatorModule,
     MatRippleModule,
+    MatSnackBarModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [
     LZStringService

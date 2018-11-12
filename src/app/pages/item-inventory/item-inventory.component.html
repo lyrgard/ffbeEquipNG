@@ -1,21 +1,32 @@
 <div class="container-fluid">
-  <div class="items">
-    <mat-card *ngFor="let item of $items" class="itemCard">
-      <mat-card-content class="item" (click)="addItem(item.id)">
-        <app-item-tile [item]="item" [mode]="ItemMode.CONCISE">
-          <div *ngIf="$ownedItems" class="actions">
-            <button mat-button class="iconButton" clickPropagationStop (click)="addItem(item.id)">
-              <i class="fas fa-plus-square actionIcon"></i>
-            </button>
-            <button mat-button class="iconButton" clickPropagationStop (click)="removeItem(item.id)">
-              <i class="fas fa-minus-square actionIcon"></i>
-            </button>
-            <img class="actionIcon actionImg" src="{{environment.baseUrl}}img/icons/dwarf.png">
-            <img class="actionIcon actionImg" src="{{environment.baseUrl}}img/icons/excludeExpedition.png">
-          </div>
-        </app-item-tile>
-        <app-counter *ngIf="$ownedItems && $ownedItems[item.id]" [value]="$ownedItems[item.id]"></app-counter>
-      </mat-card-content>
-    </mat-card>
+  <form class="filter">
+    <div>
+      <app-filter-selector [values]="itemTypes" [cssType]="'equipment'" [multipleChoice]="false" [filterData]="searchFilter" [filterName]="'equipmentType'"></app-filter-selector>
+      <mat-form-field class="searchField">
+        <input type="text" matInput [(ngModel)]="searchFilter.searchText" name="searchText" id="searchText" placeholder="Enter search text. Will search in item name and TMR's unit name">
+      </mat-form-field>
+    </div>
+  </form>
+  <div>
+    <mat-paginator [length]="$searchResult.length" [pageSize]="50" [pageIndex]="currentPage" (page)="changePage($event.pageIndex)"></mat-paginator>
+    <div class="items">
+      <mat-card *ngFor="let item of $filteredItems" class="itemCard">
+        <mat-card-content class="item" (click)="addItem(item.id)">
+          <app-item-tile [item]="item" [mode]="ItemMode.CONCISE">
+            <div *ngIf="$ownedItems" class="actions">
+              <button mat-button class="iconButton" clickPropagationStop (click)="addItem(item.id)">
+                <i class="fas fa-plus-square actionIcon"></i>
+              </button>
+              <button mat-button class="iconButton" clickPropagationStop (click)="removeItem(item.id)">
+                <i class="fas fa-minus-square actionIcon"></i>
+              </button>
+              <img class="actionIcon actionImg" src="{{environment.baseUrl}}img/icons/dwarf.png">
+              <img class="actionIcon actionImg" src="{{environment.baseUrl}}img/icons/excludeExpedition.png">
+            </div>
+          </app-item-tile>
+          <app-counter *ngIf="$ownedItems && $ownedItems[item.id]" [value]="$ownedItems[item.id]"></app-counter>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
 </div>

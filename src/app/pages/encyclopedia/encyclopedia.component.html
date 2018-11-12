@@ -3,7 +3,11 @@
     <div id="filtersContainer" class="col-xs-12 col-md-6">
       <form #filterForm="ngForm">
         <mat-card>
-          <mat-card-content><input type="text" [(ngModel)]="searchFilter.searchText" name="searchText" class="form-control" id="searchText" placeholder="Enter search text. Will search in item name, stats, abilities, TMR's unit, ..."></mat-card-content>
+          <mat-card-content>
+            <mat-form-field class="searchField">
+              <input type="text" matInput [(ngModel)]="searchFilter.searchText" name="searchText" id="searchText" placeholder="Enter search text. Will search in item name, stats, abilities, TMR's unit, ...">
+            </mat-form-field>
+          </mat-card-content>
         </mat-card>
         <mat-card>
           <mat-card-title>Desired stat (filter and sort) <a (click)="searchFilter.sort = ''">unselect</a></mat-card-title>

@@ -68,3 +68,8 @@ mat-card-title a {
 .baseStatMessage {
   font-size: 0.8em;
 }
+
+.searchField {
+  width: 100%;
+  margin-bottom: -10px !important;
+}
