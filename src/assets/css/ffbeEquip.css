@@ -58,3 +58,11 @@ body.dark {
 .dark .mat-sidenav {
   background-color: #303030 !important;
 }
+
+.textListItem:not(:last-child):after {
+  content: ', ';
+}
+
+.enhancement {
+  color: #ff6e40;
+}

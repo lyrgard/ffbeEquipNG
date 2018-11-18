@@ -6,9 +6,11 @@ import {Mode} from "../../components/item-tile/item-tile.component";
 import {UserDataService} from "../../services/user-data.service";
 import {environment} from "../../../environments/environment";
 import {constants} from "../../model/constants";
-import {SearchFilter} from "./search-filter";
+import {ItemInventorySearchFilter} from "./item-inventory-search-filter";
 import {SiteStateService} from "../../services/site-state.service";
 import {MatSidenav} from "@angular/material";
+import {EnhancedItem} from "../../model/enhanced-item";
+import {ItemReleaseDay} from "../../model/item-release-day";
 
 @Component({
   selector: 'app-item-inventory',
@@ -21,13 +23,16 @@ export class ItemInventoryComponent implements OnInit {
   $items:Item[];
   $searchResult:Item[];
   $filteredItems:Item[];
+  $itemHistory:ItemReleaseDay[];
+  $filteredHistory:ItemReleaseDay[];
   $ownedItems:any;
   ItemMode = Mode;
   environment = environment;
   itemTypes = constants.EQUIPMENT_TYPE_LIST;
-  searchFilter:SearchFilter;
-  currentPage:number = 0;
-  $selectedItem:Item;
+  searchFilter:ItemInventorySearchFilter;
+  currentPageItems:number = 0;
+  currentPageHistory:number = 0;
+  $enhancedItems:EnhancedItem[];
 
   constructor(private contextService: ContextService,
               private staticDataService:StaticDataService,
@@ -38,14 +43,18 @@ export class ItemInventoryComponent implements OnInit {
 
   ngOnInit() {
     this.contextService.setCurrentPage(Pages.ITEM_INVENTORY);
+    this.staticDataService.getItemHistory().subscribe(itemHistory => {
+      this.$itemHistory = itemHistory;
+      this.changePageHistory(0);
+    });
     this.staticDataService.getItems().subscribe(items => {
       this.$items = items;
       this.searchFilter.onChange.subscribe(() => {
         this.$searchResult = this.$items.filter(item => this.searchFilter.isSelected(item)).sort(this.getSort(this.searchFilter.equipmentType));
-        this.changePage(0);
+        this.changePageItems(0);
       });
       this.$searchResult = this.$items.filter(item => this.searchFilter.isSelected(item)).sort(this.getSort(this.searchFilter.equipmentType));
-      this.changePage(0);
+      this.changePageItems(0);
     });
     this.userDataService.itemInventory.subscribe(ownedItems => {
       if (ownedItems && Object.keys(ownedItems).length > 0) {
@@ -64,9 +73,14 @@ export class ItemInventoryComponent implements OnInit {
     this.userDataService.removeItem(itemId);
   }
 
-  changePage(page) {
-    this.currentPage = page;
-    this.$filteredItems = this.$searchResult.slice(this.currentPage * 50, this.currentPage * 50 + 50);
+  changePageItems(page) {
+    this.currentPageItems = page;
+    this.$filteredItems = this.$searchResult.slice(this.currentPageItems * 50, this.currentPageItems * 50 + 50);
+  }
+
+  changePageHistory(page) {
+    this.currentPageHistory = page;
+    this.$filteredHistory = this.$itemHistory.slice(this.currentPageHistory * 5, this.currentPageHistory * 5 + 5);
   }
 
   private getSort(type:string): (item1:Item, item2:Item) => number {
@@ -136,7 +150,13 @@ export class ItemInventoryComponent implements OnInit {
   }
 
   openItemEnhancement(item: Item) {
-    this.$selectedItem = item;
+    this.userDataService.getEnhancedVersions(item).subscribe(items => this.$enhancedItems = items);
     this.sideDrawer.open();
+  }
+
+  enhancementsChanged() {
+    if (this.$enhancedItems) {
+      this.userDataService.saveEnhancements(this.$enhancedItems);
+    }
   }
 }

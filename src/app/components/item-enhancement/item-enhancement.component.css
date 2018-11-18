@@ -26,3 +26,19 @@
   padding-bottom: 2px;
   border-radius: 5px;
 }
+
+.value:hover {
+  color: #cccccc;
+}
+
+.value.selected {
+  background-color: #ff6e40;
+}
+
+.action {
+  cursor: pointer;
+}
+
+.actionIcon {
+  margin-right: 5px;
+}

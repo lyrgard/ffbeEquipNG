@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {SearchFilter} from './search-filter';
+import {EncyclopediaSearchFilter} from './encyclopedia-search-filter';
 import {ContextService, Pages} from '../../services/context.service';
 import {StaticDataService} from "../../services/static-data.service";
 import {FormControl} from "@angular/forms";
@@ -20,7 +20,7 @@ export class EncyclopediaComponent implements OnInit {
 
   LoggingState = LoggingState;
   loggingState: LoggingState = LoggingState.LOADING;
-  searchFilter: SearchFilter;
+  searchFilter: EncyclopediaSearchFilter;
   $items:Item[];
   $searchResult:any[] = [];
   $filteredItems:any[];

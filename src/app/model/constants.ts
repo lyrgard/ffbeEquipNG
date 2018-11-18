@@ -4,5 +4,5 @@ export const constants = {
   WEAPON_TYPES: ["dagger", "sword", "greatSword", "katana", "staff", "rod", "bow", "axe", "hammer", "spear", "harp", "whip", "throwing", "gun", "mace", "fist"],
   ELEMENT_LIST: ['fire','ice','lightning','water','earth','wind','light','dark'],
   AILMENT_LIST: ['poison','blind','sleep','silence','paralysis','confuse','disease','petrification','death'],
-  RACE_LIST: ['aquatic','beast','bird','bug','demon','dragon','human','machine','plant','undead','stone','spirit']
+  RACE_LIST: ['aquatic','beast','bird','bug','demon','dragon','human','machine','plant','undead','stone','spirit'],
 }

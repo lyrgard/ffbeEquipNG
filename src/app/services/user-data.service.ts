@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
-import {AsyncSubject, BehaviorSubject, Observable, Subject} from "rxjs/index";
+import {AsyncSubject, Observable, Subject} from "rxjs/index";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {ContextService} from "./context.service";
-import {LoggingState, LoginService} from "./login.service";
-import {debounceTime} from "rxjs/operators";
+import {debounceTime, map} from "rxjs/operators";
 import {MatSnackBar} from "@angular/material";
+import {Item} from "../model/item";
+import {EnhancedItem} from "../model/enhanced-item";
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,7 @@ export class UserDataService {
           result.next(true);
           result.complete();
         },
-        e => {
+        () => {
           result.next(false);
           result.complete();
         });
@@ -82,5 +83,43 @@ export class UserDataService {
         }
       }
     });
+  }
+
+  getEnhancedVersions(item:Item): Observable<EnhancedItem[]> {
+    return this.itemInventory.pipe(map(itemInventory => {
+      if (itemInventory[item.id]) {
+        let result = [];
+        let number = itemInventory[item.id];
+        if (itemInventory.enhancements && itemInventory.enhancements[item.id]) {
+          itemInventory.enhancements[item.id].forEach(enhancements => {
+            result.push(new EnhancedItem(item, enhancements));
+            number--;
+          })
+        }
+        for (; number > 0; number--) {
+          result.push(new EnhancedItem(item, []));
+        }
+        return result;
+      } else {
+        return [];
+      }
+    }));
+  }
+
+  saveEnhancements(enhancedItems: EnhancedItem[]) {
+    if (enhancedItems && enhancedItems.length > 1) {
+      let itemId = enhancedItems[0].id;
+      this.itemInventory.subscribe(itemInventory => {
+        if (!itemInventory.enhancements) {
+          itemInventory.enhancements = {};
+        }
+        if (enhancedItems.some(e => e.enhancements.length > 0)) {
+          itemInventory.enhancements[itemId] = enhancedItems.filter(e => e.enhancements.length > 0).map(e => e.enhancements);
+        } else {
+          delete itemInventory.enhancements[itemId];
+        }
+        this.itemInventoryChange.next();
+      });
+    }
   }
 }

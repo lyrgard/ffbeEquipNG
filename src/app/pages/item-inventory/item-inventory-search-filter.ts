@@ -3,7 +3,7 @@ import {debounceTime} from "rxjs/operators";
 import {Item} from "../../model/item";
 import {constants} from "../../model/constants";
 
-export class SearchFilter {
+export class ItemInventorySearchFilter {
 
   onChange:Observable<void>;
 
@@ -52,7 +52,7 @@ export class SearchFilter {
     var result = true;
     let self = this;
     text.split(" ").forEach(function (token) {
-      result = result && item.name.match(new RegExp(self.escapeRegExp(token),'i'));
+      result = result && item.nameAndTmrunitSearchText.match(new RegExp(self.escapeRegExp(token),'i'));
     });
     return result;
   }
@@ -61,33 +61,4 @@ export class SearchFilter {
     return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
   }
 
-
-
-  toHashString(): string {
-    let state:any = {};
-    ['searchText', 'sort'].forEach(stat => {
-      if (this[stat] != "") {
-        state[stat] = this[stat];
-      }
-    });
-    ['equipmentTypes', 'elements', 'ailments', 'physicalKillers', 'magicalKillers', 'accessToRemove', 'additionalStats'].forEach(stat => {
-      if (this[stat].length > 0) {
-        state[stat] = this[stat];
-      }
-    });
-    return window.btoa(encodeURIComponent(JSON.stringify(state)));
-  }
-
-  fromHashString(hash:string) {
-    try {
-      let state = JSON.parse(decodeURIComponent(window.atob(hash)));
-      ['searchText', 'sort', 'equipmentTypes', 'elements', 'ailments', 'physicalKillers', 'magicalKillers', 'accessToRemove', 'additionalStats'].forEach(stat => {
-        if (state[stat]) {
-          this['_' + stat] = state[stat];
-        }
-      });
-      this.allChanges.next();
-    } catch (e) {
-    }
-  }
 }

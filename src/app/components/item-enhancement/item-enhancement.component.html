@@ -1,14 +1,19 @@
-<img class="actionIcon actionImg" src="{{environment.baseUrl}}img/icons/dwarf.png">
-<div class="choices">
-  <div class="valueType"><span class="title">Rare</span><span class="value">lvl 3</span><span class="value">lvl 4</span></div>
-  <div class="valueType"><span class="title">HP</span><span class="value">15%</span><span class="value">12%</span><span class="value">10%</span><span class="value">7%</span><span class="value">5%</span><span class="value">3%</span><span class="value">1%</span></div>
-  <div class="valueType"><span class="title">MP</span><span class="value">15%</span><span class="value">12%</span><span class="value">10%</span><span class="value">7%</span><span class="value">5%</span><span class="value">3%</span><span class="value">1%</span></div>
-  <div class="valueType"><span class="title">ATK</span><span class="value">15%</span><span class="value">12%</span><span class="value">10%</span><span class="value">7%</span><span class="value">5%</span><span class="value">3%</span><span class="value">1%</span></div>
-  <div class="valueType"><span class="title">DEF</span><span class="value">15%</span><span class="value">12%</span><span class="value">10%</span><span class="value">7%</span><span class="value">5%</span><span class="value">3%</span><span class="value">1%</span></div>
-  <div class="valueType"><span class="title">MAG</span><span class="value">15%</span><span class="value">12%</span><span class="value">10%</span><span class="value">7%</span><span class="value">5%</span><span class="value">3%</span><span class="value">1%</span></div>
-  <div class="valueType"><span class="title">SPR</span><span class="value">15%</span><span class="value">12%</span><span class="value">10%</span><span class="value">7%</span><span class="value">5%</span><span class="value">3%</span><span class="value">1%</span></div>
-  <div class="valueType"><span class="title">Auto-Regen</span><span class="value">lvl 4</span><span class="value">lvl 3</span><span class="value">lvl 2</span><span class="value">lvl 1</span></div>
-  <div class="valueType"><span class="title">Auto-Refresh</span><span class="value">lvl 2</span><span class="value">lvl 1</span></div>
-  <div class="valueType"><span class="title">Auto-Protect</span><span class="value">lvl 5</span><span class="value">lvl 4</span><span class="value">lvl 3</span><span class="value">lvl 2</span><span class="value">lvl 1</span></div>
-  <div class="valueType"><span class="title">Auto-Shell</span><span class="value">lvl 5</span><span class="value">lvl 4</span><span class="value">lvl 3</span><span class="value">lvl 2</span><span class="value">lvl 1</span></div>
-</div>
+<ng-container *ngIf="item">
+  <span class="action" (click)="enhancementOpened = !enhancementOpened">
+    <img class="actionIcon actionImg" src="{{environment.baseUrl}}img/icons/dwarf.png">
+    <span><span *ngFor="let enhancement of item.enhancements" class="textListItem enhancement">{{enhancement.startsWith('rare') ? ITEM_ENHANCEMENT_LABELS[enhancement][item.type] : ITEM_ENHANCEMENT_LABELS[enhancement]}}</span></span>
+  </span>
+  <div class="choices" *ngIf="enhancementOpened">
+    <div class="valueType"><span class="title">Rare</span><span *ngFor="let value of ITEM_ENHANCEMENT_TYPES.rare" class="value" (click)="toggle(value)" [ngClass]="{selected:item.enhancements.includes(value)}">{{ITEM_ENHANCEMENT_LABELS[value][item.type]}}</span></div>
+    <div class="valueType"><span class="title">HP</span><span *ngFor="let value of ITEM_ENHANCEMENT_TYPES.hp; index as i" class="value" (click)="toggle(value)" [ngClass]="{selected:item.enhancements.includes(value)}">{{valueByIndex[i]}}%</span></div>
+    <div class="valueType"><span class="title">MP</span><span *ngFor="let value of ITEM_ENHANCEMENT_TYPES.mp; index as i" class="value" (click)="toggle(value)" [ngClass]="{selected:item.enhancements.includes(value)}">{{valueByIndex[i]}}%</span></div>
+    <div class="valueType"><span class="title">ATK</span><span *ngFor="let value of ITEM_ENHANCEMENT_TYPES.atk; index as i" class="value" (click)="toggle(value)" [ngClass]="{selected:item.enhancements.includes(value)}">{{valueByIndex[i]}}%</span></div>
+    <div class="valueType"><span class="title">DEF</span><span *ngFor="let value of ITEM_ENHANCEMENT_TYPES.def; index as i" class="value" (click)="toggle(value)" [ngClass]="{selected:item.enhancements.includes(value)}">{{valueByIndex[i]}}%</span></div>
+    <div class="valueType"><span class="title">MAG</span><span *ngFor="let value of ITEM_ENHANCEMENT_TYPES.mag; index as i" class="value" (click)="toggle(value)" [ngClass]="{selected:item.enhancements.includes(value)}">{{valueByIndex[i]}}%</span></div>
+    <div class="valueType"><span class="title">SPR</span><span *ngFor="let value of ITEM_ENHANCEMENT_TYPES.spr; index as i" class="value" (click)="toggle(value)" [ngClass]="{selected:item.enhancements.includes(value)}">{{valueByIndex[i]}}%</span></div>
+    <div class="valueType"><span class="title">Auto-Regen</span><span *ngFor="let value of ITEM_ENHANCEMENT_TYPES.autoRegen; index as i" class="value" (click)="toggle(value)" [ngClass]="{selected:item.enhancements.includes(value)}">lvl{{4 - i}}</span></div>
+    <div class="valueType"><span class="title">Auto-Refresh</span><span *ngFor="let value of ITEM_ENHANCEMENT_TYPES.autoRefresh; index as i" class="value" (click)="toggle(value)" [ngClass]="{selected:item.enhancements.includes(value)}">lvl{{2 - i}}</span></div>
+    <div class="valueType"><span class="title">Auto-Protect</span><span *ngFor="let value of ITEM_ENHANCEMENT_TYPES.autoProtect; index as i" class="value" (click)="toggle(value)" [ngClass]="{selected:item.enhancements.includes(value)}">lvl{{5 - i}}</span></div>
+    <div class="valueType"><span class="title">Auto-Shell</span><span *ngFor="let value of ITEM_ENHANCEMENT_TYPES.autoShell; index as i" class="value" (click)="toggle(value)" [ngClass]="{selected:item.enhancements.includes(value)}">lvl{{5 - i}}</span></div>
+  </div>
+</ng-container>

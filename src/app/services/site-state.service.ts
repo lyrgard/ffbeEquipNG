@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {SearchFilter as EncyclopediaSearchFilter} from "../pages/encyclopedia/search-filter";
-import {SearchFilter as ItemInventorySearchFilter} from "../pages/item-inventory/search-filter";
+import {EncyclopediaSearchFilter as EncyclopediaSearchFilter} from "../pages/encyclopedia/encyclopedia-search-filter";
+import {ItemInventorySearchFilter as ItemInventorySearchFilter} from "../pages/item-inventory/item-inventory-search-filter";
 
 @Injectable({
   providedIn: 'root'

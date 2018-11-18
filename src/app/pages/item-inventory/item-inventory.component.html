@@ -1,43 +1,89 @@
 <div class="container-fluid">
   <mat-sidenav-container>
     <mat-sidenav-content class="content">
-      <form class="filter">
-        <div>
-          <app-filter-selector [values]="itemTypes" [cssType]="'equipment'" [multipleChoice]="false" [filterData]="searchFilter" [filterName]="'equipmentType'"></app-filter-selector>
-          <mat-form-field class="searchField">
-            <input type="text" matInput [(ngModel)]="searchFilter.searchText" name="searchText" id="searchText" placeholder="Enter search text. Will search in item name and TMR's unit name">
-          </mat-form-field>
-        </div>
-      </form>
-      <div>
-        <mat-paginator *ngIf="$searchResult.length > 50" [length]="$searchResult.length" [pageSize]="50" [pageIndex]="currentPage" (page)="changePage($event.pageIndex)"></mat-paginator>
-        <div class="items">
-          <mat-card *ngFor="let item of $filteredItems" class="itemCard">
-            <mat-card-content class="item">
-              <app-item-tile [item]="item" [mode]="ItemMode.CONCISE">
-                <div *ngIf="$ownedItems" class="actions">
-                  <button mat-button class="iconButton" clickPropagationStop (click)="addItem(item.id)">
-                    <i class="fas fa-plus-square actionIcon"></i>
-                  </button>
-                  <button mat-button class="iconButton" clickPropagationStop (click)="removeItem(item.id)">
-                    <i class="fas fa-minus-square actionIcon"></i>
-                  </button>
-                  <img *ngIf="$ownedItems[item.id]" class="actionIcon actionImg" src="{{environment.baseUrl}}img/icons/dwarf.png" clickPropagationStop (click)="openItemEnhancement(item)">
-                  <img *ngIf="$ownedItems[item.id]" class="actionIcon actionImg" src="{{environment.baseUrl}}img/icons/excludeExpedition.png">
+      <mat-tab-group>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <i class="img img-tab-history"></i>
+          </ng-template>
+          <ng-template matTabContent>
+            <div class="itemHistory">
+              <mat-paginator *ngIf="$itemHistory" [length]="$itemHistory.length" [pageSize]="5" [pageIndex]="currentPageHistory" (page)="changePageHistory($event.pageIndex)"></mat-paginator>
+              <div *ngFor="let day of $filteredHistory" class="dayBlock">
+                <div class="day">{{day.name}}</div>
+                <div *ngFor="let event of day.events">
+                  <div class="event">{{event.name}}</div>
+                  <div class="items">
+                    <ng-container *ngFor="let item of event.items">
+                      <mat-card class="itemCard">
+                        <mat-card-content class="item">
+                          <app-item-tile [item]="item" [mode]="ItemMode.CONCISE">
+                            <div *ngIf="$ownedItems" class="actions">
+                              <button mat-button class="iconButton" clickPropagationStop (click)="addItem(item.id)" matTooltip="'Add an instance of this item to your inventory'">
+                                <i class="fas fa-plus-square actionIcon action"></i>
+                              </button>
+                              <button mat-button class="iconButton" clickPropagationStop (click)="removeItem(item.id)" matTooltip="'Remove an instance of this item from your inventory'">
+                                <i class="fas fa-minus-square actionIcon action"></i>
+                              </button>
+                              <img *ngIf="$ownedItems[item.id]" class="action actionIcon actionImg" [ngClass]="{'enhanced':$ownedItems.enhancements && $ownedItems.enhancements[item.id]}" src="{{environment.baseUrl}}img/icons/dwarf.png" clickPropagationStop (click)="openItemEnhancement(item)"  matTooltip="'Show the item enhancement menu'">
+                              <img *ngIf="$ownedItems[item.id]" class="action actionIcon actionImg" src="{{environment.baseUrl}}img/icons/excludeExpedition.png" matTooltip="'Exclude this item when building for expeditions'">
+                            </div>
+                          </app-item-tile>
+                          <app-counter *ngIf="$ownedItems && $ownedItems[item.id]" [value]="$ownedItems[item.id]"></app-counter>
+                        </mat-card-content>
+                      </mat-card>
+                    </ng-container>
+                  </div>
                 </div>
-              </app-item-tile>
-              <app-counter *ngIf="$ownedItems && $ownedItems[item.id]" [value]="$ownedItems[item.id]"></app-counter>
-            </mat-card-content>
-          </mat-card>
-        </div>
-      </div>
+              </div>
+            </div>
+          </ng-template>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <i class="img img-tab-equipments"></i>
+          </ng-template>
+          <ng-template matTabContent>
+            <form class="filter">
+              <div>
+                <app-filter-selector [values]="itemTypes" [cssType]="'equipment'" [multipleChoice]="false" [filterData]="searchFilter" [filterName]="'equipmentType'"></app-filter-selector>
+                <mat-form-field class="searchField">
+                  <input type="text" matInput [(ngModel)]="searchFilter.searchText" name="searchText" id="searchText" placeholder="Enter search text. Will search in item name and TMR's unit name">
+                </mat-form-field>
+              </div>
+            </form>
+            <div>
+              <mat-paginator *ngIf="$searchResult && ($searchResult.length > 50)" [length]="$searchResult.length" [pageSize]="50" [pageIndex]="currentPageItems" (page)="changePageItems($event.pageIndex)"></mat-paginator>
+              <div class="items">
+                <mat-card *ngFor="let item of $filteredItems" class="itemCard">
+                  <mat-card-content class="item">
+                    <app-item-tile [item]="item" [mode]="ItemMode.CONCISE">
+                      <div *ngIf="$ownedItems" class="actions">
+                        <button mat-button class="iconButton" clickPropagationStop (click)="addItem(item.id)" matTooltip="'Add an instance of this item to your inventory'">
+                          <i class="fas fa-plus-square actionIcon action"></i>
+                        </button>
+                        <button mat-button class="iconButton" clickPropagationStop (click)="removeItem(item.id)" matTooltip="'Remove an instance of this item from your inventory'">
+                          <i class="fas fa-minus-square actionIcon action"></i>
+                        </button>
+                        <img *ngIf="$ownedItems[item.id]" class="action actionIcon actionImg" [ngClass]="{'enhanced':$ownedItems.enhancements && $ownedItems.enhancements[item.id]}" src="{{environment.baseUrl}}img/icons/dwarf.png" clickPropagationStop (click)="openItemEnhancement(item)"  matTooltip="'Show the item enhancement menu'">
+                        <img *ngIf="$ownedItems[item.id]" class="action actionIcon actionImg" src="{{environment.baseUrl}}img/icons/excludeExpedition.png" matTooltip="'Exclude this item when building for expeditions'">
+                      </div>
+                    </app-item-tile>
+                    <app-counter *ngIf="$ownedItems && $ownedItems[item.id]" [value]="$ownedItems[item.id]"></app-counter>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            </div>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
     </mat-sidenav-content>
     <mat-sidenav #sideDrawer position="end" class="enhancementDrawer">
       <h4>Item enhancements</h4>
-      <mat-card class="itemCard">
+      <mat-card class="itemCard" *ngFor="let enhancedItem of $enhancedItems">
         <mat-card-content class="item">
-          <app-item-tile [item]="$selectedItem" [mode]="ItemMode.CONCISE">
-            <app-item-enhancement [item]="$selectedItem"></app-item-enhancement>
+          <app-item-tile [item]="enhancedItem" [mode]="ItemMode.CONCISE">
+            <app-item-enhancement [item]="enhancedItem" (enhancementChanged)="enhancementsChanged()"></app-item-enhancement>
           </app-item-tile>
         </mat-card-content>
       </mat-card>

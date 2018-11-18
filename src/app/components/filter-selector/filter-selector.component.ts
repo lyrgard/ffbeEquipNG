@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {SearchFilter} from "../../pages/encyclopedia/search-filter";
+import {EncyclopediaSearchFilter} from "../../pages/encyclopedia/encyclopedia-search-filter";
 
 @Component({
   selector: 'app-filter-selector',
@@ -20,7 +20,7 @@ export class FilterSelectorComponent implements OnInit {
   @Input() values:string[];
   @Input() cssType:string;
   @Input() multipleChoice:boolean = true;
-  @Input() filterData:SearchFilter;
+  @Input() filterData:EncyclopediaSearchFilter;
   @Input() filterName:string;
   @Input() valuesWithIcons:{icon:string, value:string, tooltip:string}[];
   @Input() tooltipProvider:(string) => string = (value) => "";

@@ -31,13 +31,13 @@
             <div class="menuLogo" onclick="window.location.href='/' + (server == 'GL' ? '' : '?server=' + server)" title="Return to homepage"></div>
             <nav mat-tab-nav-bar>
               <a mat-tab-link [routerLink]="['/', $language, 'home']" [active]="$page == Pages.HOME">Home</a>
-              <a mat-tab-link [routerLink]="['/', $language, 'builder']" [active]="$page == Pages.BUILDER">Builder</a>
+              <a mat-tab-link [routerLink]="['/', $language, 'builder']" [active]="$page == Pages.BUILDER" [disabled]="true">Builder</a>
               <a mat-tab-link [routerLink]="['/', $language, 'encyclopedia']" [active]="$page == Pages.ENCYCLOPEDIA">Encyclopedia</a>
-              <a mat-tab-link [routerLink]="['/', $language, 'unitSearch']" [active]="$page == Pages.UNIT_SEARCH">Unit search</a>
+              <a mat-tab-link [routerLink]="['/', $language, 'unitSearch']" [active]="$page == Pages.UNIT_SEARCH" [disabled]="true">Unit search</a>
               <a mat-tab-link [routerLink]="['/', $language, 'itemInventory']" [active]="$page == Pages.ITEM_INVENTORY">Item inventory</a>
-              <a mat-tab-link [routerLink]="['/', $language, 'unitCollection']" [active]="$page == Pages.UNIT_COLLECTION">My units</a>
-              <a mat-tab-link [routerLink]="['/', $language, 'espers']" [active]="$page == Pages.ESPERS">My espers</a>
-              <a mat-tab-link href="builder.html">Contribute</a>
+              <a mat-tab-link [routerLink]="['/', $language, 'unitCollection']" [active]="$page == Pages.UNIT_COLLECTION" [disabled]="true">My units</a>
+              <a mat-tab-link [routerLink]="['/', $language, 'espers']" [active]="$page == Pages.ESPERS" [disabled]="true">My espers</a>
+              <a mat-tab-link href="builder.html"  [disabled]="true"  >Contribute</a>
             </nav>
         </div>
         <div class="mobile">

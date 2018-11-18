@@ -3,7 +3,7 @@ import {debounceTime} from "rxjs/internal/operators";
 import {constants} from "../../model/constants";
 import {Item} from "../../model/item";
 
-export class SearchFilter {
+export class EncyclopediaSearchFilter {
 
   onChange:Observable<void>;
 
@@ -193,7 +193,7 @@ export class SearchFilter {
     var result = true;
     let self = this;
     text.split(" ").forEach(function (token) {
-      result = result && item.searchText.match(new RegExp(self.escapeRegExp(token),'i'));
+      result = result && item.fullSearchText.match(new RegExp(self.escapeRegExp(token),'i'));
     });
     return result;
   }
