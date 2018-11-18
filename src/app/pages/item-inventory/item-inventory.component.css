@@ -71,7 +71,7 @@
   min-height: 600px;
 }
 
-.itemCard .actions .action.enhanced {
+.itemCard .actions .action.selected {
   visibility: visible;
   filter: none;
   background-color: #ff6e40;

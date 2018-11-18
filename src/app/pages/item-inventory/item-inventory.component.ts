@@ -47,7 +47,7 @@ export class ItemInventoryComponent implements OnInit {
       this.$itemHistory = itemHistory;
       this.changePageHistory(0);
     });
-    this.staticDataService.getItems().subscribe(items => {
+    this.staticDataService.getItemsWithoutDuplicates().subscribe(items => {
       this.$items = items;
       this.searchFilter.onChange.subscribe(() => {
         this.$searchResult = this.$items.filter(item => this.searchFilter.isSelected(item)).sort(this.getSort(this.searchFilter.equipmentType));
@@ -152,6 +152,10 @@ export class ItemInventoryComponent implements OnInit {
   openItemEnhancement(item: Item) {
     this.userDataService.getEnhancedVersions(item).subscribe(items => this.$enhancedItems = items);
     this.sideDrawer.open();
+  }
+
+  toggleExcludeFromExpeditions(item: Item) {
+    this.userDataService.toggleExcludeFromExpedition(item.id);
   }
 
   enhancementsChanged() {

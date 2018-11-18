@@ -90,8 +90,8 @@ export class UserDataService {
       if (itemInventory[item.id]) {
         let result = [];
         let number = itemInventory[item.id];
-        if (itemInventory.enhancements && itemInventory.enhancements[item.id]) {
-          itemInventory.enhancements[item.id].forEach(enhancements => {
+        if (itemInventory.enchantments && itemInventory.enchantments[item.id]) {
+          itemInventory.enchantments[item.id].forEach(enhancements => {
             result.push(new EnhancedItem(item, enhancements));
             number--;
           })
@@ -107,19 +107,34 @@ export class UserDataService {
   }
 
   saveEnhancements(enhancedItems: EnhancedItem[]) {
-    if (enhancedItems && enhancedItems.length > 1) {
+    if (enhancedItems && enhancedItems.length > 0) {
       let itemId = enhancedItems[0].id;
       this.itemInventory.subscribe(itemInventory => {
-        if (!itemInventory.enhancements) {
-          itemInventory.enhancements = {};
+        if (!itemInventory.enchantments) {
+          itemInventory.enchantments = {};
         }
         if (enhancedItems.some(e => e.enhancements.length > 0)) {
-          itemInventory.enhancements[itemId] = enhancedItems.filter(e => e.enhancements.length > 0).map(e => e.enhancements);
+          itemInventory.enchantments[itemId] = enhancedItems.filter(e => e.enhancements.length > 0).map(e => e.enhancements);
         } else {
-          delete itemInventory.enhancements[itemId];
+          delete itemInventory.enchantments[itemId];
         }
         this.itemInventoryChange.next();
       });
     }
+  }
+
+  toggleExcludeFromExpedition(id: string) {
+    this.itemInventory.subscribe(itemInventory => {
+      if (itemInventory.excludeFromExpeditions && itemInventory.excludeFromExpeditions.includes(id)) {
+        itemInventory.excludeFromExpeditions.splice(itemInventory.excludeFromExpeditions.indexOf(id), 1);
+        this.itemInventoryChange.next();
+      } else {
+        if (!itemInventory.excludeFromExpeditions) {
+          itemInventory.excludeFromExpeditions = [];
+        }
+        itemInventory.excludeFromExpeditions.push(id);
+        this.itemInventoryChange.next();
+      }
+    });
   }
 }

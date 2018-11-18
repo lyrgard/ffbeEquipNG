@@ -17,6 +17,7 @@ export class StaticDataService {
 
   private $version:AsyncSubject<number>
   private $items:AsyncSubject<Item[]>;
+  private $itemsWithoutDuplicates:AsyncSubject<Item[]>;
   private $units:AsyncSubject<any>;
   private $itemHistory:AsyncSubject<ItemReleaseDay[]>;
 
@@ -46,6 +47,31 @@ export class StaticDataService {
       });
     }
     return this.$items;
+  }
+
+  getItemsWithoutDuplicates():AsyncSubject<Item[]> {
+    if (!this.$itemsWithoutDuplicates) {
+      this.$itemsWithoutDuplicates = new AsyncSubject<Item[]>();
+      this.getItems().subscribe(items => {
+        let idsAlreadyAdded: Map<string, Item> = new Map<string, Item>();
+        items.forEach(item => {
+          if (idsAlreadyAdded.get(item.id)) {
+            let previousItem = idsAlreadyAdded.get(item.id);
+            let conditionNumber1 = previousItem.equipedConditions.length;
+            let conditionNumber2 = item.equipedConditions.length;
+            if (conditionNumber2 > conditionNumber1) {
+              idsAlreadyAdded.set(item.id, item);
+            }
+          } else {
+            idsAlreadyAdded.set(item.id, item);
+          }
+        });
+        this.$itemsWithoutDuplicates.next(Array.from(idsAlreadyAdded.values()));
+        this.$itemsWithoutDuplicates.complete();
+      });
+    }
+
+    return this.$itemsWithoutDuplicates;
   }
 
   getItemHistory():AsyncSubject<ItemReleaseDay[]> {
