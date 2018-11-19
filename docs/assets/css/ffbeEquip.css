@@ -1,0 +1,68 @@
+body {
+  line-height: 1;
+}
+
+@-webkit-keyframes rotating {
+  from{
+    -webkit-transform: rotate(0deg);
+  }
+  to{
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.rotating {
+  -webkit-animation: rotating 2s linear infinite;
+}
+
+
+i.img {
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  vertical-align: middle;
+}
+
+i.img.miniIcon {
+  border-radius: 5px;
+  height: 24px;
+  width: 24px;
+}
+
+
+.tooltip-inner {
+  white-space: nowrap;
+  max-width: none !important;
+}
+
+
+body.dark {
+  background-color: #202020;
+}
+
+.iconButton {
+  padding: 0 !important;
+  min-width: 0 !important;
+  line-height: 34px !important;
+}
+
+.dark .mat-paginator {
+  background: none !important;
+}
+
+.dark .mat-drawer-container {
+  background: none !important;
+}
+
+.dark .mat-sidenav {
+  background-color: #303030 !important;
+}
+
+.textListItem:not(:last-child):after {
+  content: ', ';
+}
+
+.enhancement {
+  color: #ff6e40;
+}

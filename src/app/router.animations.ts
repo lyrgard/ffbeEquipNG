@@ -1,7 +1,15 @@
 import {trigger, animate, style, group, animateChild, query, stagger, transition} from '@angular/animations';
 
+export function leftToRightTransition(fromState, toState) {
+  return fromState < toState;
+}
+
+export function rightToLeftTransition(fromState, toState) {
+  return fromState > toState;
+}
+
 export const routerTransition = trigger('routerTransition', [
-  transition((fromState, toState) => fromState < toState, [
+  transition(leftToRightTransition, [
     /* order */
     /* 1 */ query(':enter, :leave', style({ position: 'fixed', width:'100%' })
       , { optional: true }),
@@ -16,7 +24,7 @@ export const routerTransition = trigger('routerTransition', [
       ], { optional: true }),
     ])
   ]),
-  transition((fromState, toState) => fromState > toState, [
+  transition(rightToLeftTransition, [
     /* order */
     /* 1 */ query(':enter, :leave', style({ position: 'fixed', width:'100%' })
       , { optional: true }),
