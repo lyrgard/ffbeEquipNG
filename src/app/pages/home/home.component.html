@@ -47,7 +47,7 @@
 <div #moreInformation  class="more_information">
   <div class="col-sm-6">
     <mat-card>
-      <mat-card-title id="panel-github"><img src='../../../assets/img/external/github.svg' class='externalLogo' alt='' />Latest changes</mat-card-title>
+      <mat-card-title id="panel-github"><img src='assets/img/external/github.svg' class='externalLogo' alt='' />Latest changes</mat-card-title>
       <mat-card-content>
         <div class="content"><app-git-commit *ngFor="let commitData of $gitCommits" [commitData]="commitData"></app-git-commit></div>
         <div class="footer">Want to contribute? <a href="https://github.com/lyrgard/ffbeEquip" target="_blank" rel="noreferrer">Fork the repo and submit a PR!</a></div>
@@ -56,7 +56,7 @@
   </div>
   <div class="col-sm-6">
     <mat-card>
-      <mat-card-title><img src='../../../assets/img/external/discord.svg' class='externalLogo' alt='' />From our Discord server</mat-card-title>
+      <mat-card-title><img src='assets/img/external/discord.svg' class='externalLogo' alt='' />From our Discord server</mat-card-title>
       <mat-card-content>
         <div class="content"><app-discord-users></app-discord-users></div>
         <div class="footer">Want to join the fun? <a href="https://discord.gg/rgXnjhP" target="_blank" rel="noreferrer">Come to our server!</a></div>
