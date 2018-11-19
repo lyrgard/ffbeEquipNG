@@ -26,7 +26,7 @@ export class UserDataService {
 
     let result:AsyncSubject<boolean> = new AsyncSubject<boolean>();
     this.context.server.subscribe(server => {
-      this.http.get<any>(`${environment.baseUrl}/${server}/userData`).subscribe(
+      this.http.get<any>(`${environment.baseUrl}${server}/userData`).subscribe(
         data => {
           this.units.next(data["units"]);
           this.units.complete();
@@ -46,7 +46,7 @@ export class UserDataService {
         });
       this.itemInventoryChange.pipe(debounceTime(3000)).subscribe(() => {
         this.itemInventory.subscribe(itemInventory => {
-          this.http.put(`${environment.baseUrl}/${server}/itemInventory`, itemInventory).subscribe(
+          this.http.put(`${environment.baseUrl}${server}/itemInventory`, itemInventory).subscribe(
             () => {this.snackBar.open("Item inventory saved", "OK", {duration:2000})},
             () => {this.snackBar.open("Error : Item inventory not saved", "KO", {duration:3000})}
           );

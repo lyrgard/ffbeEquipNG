@@ -36,7 +36,7 @@ export class StaticDataService {
 
           } else {
             this.context.server.subscribe(server => {
-              this.http.get<any[]>(`${environment.baseUrl}/${server}/${filename}`).subscribe(items => {
+              this.http.get<any[]>(`${environment.baseUrl}${server}/${filename}`).subscribe(items => {
                 this.localStorage.setFile(filename, items);
                 this.$items.next(items.map(i => new BaseItem(i, units)));
                 this.$items.complete();
@@ -83,7 +83,7 @@ export class StaticDataService {
           this.populateItemHistory(storedData);
         } else {
           this.context.server.subscribe(server => {
-            this.http.get(`${environment.baseUrl}/${server}/${filename}`).subscribe(latestReleasedItems => {
+            this.http.get(`${environment.baseUrl}${server}/${filename}`).subscribe(latestReleasedItems => {
               this.localStorage.setFile(filename, latestReleasedItems);
               this.populateItemHistory(latestReleasedItems);
             })
@@ -167,7 +167,7 @@ export class StaticDataService {
           this.$units.complete();
         } else {
           this.context.server.subscribe(server => {
-            this.http.get(`${environment.baseUrl}/${server}/${filename}`).subscribe(units => {
+            this.http.get(`${environment.baseUrl}${server}/${filename}`).subscribe(units => {
               this.localStorage.setFile(filename, units);
               this.$units.next(units);
               this.$units.complete();
