@@ -29,6 +29,7 @@ export class ItemInventoryComponent implements OnInit {
   ItemMode = Mode;
   environment = environment;
   itemTypes = constants.EQUIPMENT_TYPE_LIST;
+  weaponTypes = constants.WEAPON_TYPES;
   searchFilter:ItemInventorySearchFilter;
   currentPageItems:number = 0;
   currentPageHistory:number = 0;

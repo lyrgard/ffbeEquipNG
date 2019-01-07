@@ -9,7 +9,7 @@
           <button mat-button class="iconButton" clickPropagationStop (click)="removeItem(item.id)" matTooltip="Remove an instance of this item from your inventory">
             <i class="fas fa-minus-square actionIcon action"></i>
           </button>
-          <img *ngIf="$ownedItems[item.id]" class="action actionIcon actionImg" [ngClass]="{'selected':$ownedItems.enchantments && $ownedItems.enchantments[item.id]}" src="{{environment.baseUrl}}img/icons/dwarf.png" (click)="openItemEnhancement(item)"  matTooltip="Show the item enhancement menu">
+          <img *ngIf="$ownedItems[item.id] && weaponTypes.includes(item.type)" class="action actionIcon actionImg" [ngClass]="{'selected':$ownedItems.enchantments && $ownedItems.enchantments[item.id]}" src="{{environment.baseUrl}}img/icons/dwarf.png" (click)="openItemEnhancement(item)"  matTooltip="Show the item enhancement menu">
           <img *ngIf="$ownedItems[item.id]" class="action actionIcon actionImg" [ngClass]="{'selected':$ownedItems.excludeFromExpeditions && $ownedItems.excludeFromExpeditions.includes(item.id)}" src="{{environment.baseUrl}}img/icons/excludeExpedition.png" (click)="toggleExcludeFromExpeditions(item)" matTooltip="Exclude this item when building for expeditions">
         </div>
       </app-item-tile>

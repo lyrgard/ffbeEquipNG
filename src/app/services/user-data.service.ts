@@ -46,7 +46,7 @@ export class UserDataService {
         });
       this.itemInventoryChange.pipe(debounceTime(3000)).subscribe(() => {
         this.itemInventory.subscribe(itemInventory => {
-          this.http.put(`${environment.baseUrl}/${server}/itemInventory`, itemInventory).subscribe(
+          this.http.put(`${environment.baseUrl}${server}/itemInventory`, itemInventory).subscribe(
             () => {this.snackBar.open("Item inventory saved", "OK", {duration:2000})},
             () => {this.snackBar.open("Error : Item inventory not saved", "KO", {duration:3000})}
           );
