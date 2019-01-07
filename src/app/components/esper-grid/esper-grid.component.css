@@ -1,0 +1,48 @@
+ul {
+  overflow: hidden;
+}
+
+.gridContainer {
+  height: 1000px;
+  position: relative;
+  transform-origin: 50% 50%;
+  width: 1000px;
+}
+
+.notUsed {
+  visibility: hidden;
+}
+
+.grid > li {
+  float: left;
+  list-style-type: none;
+  padding: 0 0 10.722533817%;
+  position: relative;
+  transform: rotate(-60deg) skewY(30deg);
+  width: 9.285714286%;
+  overflow: hidden;
+}
+
+.grid li:nth-child(9n+2), .grid li:nth-child(9n+4), .grid li:nth-child(9n+6), .grid li:nth-child(9n+8) {
+  margin: 0 1%;
+}
+
+.grid li:nth-child(18n+10), .grid li:nth-child(18n+11), .grid li:nth-child(18n+12),
+.grid li:nth-child(18n+13), .grid li:nth-child(18n+14), .grid li:nth-child(18n+15),
+.grid li:nth-child(18n+16), .grid li:nth-child(18n+17), .grid li:nth-child(18n+18) {
+  margin-top: -2%;
+  margin-bottom: -2%;
+  -o-transform: translateX(50%) rotate(-60deg) skewY(30deg);
+  -moz-transform: translateX(50%) rotate(-60deg) skewY(30deg);
+  -webkit-transform: translateX(50%) rotate(-60deg) skewY(30deg);
+  -ms-transform: translateX(50%) rotate(-60deg) skewY(30deg);
+  transform: translateX(50%) rotate(-60deg) skewY(30deg);
+}
+
+.grid li:nth-child(18n+10) {
+  margin-left: 0.5%;
+}
+
+.grid.lvl1 .lvl2, .grid.lvl1 .lvl3, .grid.lvl2 .lvl3 {
+  visibility: hidden;
+}

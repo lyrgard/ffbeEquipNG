@@ -49,7 +49,7 @@ export class ItemTileComponent implements OnInit, OnChanges {
   onItemchange() {
     if (this.item) {
       if (this.item.icon) {
-        this.itemIcon = `${environment.baseUrl}/img/items/${this.item.icon}`;
+        this.itemIcon = `${environment.baseUrl}img/items/${this.item.icon}`;
       } else if (this.item.type == "esper") {
         // no lazyload for espers (uses CSS background)
         this.itemIconClass = `img-esper-${common.escapeName(this.item.name)}`;

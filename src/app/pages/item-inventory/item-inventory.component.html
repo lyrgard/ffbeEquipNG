@@ -1,5 +1,5 @@
 <ng-template let-item="item" #itemCard>
-  <mat-card class="itemCard" [ngClass]="{'notOwned':!$ownedItems[item.id]}">
+  <mat-card class="itemCard" [ngClass]="{'notOwned':$ownedItems && !$ownedItems[item.id]}">
     <mat-card-content class="item">
       <app-item-tile [item]="item" [mode]="ItemMode.CONCISE">
         <div *ngIf="$ownedItems" class="actions">

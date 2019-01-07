@@ -26,11 +26,11 @@ export class UserDataService {
 
     let result:AsyncSubject<boolean> = new AsyncSubject<boolean>();
     this.context.server.subscribe(server => {
-      this.http.get<any>(`${environment.baseUrl}${server}/userData`).subscribe(
+      this.http.get<any>(`${environment.backendUrl}${server}/userData`).subscribe(
         data => {
           this.units.next(data["units"]);
           this.units.complete();
-          this.itemInventory.next(data["itemInventory"]);
+          this.itemInventory.next(this.updateItemInventory(data["itemInventory"]));
           this.itemInventory.complete();
           this.espers.next(data["espers"]);
           this.espers.complete();
@@ -46,7 +46,7 @@ export class UserDataService {
         });
       this.itemInventoryChange.pipe(debounceTime(3000)).subscribe(() => {
         this.itemInventory.subscribe(itemInventory => {
-          this.http.put(`${environment.baseUrl}${server}/itemInventory`, itemInventory).subscribe(
+          this.http.put(`${environment.backendUrl}${server}/itemInventory`, itemInventory).subscribe(
             () => {this.snackBar.open("Item inventory saved", "OK", {duration:2000})},
             () => {this.snackBar.open("Error : Item inventory not saved", "KO", {duration:3000})}
           );
@@ -136,5 +136,22 @@ export class UserDataService {
         this.itemInventoryChange.next();
       }
     });
+  }
+
+  updateItemInventory(itemInventory:any):any {
+    if (itemInventory.enchantments) {
+      Object.keys(itemInventory.enchantments).forEach(id => {
+        if (itemInventory.enchantments[id]) {
+          itemInventory.enchantments[id].forEach(enchantments => {
+            enchantments.forEach((e, index) => {
+              if (e == 'rare') {
+                enchantments[index] = 'rare_3';
+              }
+            });
+          });
+        }
+      });
+    }
+    return itemInventory;
   }
 }

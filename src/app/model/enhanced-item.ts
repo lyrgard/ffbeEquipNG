@@ -1,7 +1,8 @@
 import {Item} from "./item";
-import {BaseItem, BaseValue, MinMax, SingleWielding, ValuesByStat} from "./base-item";
+import {BaseItem, BaseValue, MinMax, SingleWielding} from "./base-item";
 import {itemWorldConstants} from "./item-world-constants";
 import {constants} from "./constants";
+import {StatValues} from "./stat-values";
 
 export class EnhancedBaseValue extends BaseValue {
   enhancement:number = 0;
@@ -93,7 +94,7 @@ export class EnhancedItem implements Item {
   get magicalEvade():number { return this.baseItem.magicalEvade }
   get singleWieldingOneHanded():SingleWielding { return this.baseItem.singleWieldingOneHanded }
   get singleWielding():SingleWielding { return this.baseItem.singleWielding }
-  get dualWielding():ValuesByStat { return this.baseItem.dualWielding }
+  get dualWielding():StatValues { return this.baseItem.dualWielding }
   get accuracy():number { return this.baseItem.accuracy }
   get damageVariance():MinMax { return this.baseItem.damageVariance }
   get jumpDamage():number { return this.baseItem.jumpDamage }
@@ -107,7 +108,7 @@ export class EnhancedItem implements Item {
   get physicalKillers():Map<string, number> { return this.baseItem.physicalKillers }
   get magicalKillers():Map<string, number> { return this.baseItem.magicalKillers }
   get mpRefresh():number { return this.baseItem.mpRefresh }
-  get esperStatsBonus():ValuesByStat { return this.baseItem.esperStatsBonus }
+  get esperStatsBonus():StatValues { return this.baseItem.esperStatsBonus }
   get lbDamage():number { return this.baseItem.lbDamage }
   get skillEnhancement():Map<string, number> { return this.baseItem.skillEnhancement }
   get special(): string[] { return this.baseItem.special }

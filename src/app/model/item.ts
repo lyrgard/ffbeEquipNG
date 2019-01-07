@@ -1,5 +1,6 @@
 import {constants} from "./constants";
-import {BaseValue, MinMax, SingleWielding, ValuesByStat} from "./base-item";
+import {BaseValue, MinMax, SingleWielding} from "./base-item";
+import {StatValues} from "./stat-values";
 
 export interface Item {
   readonly id:string;
@@ -18,7 +19,7 @@ export interface Item {
   readonly magicalEvade:number;
   readonly singleWieldingOneHanded:SingleWielding;
   readonly singleWielding:SingleWielding;
-  readonly dualWielding:ValuesByStat;
+  readonly dualWielding:StatValues;
   readonly accuracy:number;
   readonly damageVariance:MinMax;
   readonly jumpDamage:number;
@@ -32,7 +33,7 @@ export interface Item {
   readonly physicalKillers:Map<string, number>;
   readonly magicalKillers:Map<string, number>;
   readonly mpRefresh:number;
-  readonly esperStatsBonus:ValuesByStat;
+  readonly esperStatsBonus:StatValues;
   readonly lbDamage:number;
   readonly skillEnhancement:Map<string, number>;
   readonly special: string[];

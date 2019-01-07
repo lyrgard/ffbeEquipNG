@@ -35,7 +35,7 @@ export class LocalStorageService {
         context.server,
         context.language
       ).subscribe(([server, language]) => {
-        this.http.get<any>(`${environment.baseUrl}${server}/dataVersion.json`).subscribe(({dataVersion}) => {
+        this.http.get<any>(`${environment.backendUrl}${server}/dataVersion.json`).subscribe(({dataVersion}) => {
           this.version = dataVersion;
           this.language = language;
           this.server = server;

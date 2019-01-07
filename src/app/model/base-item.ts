@@ -1,30 +1,8 @@
 import {constants} from "./constants";
 import {Item} from "./item";
+import {StatValues} from "./stat-values";
 
-export class ValuesByStat {
-  hp:number = 0;
-  mp:number = 0;
-  atk:number = 0;
-  def:number = 0;
-  mag:number = 0;
-  spr:number = 0;
-
-  static fromJson(valueByStat):ValuesByStat {
-    let result: ValuesByStat;
-    if (valueByStat) {
-      result = new ValuesByStat();
-      result.hp = valueByStat.hp || 0;
-      result.mp = valueByStat.mp || 0;
-      result.atk = valueByStat.atk || 0;
-      result.def = valueByStat.def || 0;
-      result.mag = valueByStat.mag || 0;
-      result.spr = valueByStat.spr || 0;
-    }
-    return result;
-  }
-}
-
-export class SingleWielding extends ValuesByStat {
+export class SingleWielding extends StatValues {
   public static STATS = constants.BASE_STATS.concat(["accuracy"]);
   accuracy:number = 0;
 
@@ -94,7 +72,7 @@ export class BaseItem implements Item {
   magicalEvade:number;
   singleWieldingOneHanded:SingleWielding;
   singleWielding:SingleWielding;
-  dualWielding:ValuesByStat;
+  dualWielding:StatValues;
   accuracy:number;
   damageVariance:MinMax;
   jumpDamage:number;
@@ -108,7 +86,7 @@ export class BaseItem implements Item {
   physicalKillers:Map<string, number> = new Map<string, number>();
   magicalKillers:Map<string, number> = new Map<string, number>();
   mpRefresh:number;
-  esperStatsBonus:ValuesByStat;
+  esperStatsBonus:StatValues;
   lbDamage:number;
   skillEnhancement:Map<string, number> = new Map<string, number>();
   special: string[];
@@ -152,7 +130,7 @@ export class BaseItem implements Item {
       }
       this.singleWieldingOneHanded = SingleWielding.fromJson(json.singleWieldingOneHanded);
       this.singleWielding = SingleWielding.fromJson(json.singleWielding);
-      this.dualWielding = ValuesByStat.fromJson(json.dualWielding);
+      this.dualWielding = StatValues.fromJson(json.dualWielding);
       this.accuracy = json.accuracy || 0;
       this.damageVariance = MinMax.fromJson(json.damageVariance);
       this.jumpDamage = json.jumpDamage || 0;
@@ -183,7 +161,7 @@ export class BaseItem implements Item {
         })
       }
       this.mpRefresh = json.mpRefresh || 0;
-      this.esperStatsBonus = ValuesByStat.fromJson(json.esperStatsBonus);
+      this.esperStatsBonus = StatValues.fromJson(json.esperStatsBonus);
       this.lbDamage = json.lbDamage;
       if (json.skillEnhancement) {
         Object.keys(json.skillEnhancement).forEach(skillId => this.skillEnhancement.set(skillId, json.skillEnhancement[skillId]));

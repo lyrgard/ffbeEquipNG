@@ -45,6 +45,10 @@ import { IconButtonComponent } from './components/icon-button/icon-button.compon
 import { ClickPropagationStopDirective } from './directives/click-propagation-stop.directive';
 import { CounterComponent } from './components/counter/counter.component';
 import { ItemEnhancementComponent } from './components/item-enhancement/item-enhancement.component';
+import { EsperGridComponent } from './components/esper-grid/esper-grid.component';
+import { EsperNodeComponent } from './components/esper-node/esper-node.component';
+import { EsperScreenComponent } from './components/esper-screen/esper-screen.component';
+import { UnitTileComponent } from './components/unit-tile/unit-tile.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +73,10 @@ import { ItemEnhancementComponent } from './components/item-enhancement/item-enh
     ClickPropagationStopDirective,
     CounterComponent,
     ItemEnhancementComponent,
+    EsperGridComponent,
+    EsperNodeComponent,
+    EsperScreenComponent,
+    UnitTileComponent,
   ],
   imports: [
     BrowserModule,
