@@ -1,12 +1,12 @@
 <ng-template let-item="item" #itemCard>
-  <mat-card class="itemCard">
+  <mat-card class="itemCard" [ngClass]="{'notOwned':!$ownedItems[item.id]}">
     <mat-card-content class="item">
       <app-item-tile [item]="item" [mode]="ItemMode.CONCISE">
         <div *ngIf="$ownedItems" class="actions">
-          <button mat-button class="iconButton" clickPropagationStop (click)="addItem(item.id)" matTooltip="'Add an instance of this item to your inventory'">
+          <button mat-button class="iconButton" clickPropagationStop (click)="addItem(item.id)" matTooltip="Add an instance of this item to your inventory">
             <i class="fas fa-plus-square actionIcon action"></i>
           </button>
-          <button mat-button class="iconButton" clickPropagationStop (click)="removeItem(item.id)" matTooltip="'Remove an instance of this item from your inventory'">
+          <button mat-button class="iconButton" clickPropagationStop (click)="removeItem(item.id)" matTooltip="Remove an instance of this item from your inventory">
             <i class="fas fa-minus-square actionIcon action"></i>
           </button>
           <img *ngIf="$ownedItems[item.id]" class="action actionIcon actionImg" [ngClass]="{'selected':$ownedItems.enchantments && $ownedItems.enchantments[item.id]}" src="{{environment.baseUrl}}img/icons/dwarf.png" (click)="openItemEnhancement(item)"  matTooltip="Show the item enhancement menu">
@@ -29,11 +29,11 @@
           <ng-template matTabContent>
             <div class="itemHistory">
               <mat-paginator *ngIf="$itemHistory" [length]="$itemHistory.length" [pageSize]="5" [pageIndex]="currentPageHistory" (page)="changePageHistory($event.pageIndex)"></mat-paginator>
-              <div *ngFor="let day of $filteredHistory" class="dayBlock">
+              <div *ngFor="let day of $filteredHistory" class="historyDay">
                 <div class="day">{{day.name}}</div>
                 <div *ngFor="let event of day.events">
-                  <div class="event">{{event.name}}</div>
-                  <div class="items">
+                  <div class="eventName">{{event.name}}</div>
+                  <div class="items entries">
                     <ng-container *ngFor="let item of event.items">
                       <ng-container *ngTemplateOutlet="itemCard; context: {item:item}"></ng-container>
                     </ng-container>

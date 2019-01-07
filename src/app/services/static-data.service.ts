@@ -9,6 +9,8 @@ import {Item} from "../model/item";
 import {BaseItem} from "../model/base-item";
 import {ItemReleaseDay} from "../model/item-release-day";
 import {ItemReleaseEvent} from "../model/item-release-event";
+import {UnitReleaseDay} from "../model/unit-release-day";
+import {UnitBanner} from "../model/unit-banner";
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +22,7 @@ export class StaticDataService {
   private $itemsWithoutDuplicates:AsyncSubject<Item[]>;
   private $units:AsyncSubject<any>;
   private $itemHistory:AsyncSubject<ItemReleaseDay[]>;
+  private $unitHistory:AsyncSubject<UnitReleaseDay[]>;
 
   constructor(private localStorage:LocalStorageService, private http:HttpClient, private context:ContextService) {
   }
@@ -36,7 +39,7 @@ export class StaticDataService {
 
           } else {
             this.context.server.subscribe(server => {
-              this.http.get<any[]>(`${environment.baseUrl}/${server}/${filename}`).subscribe(items => {
+              this.http.get<any[]>(`${environment.baseUrl}${server}/${filename}`).subscribe(items => {
                 this.localStorage.setFile(filename, items);
                 this.$items.next(items.map(i => new BaseItem(i, units)));
                 this.$items.complete();
@@ -83,7 +86,7 @@ export class StaticDataService {
           this.populateItemHistory(storedData);
         } else {
           this.context.server.subscribe(server => {
-            this.http.get(`${environment.baseUrl}/${server}/${filename}`).subscribe(latestReleasedItems => {
+            this.http.get(`${environment.baseUrl}${server}/${filename}`).subscribe(latestReleasedItems => {
               this.localStorage.setFile(filename, latestReleasedItems);
               this.populateItemHistory(latestReleasedItems);
             })
@@ -92,6 +95,26 @@ export class StaticDataService {
       });
     }
     return this.$itemHistory;
+  }
+
+  getUnitHistory():AsyncSubject<UnitReleaseDay[]> {
+    if (!this.$unitHistory) {
+      this.$unitHistory = new AsyncSubject<UnitReleaseDay[]>();
+      this.getFilename("lastItemReleases", false).subscribe(filename => {
+        let storedData = this.localStorage.getFile(filename);
+        if (storedData) {
+          this.populateUnitHistory(storedData);
+        } else {
+          this.context.server.subscribe(server => {
+            this.http.get(`${environment.baseUrl}${server}/${filename}`).subscribe(latestReleasedItems => {
+              this.localStorage.setFile(filename, latestReleasedItems);
+              this.populateUnitHistory(latestReleasedItems);
+            })
+          });
+        }
+      });
+    }
+    return this.$unitHistory;
   }
 
   private populateItemHistory(latestReleasedItems:any) {
@@ -156,6 +179,29 @@ export class StaticDataService {
     });
   }
 
+  private populateUnitHistory(latestReleasedItems:any) {
+    this.getUnits().subscribe(units => {
+
+      let unitHistory: UnitReleaseDay[] = [];
+
+      latestReleasedItems.forEach(day => {
+        let unitBanners: UnitBanner[] = [];
+        day.sources.forEach(source => {
+          if (source.type == "banner") {
+            let name:string = source.units.map(unitId => units[unitId].name).join(', ');
+            let bannerUnits:any[] = source.units.map(unitId => units[unitId]);
+            unitBanners.push(new UnitBanner(name, bannerUnits));
+          }
+        });
+        if (unitBanners.length > 0) {
+          unitHistory.push(new UnitReleaseDay(day.date, unitBanners));
+        }
+      });
+      this.$unitHistory.next(unitHistory);
+      this.$unitHistory.complete();
+    });
+  }
+
 
   getUnits():AsyncSubject<any> {
     if (!this.$units) {
@@ -167,7 +213,7 @@ export class StaticDataService {
           this.$units.complete();
         } else {
           this.context.server.subscribe(server => {
-            this.http.get(`${environment.baseUrl}/${server}/${filename}`).subscribe(units => {
+            this.http.get(`${environment.baseUrl}${server}/${filename}`).subscribe(units => {
               this.localStorage.setFile(filename, units);
               this.$units.next(units);
               this.$units.complete();

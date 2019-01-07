@@ -52,7 +52,7 @@ export class LoginService {
   }
 
   login() {
-    this.http.get<GoogleOAuthUrlResponse>(`${environment.baseUrl}/googleOAuthUrl`).subscribe(({url}) => {
+    this.http.get<GoogleOAuthUrlResponse>(`${environment.baseUrl}googleOAuthUrl`).subscribe(({url}) => {
       this.document.location.href = url + "&state=" + encodeURIComponent(document.location.href.replace(".lyrgard.fr",".com"));
     });
   }

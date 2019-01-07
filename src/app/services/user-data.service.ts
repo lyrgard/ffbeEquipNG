@@ -26,7 +26,7 @@ export class UserDataService {
 
     let result:AsyncSubject<boolean> = new AsyncSubject<boolean>();
     this.context.server.subscribe(server => {
-      this.http.get<any>(`${environment.baseUrl}/${server}/userData`).subscribe(
+      this.http.get<any>(`${environment.baseUrl}${server}/userData`).subscribe(
         data => {
           this.units.next(data["units"]);
           this.units.complete();

@@ -34,9 +34,9 @@
               <a mat-tab-link [routerLink]="['/', $language, 'builder']" [active]="$page == Pages.BUILDER" [disabled]="true">Builder</a>
               <a mat-tab-link [routerLink]="['/', $language, 'encyclopedia']" [active]="$page == Pages.ENCYCLOPEDIA">Encyclopedia</a>
               <a mat-tab-link [routerLink]="['/', $language, 'unitSearch']" [active]="$page == Pages.UNIT_SEARCH" [disabled]="true">Unit search</a>
-              <a mat-tab-link [routerLink]="['/', $language, 'itemInventory']" [active]="$page == Pages.ITEM_INVENTORY">Item inventory</a>
-              <a mat-tab-link [routerLink]="['/', $language, 'unitCollection']" [active]="$page == Pages.UNIT_COLLECTION" [disabled]="true">My units</a>
-              <a mat-tab-link [routerLink]="['/', $language, 'espers']" [active]="$page == Pages.ESPERS" [disabled]="true">My espers</a>
+              <a mat-tab-link [routerLink]="['/', $language, 'itemInventory']" [active]="$page == Pages.ITEM_INVENTORY">Inventory</a>
+              <a mat-tab-link [routerLink]="['/', $language, 'unitCollection']" [active]="$page == Pages.UNIT_COLLECTION">Units</a>
+              <a mat-tab-link [routerLink]="['/', $language, 'espers']" [active]="$page == Pages.ESPERS" [disabled]="true">Espers</a>
               <a mat-tab-link href="builder.html"  [disabled]="true"  >Contribute</a>
             </nav>
         </div>
@@ -67,17 +67,17 @@
                 </li>
                 <li [ngClass]="{active:$page == Pages.ITEM_INVENTORY}">
                     <a href="inventory.html" data-internal-link="inventory.html">
-                        <span class="glyphicon glyphicon-chevron-right"></span> My inventory
+                        <span class="glyphicon glyphicon-chevron-right"></span> Inventory
                     </a>
                 </li>
                 <li [ngClass]="{active:$page == Pages.UNIT_COLLECTION}">
                     <a href="units.html" data-internal-link="units.html">
-                        <span class="glyphicon glyphicon-chevron-right"></span> My units
+                        <span class="glyphicon glyphicon-chevron-right"></span> Units
                     </a>
                 </li>
                 <li [ngClass]="{active:$page == Pages.ESPERS}">
                     <a href="espers.html" data-internal-link="espers.html">
-                        <span class="glyphicon glyphicon-chevron-right"></span> My Espers
+                        <span class="glyphicon glyphicon-chevron-right"></span> Espers
                     </a>
                 </li>
                 <li [ngClass]="{active:$page == Pages.CONTRIBUTE}">

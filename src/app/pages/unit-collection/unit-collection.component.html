@@ -1,3 +1,25 @@
-<p>
-  unit-collection works!
-</p>
+<mat-sidenav-container>
+  <mat-tab-group>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <i class="img img-tab-history"></i>
+      </ng-template>
+      <ng-template matTabContent>
+        <div class="unitHistory">
+          <mat-paginator *ngIf="$unitHistory" [length]="$unitHistory.length" [pageSize]="5" [pageIndex]="currentPageHistory" (page)="changePageHistory($event.pageIndex)"></mat-paginator>
+          <div *ngFor="let day of $filteredHistory" class="historyDay">
+            <div class="day">{{day.name}}</div>
+            <div *ngFor="let banner of day.banners">
+              <div class="eventName">{{banner.name}}</div>
+              <div class="units entries">
+                <ng-container *ngFor="let unit of banner.units">
+                  {{unit.name}}
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</mat-sidenav-container>
