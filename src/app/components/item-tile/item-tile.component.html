@@ -14,32 +14,32 @@
         <i *ngIf="itemTypeIconClass" class='itemType img {{itemTypeIconClass}} miniIcon'></i>
         <span class="stats">
           <ng-container *ngFor="let stat of baseStats">
-            <span *ngIf="item[stat].flat" class="stat list {{stat}}">{{stat | uppercase}}+{{item[stat].flat}}<span class="separator">, </span></span>
-            <span *ngIf="item[stat].percent" class="stat {{stat}}">{{stat | uppercase}}+{{item[stat].percent}}%<span class="separator">, </span></span>
+            <span *ngIf="item.effect[stat].flat" class="stat list {{stat}}">{{stat | uppercase}}+{{item.effect[stat].flat}}<span class="separator">, </span></span>
+            <span *ngIf="item.effect[stat].percent" class="stat {{stat}}">{{stat | uppercase}}+{{item.effect[stat].percent}}%<span class="separator">, </span></span>
           </ng-container>
         </span>
       </div>
-      <div class="statTypeCategory" *ngIf="mode == Mode.DETAILED && (item.elements.length > 0 || item.physicalKillers.size > 0 || item.magicalKillers.size > 0 || item.ailments.size > 0)">
+      <div class="statTypeCategory" *ngIf="mode == Mode.DETAILED && (item.elements.length > 0 || item.effect.physicalKillers.size > 0 || item.effect.magicalKillers.size > 0 || item.effect.ailments.size > 0)">
         <div class="statTypeCategoryIcon"><span class="fas fa-arrow-alt-circle-right"></span></div>
         <div>
           <span *ngIf="item.elements.length > 0" class="statType">
             <i *ngFor="let element of item.elements" class='img img-element-{{element}} miniIcon'></i>
           </span>
-          <app-by-value-list [list]="item.physicalKillers" [type]="'killer-physical'"></app-by-value-list>
-          <app-by-value-list [list]="item.magicalKillers" [type]="'magical'"></app-by-value-list>
-          <app-by-value-list [list]="item.ailments" [type]="'ailment'"></app-by-value-list>
+          <app-by-value-list [list]="item.effect.physicalKillers" [type]="'killer-physical'"></app-by-value-list>
+          <app-by-value-list [list]="item.effect.magicalKillers" [type]="'magical'"></app-by-value-list>
+          <app-by-value-list [list]="item.effect.ailments" [type]="'ailment'"></app-by-value-list>
         </div>
       </div>
-      <div class="statTypeCategory" *ngIf="mode == Mode.DETAILED && (item.elementalResists.size > 0 || item.ailmentResists.size > 0)">
+      <div class="statTypeCategory" *ngIf="mode == Mode.DETAILED && (item.effect.elementalResists.size > 0 || item.effect.ailmentResists.size > 0)">
         <div class="statTypeCategoryIcon"><span class="fas fa-arrow-alt-circle-left"></span></div>
         <div>
-          <app-by-value-list [list]="item.ailmentResists" [type]="'ailment'"></app-by-value-list>
-          <app-by-value-list [list]="item.elementalResists" [type]="'element'"></app-by-value-list>
+          <app-by-value-list [list]="item.effect.ailmentResists" [type]="'ailment'"></app-by-value-list>
+          <app-by-value-list [list]="item.effect.elementalResists" [type]="'element'"></app-by-value-list>
         </div>
       </div>
     </div>
     <div class="accesses" *ngIf="mode == Mode.DETAILED">
-      <div *ngIf="item.equipedConditions.length > 0" class="exclusive">if <span *ngFor="let condition of item.equipedConditions" class="list"><i class="img img-equipment-{{condition}} miniIcon"></i><span class="separator">, </span></span> equiped</div>
+      <div *ngIf="item.effect.equipedConditions.length > 0" class="exclusive">if <span *ngFor="let condition of item.effect.equipedConditions" class="list"><i class="img img-equipment-{{condition}} miniIcon"></i><span class="separator">, </span></span> equiped</div>
       <div *ngIf="item.exclusiveSex" class="exclusive">Only {{item.exclusiveSex}}</div>
       <div *ngIf="item.exclusiveUnits.length > 0" class="exclusive">Only <span *ngFor="let unit of exclusiveUnits" class="list"><app-item-link *ngIf="unit" [name]="unit.name" [wikiEntry]="unit.wikiEntry"></app-item-link><span *ngIf="!unit">unknown unit</span><span class="separator">, </span></span></div>
       <div *ngIf="item.access">Access :
@@ -57,37 +57,37 @@
   </div>
   <div class="column" *ngIf="mode == Mode.DETAILED">
     <div class="special">
-      <div *ngIf="item.damageVariance"><img src="{{environment.baseUrl}}img/items/ability_54.png" class="img skillIcon"/>x{{(item.damageVariance.min + item.damageVariance.max)/2}} damage variance (x{{item.damageVariance.min}} to x{{item.damageVariance.max}})</div>
-      <app-item-link *ngIf="item.dualWield" [name]="'Dual Wield'" [icon]="'ability_72.png'"></app-item-link>
-      <div *ngIf="item.partialDualWield.length > 0"><img src="{{environment.baseUrl}}img/items/ability_72.png" class="img skillIcon"/>Dual Wield of <i *ngFor="let weaponType of item.partialDualWield" class='img img-equipment-{{weaponType}} miniIcon'></i></div>
-      <div *ngIf="item.allowUseOf">Allow use of <i class='img img-equipment-{{item.allowUseOf}} miniIcon'></i></div>
-      <div *ngIf="item.physicalEvade"><img src="{{environment.baseUrl}}img/items/ability_75.png" class="img skillIcon"/>+{{item.physicalEvade}}% physical evasion</div>
-      <div *ngIf="item.magicalEvade"><img src="{{environment.baseUrl}}img/items/ability_75.png" class="img skillIcon"/>+{{item.magicalEvade}}% magical evasion</div>
-      <ng-container *ngIf="item.singleWielding">
-        <ng-container *ngFor="let stat of item.singleWielding | keyvalue">
+      <div *ngIf="item.effect.damageVariance"><img src="{{environment.baseUrl}}img/items/ability_54.png" class="img skillIcon"/>x{{(item.effect.damageVariance.min + item.effect.damageVariance.max)/2}} damage variance (x{{item.effect.damageVariance.min}} to x{{item.effect.damageVariance.max}})</div>
+      <app-item-link *ngIf="item.effect.dualWield" [name]="'Dual Wield'" [icon]="'ability_72.png'"></app-item-link>
+      <div *ngIf="item.effect.partialDualWield.length > 0"><img src="{{environment.baseUrl}}img/items/ability_72.png" class="img skillIcon"/>Dual Wield of <i *ngFor="let weaponType of item.effect.partialDualWield" class='img img-equipment-{{weaponType}} miniIcon'></i></div>
+      <div *ngIf="item.effect.allowUseOf">Allow use of <i class='img img-equipment-{{item.effect.allowUseOf}} miniIcon'></i></div>
+      <div *ngIf="item.effect.physicalEvade"><img src="{{environment.baseUrl}}img/items/ability_75.png" class="img skillIcon"/>+{{item.effect.physicalEvade}}% physical evasion</div>
+      <div *ngIf="item.effect.magicalEvade"><img src="{{environment.baseUrl}}img/items/ability_75.png" class="img skillIcon"/>+{{item.effect.magicalEvade}}% magical evasion</div>
+      <ng-container *ngIf="item.effect.singleWielding">
+        <ng-container *ngFor="let stat of item.effect.singleWielding | keyvalue">
           <div *ngIf="stat.key === 'accuracy'"><img src="{{environment.baseUrl}}img/items/ability_40.png" class="img skillIcon"/>+{{stat.value}}% accuracy when single wielding</div>
           <div *ngIf="stat.key != 'accuracy' && stat.value > 0"><img src="{{environment.baseUrl}}img/items/ability_76.png" class="img skillIcon"/>+{{stat.value}}% equipment {{stat.key | uppercase}} when single wielding</div>
         </ng-container>
       </ng-container>
-      <ng-container *ngIf="item.singleWieldingOneHanded">
-        <ng-container *ngFor="let stat of item.singleWieldingOneHanded | keyvalue">
+      <ng-container *ngIf="item.effect.singleWieldingOneHanded">
+        <ng-container *ngFor="let stat of item.effect.singleWieldingOneHanded | keyvalue">
           <div *ngIf="stat.key === 'accuracy'"><img src="{{environment.baseUrl}}img/items/ability_40.png" class="img skillIcon"/>+{{stat.value}}% accuracy when single wielding a one-handed weapon</div>
           <div *ngIf="stat.key != 'accuracy' && stat.value > 0"><img src="{{environment.baseUrl}}img/items/ability_76.png" class="img skillIcon"/>+{{stat.value}}% equipment {{stat.key | uppercase}} when single wielding a one-handed weapon</div>
         </ng-container>
       </ng-container>
-      <ng-container *ngIf="item.dualWielding">
-        <ng-container *ngFor="let stat of item.dualWielding | keyvalue">
+      <ng-container *ngIf="item.effect.dualWielding">
+        <ng-container *ngFor="let stat of item.effect.dualWielding | keyvalue">
         <div *ngIf="stat.value"><img src="{{environment.baseUrl}}img/items/ability_72.png" class="img skillIcon"/>+{{stat.value}}% equipment {{stat.key | uppercase}} when dual wielding</div>
         </ng-container>
       </ng-container>
       <div *ngIf="item.accuracy"><img src="{{environment.baseUrl}}img/items/ability_40.png" class="img skillIcon"/>+{{item.accuracy}}% accuracy</div>
-      <div *ngIf="item.mpRefresh"><img src="{{environment.baseUrl}}img/items/ability_91.png" class="img skillIcon"/>Recover {{item.mpRefresh}}% MP per turn</div>
-      <div *ngIf="item.jumpDamage"><img src="{{environment.baseUrl}}img/items/ability_80.png" class="img skillIcon"/>+{{item.jumpDamage}}% jump damage</div>
-      <div *ngIf="item.lbFillRate"><img src="{{environment.baseUrl}}img/items/ability_78.png" class="img skillIcon"/>+{{item.lbFillRate}}% LB gauge fill rate</div>
-      <div *ngIf="item.lbDamage"><img src="{{environment.baseUrl}}img/items/ability_78.png" class="img skillIcon"/>+{{item.lbDamage}}% LB damage</div>
-      <div *ngIf="item.lbPerTurn"><img src="{{environment.baseUrl}}img/items/ability_91.png" class="img skillIcon"/>+{{item.lbPerTurn.min}}-{{item.lbPerTurn.max}} LB gauge per turn</div>
-      <div *ngIf="item.evoMag"><img src="{{environment.baseUrl}}img/items/ability_77.png" class="img skillIcon"/>+{{item.evoMag}}% Esper summon damage</div>
-      <div *ngIf="item.esperStatsBonus"><img src="{{environment.baseUrl}}img/items/ability_77.png" class="img skillIcon"/>+{{item.esperStatsBonus.hp}}% stats from espers</div>
+      <div *ngIf="item.effect.mpRefresh"><img src="{{environment.baseUrl}}img/items/ability_91.png" class="img skillIcon"/>Recover {{item.effect.mpRefresh}}% MP per turn</div>
+      <div *ngIf="item.effect.jumpDamage"><img src="{{environment.baseUrl}}img/items/ability_80.png" class="img skillIcon"/>+{{item.effect.jumpDamage}}% jump damage</div>
+      <div *ngIf="item.effect.lbFillRate"><img src="{{environment.baseUrl}}img/items/ability_78.png" class="img skillIcon"/>+{{item.effect.lbFillRate}}% LB gauge fill rate</div>
+      <div *ngIf="item.effect.lbDamage"><img src="{{environment.baseUrl}}img/items/ability_78.png" class="img skillIcon"/>+{{item.effect.lbDamage}}% LB damage</div>
+      <div *ngIf="item.effect.lbPerTurn"><img src="{{environment.baseUrl}}img/items/ability_91.png" class="img skillIcon"/>+{{item.effect.lbPerTurn.min}}-{{item.effect.lbPerTurn.max}} LB gauge per turn</div>
+      <div *ngIf="item.effect.evoMag"><img src="{{environment.baseUrl}}img/items/ability_77.png" class="img skillIcon"/>+{{item.effect.evoMag}}% Esper summon damage</div>
+      <div *ngIf="item.effect.esperStatsBonus"><img src="{{environment.baseUrl}}img/items/ability_77.png" class="img skillIcon"/>+{{item.effect.esperStatsBonus.hp}}% stats from espers</div>
       <div *ngFor="let special of specials">{{special.before}}<app-item-link [name]="special.skillName" [icon]="special.icon" [wikiEntry]="special.wikiEntry"></app-item-link>{{special.text}}</div>
     </div>
 

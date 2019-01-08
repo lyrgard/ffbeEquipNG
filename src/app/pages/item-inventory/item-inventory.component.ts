@@ -98,8 +98,8 @@ export class ItemInventoryComponent implements OnInit {
     return (item1:Item, item2:Item) => {
       for (var index in sortOrder) {
         let stat = sortOrder[index];
-        let stat1 = item1[stat].flat;
-        let stat2 = item2[stat].flat;
+        let stat1 = item1.effect[stat].flat;
+        let stat2 = item2.effect[stat].flat;
         if (stat1 == stat2) {
           continue;
         }

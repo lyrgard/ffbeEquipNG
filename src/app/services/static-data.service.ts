@@ -60,8 +60,8 @@ export class StaticDataService {
         items.forEach(item => {
           if (idsAlreadyAdded.get(item.id)) {
             let previousItem = idsAlreadyAdded.get(item.id);
-            let conditionNumber1 = previousItem.equipedConditions.length;
-            let conditionNumber2 = item.equipedConditions.length;
+            let conditionNumber1 = previousItem.effect.equipedConditions.length;
+            let conditionNumber2 = item.effect.equipedConditions.length;
             if (conditionNumber2 > conditionNumber1) {
               idsAlreadyAdded.set(item.id, item);
             }
@@ -145,8 +145,8 @@ export class StaticDataService {
           }
           if (itemById.get(item.id)) {
             let previousItem = itemById.get(item.id);
-            let conditionNumber1 = previousItem.equipedConditions.length;
-            let conditionNumber2 = item.equipedConditions.length;
+            let conditionNumber1 = previousItem.effect.equipedConditions.length;
+            let conditionNumber2 = item.effect.equipedConditions.length;
             if (conditionNumber2 > conditionNumber1) {
               itemById.set(item.id, item);
             }

@@ -140,11 +140,11 @@ export class EncyclopediaSearchFilter {
   isSelected(item:Item, ownedItems): boolean {
     if (!this._onlyShowOwnedItems || ownedItems && ownedItems[item.id]) {
       if (!this._excludeNotReleasedYet || !item.isNotReleasedYet()) {
-        if (this._elements.length == 0 || (this._elements.some(e => item.elements.includes(e))) || (this._elements.includes("noElement") && item.elements.length == 0) || (this.matches(item.elementalResists, this._elements))) {
-          if (this._ailments.length == 0 || this.matches(item.ailments, this._ailments) || this.matches(item.ailmentResists, this._ailments)) {
+        if (this._elements.length == 0 || (this._elements.some(e => item.elements.includes(e))) || (this._elements.includes("noElement") && item.elements.length == 0) || (this.matches(item.effect.elementalResists, this._elements))) {
+          if (this._ailments.length == 0 || this.matches(item.effect.ailments, this._ailments) || this.matches(item.effect.ailmentResists, this._ailments)) {
             if (this._equipmentTypes.length == 0 || this._equipmentTypes.includes(item.type)) {
-              if (this._physicalKillers.length == 0 || this._physicalKillers.some(killer => item.physicalKillers.get(killer) > 0)) {
-                if (this._magicalKillers.length == 0 || this._magicalKillers.some(killer => item.magicalKillers.get(killer) > 0)) {
+              if (this._physicalKillers.length == 0 || this._physicalKillers.some(killer => item.effect.physicalKillers.get(killer) > 0)) {
+                if (this._magicalKillers.length == 0 || this._magicalKillers.some(killer => item.effect.magicalKillers.get(killer) > 0)) {
                   if (this._accessToRemove.length == 0 || this.haveAuthorizedAccess(this._accessToRemove, item)) {
                     if (this._additionalStats.length == 0 || this._additionalStats.some(stat => item[stat].flat + item[stat].percent > 0)) {
                       if (this._sort == "" || this.hasSortedStat(item)) {
@@ -180,11 +180,11 @@ export class EncyclopediaSearchFilter {
     if (constants.BASE_STATS.includes(this._sort)) {
       return item[this._sort].flat + item[this._sort].percent > 0
     } else if (this._sort == "inflict") {
-      return item.elements.length > 0 || item.ailments.size > 0 || item.physicalKillers.size > 0 || item.magicalKillers.size > 0;
+      return item.elements.length > 0 || item.effect.ailments.size > 0 || item.effect.physicalKillers.size > 0 || item.effect.magicalKillers.size > 0;
     } else if (this._sort == "evade") {
-      return item.physicalEvade + item.magicalEvade > 0;
+      return item.effect.physicalEvade + item.effect.magicalEvade > 0;
     } else if (this._sort == "resist") {
-      return item.elementalResists.size > 0 || item.ailmentResists.size > 0
+      return item.effect.elementalResists.size > 0 || item.effect.ailmentResists.size > 0
     }
     return false;
   };
