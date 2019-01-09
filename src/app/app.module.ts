@@ -49,6 +49,7 @@ import { EsperGridComponent } from './components/esper-grid/esper-grid.component
 import { EsperNodeComponent } from './components/esper-node/esper-node.component';
 import { EsperScreenComponent } from './components/esper-screen/esper-screen.component';
 import { UnitTileComponent } from './components/unit-tile/unit-tile.component';
+import { UnitStarsComponent } from './components/unit-stars/unit-stars.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { UnitTileComponent } from './components/unit-tile/unit-tile.component';
     EsperNodeComponent,
     EsperScreenComponent,
     UnitTileComponent,
+    UnitStarsComponent,
   ],
   imports: [
     BrowserModule,

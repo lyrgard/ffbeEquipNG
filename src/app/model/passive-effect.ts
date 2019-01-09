@@ -3,7 +3,7 @@ import {StatValues} from "./stat-values";
 import {MinMax} from "./min-max";
 import {BaseValue} from "./base-value";
 
-export class PassiveEffect {
+export interface PassiveEffect {
   readonly hp:BaseValue;
   readonly mp:BaseValue;
   readonly atk:BaseValue;

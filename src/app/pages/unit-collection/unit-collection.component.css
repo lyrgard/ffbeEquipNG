@@ -1,0 +1,10 @@
+.units {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.unitCard {
+  width: 350px;
+  margin: 2px;
+}

@@ -1,3 +1,17 @@
-<p>
-  unit-tile works!
-</p>
+<div class="unit" *ngIf="unit">
+  <div class="unitIcon">
+    <img *ngIf="unitIcon" src="{{unitIcon}}" class="icon"/>
+  </div>
+  <div class="column">
+    <div class="nameAndStats">
+      <span class="name"><app-item-link [name]="unit.name"></app-item-link></span>
+      <span class="jpname" *ngIf="unit.jpname">{{unit.jpname}}</span>
+    </div>
+    <div class="stars">
+      <app-unit-stars [minRarity]="unit.minRarity" [maxRarity]="unit.maxRarity"></app-unit-stars>
+    </div>
+    <div class="actions">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

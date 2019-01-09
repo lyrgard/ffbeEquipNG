@@ -1,0 +1,25 @@
+.unit {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+
+.icon {
+  border-radius: 8px;
+}
+
+.column {
+  margin-left: 5px;
+}
+
+.name {
+  font-weight: 600;
+}
+
+.stars {
+  font-size: 15px;
+  color: #e0e0e0;
+  margin-top: 2px;
+}

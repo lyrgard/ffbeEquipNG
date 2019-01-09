@@ -11,6 +11,7 @@ import {ItemReleaseDay} from "../model/item-release-day";
 import {ItemReleaseEvent} from "../model/item-release-event";
 import {UnitReleaseDay} from "../model/unit-release-day";
 import {UnitBanner} from "../model/unit-banner";
+import {Unit} from "../model/unit";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,8 @@ export class StaticDataService {
   private $version:AsyncSubject<number>
   private $items:AsyncSubject<Item[]>;
   private $itemsWithoutDuplicates:AsyncSubject<Item[]>;
-  private $units:AsyncSubject<any>;
+  private $units:AsyncSubject<Unit[]>;
+  private $unitsById:AsyncSubject<Map<string, Unit>>;
   private $itemHistory:AsyncSubject<ItemReleaseDay[]>;
   private $unitHistory:AsyncSubject<UnitReleaseDay[]>;
 
@@ -119,7 +121,7 @@ export class StaticDataService {
 
   private populateItemHistory(latestReleasedItems:any) {
     this.getItems().subscribe(items => {
-      this.getUnits().subscribe(units => {
+      this.getUnitsById().subscribe(units => {
         let tmrByUnitId: Map<string, string> = new Map<string, string>();
         let stmrByUnitId: Map<string, string> = new Map<string, string>();
         let itemIdsByEvent: Map<string, string[]> = new Map<string, string[]>();
@@ -159,7 +161,7 @@ export class StaticDataService {
           let itemReleaseEvents: ItemReleaseEvent[] = [];
           day.sources.forEach(source => {
             if (source.type == "banner") {
-              let name:string = source.units.map(unitId => units[unitId].name).join(', ');
+              let name:string = source.units.map(unitId => units.get(unitId).name).join(', ');
               let items:Item[] = source.units.filter(unitId =>  tmrByUnitId.get(unitId)).map(unitId =>  itemById.get(tmrByUnitId.get(unitId)));
               items = items.concat(source.units.filter(unitId =>  stmrByUnitId.get(unitId)).map(unitId =>  itemById.get(stmrByUnitId.get(unitId))));
               itemReleaseEvents.push(new ItemReleaseEvent(name, items));
@@ -180,7 +182,7 @@ export class StaticDataService {
   }
 
   private populateUnitHistory(latestReleasedItems:any) {
-    this.getUnits().subscribe(units => {
+    this.getUnitsById().subscribe(units => {
 
       let unitHistory: UnitReleaseDay[] = [];
 
@@ -188,8 +190,8 @@ export class StaticDataService {
         let unitBanners: UnitBanner[] = [];
         day.sources.forEach(source => {
           if (source.type == "banner") {
-            let name:string = source.units.map(unitId => units[unitId].name).join(', ');
-            let bannerUnits:any[] = source.units.map(unitId => units[unitId]);
+            let name:string = source.units.map(unitId => units.get(unitId).name).join(', ');
+            let bannerUnits:any[] = source.units.map(unitId => units.get(unitId));
             unitBanners.push(new UnitBanner(name, bannerUnits));
           }
         });
@@ -203,19 +205,19 @@ export class StaticDataService {
   }
 
 
-  getUnits():AsyncSubject<any> {
+  getUnits():AsyncSubject<Unit[]> {
     if (!this.$units) {
       this.$units = new AsyncSubject();
       this.getFilename("units", true).subscribe(filename => {
         let storedData = this.localStorage.getFile(filename);
         if (storedData) {
-          this.$units.next(storedData);
+          this.$units.next(Object.keys(storedData).map(unitId => new Unit(storedData[unitId])));
           this.$units.complete();
         } else {
           this.context.server.subscribe(server => {
-            this.http.get(`${environment.baseUrl}${server}/${filename}`).subscribe(units => {
+            this.http.get<any[]>(`${environment.baseUrl}${server}/${filename}`).subscribe(units => {
               this.localStorage.setFile(filename, units);
-              this.$units.next(units);
+              this.$units.next(Object.keys(units).map(unitId => new Unit(units[unitId])));
               this.$units.complete();
             })
           });
@@ -223,6 +225,19 @@ export class StaticDataService {
       });
     }
     return this.$units;
+  }
+
+  getUnitsById():AsyncSubject<Map<string, Unit>> {
+    if (!this.$unitsById) {
+      this.$unitsById = new AsyncSubject();
+      this.getUnits().subscribe(units => {
+        let result:Map<string, Unit> = new Map<string, Unit>();
+        units.forEach(u => result.set(u.id, u));
+        this.$unitsById.next(result);
+        this.$unitsById.complete();
+      });
+    }
+    return this.$unitsById;
   }
 
   private getFilename(base:string, localized:boolean = false): AsyncSubject<string> {

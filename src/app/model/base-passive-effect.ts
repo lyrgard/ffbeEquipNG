@@ -35,9 +35,14 @@ export class BasePassiveEffect implements PassiveEffect {
   readonly allowUseOf:string;
   readonly equipedConditions:string[];
   readonly dualWield:boolean;
+  readonly desc:string;
 
   constructor(json:any) {
     if (json) {
+      if (json.desc && json.effect) {
+        this.desc = json.effect;
+        json = json.effects;
+      }
       this.hp = new BaseValue(json.hp, json['hp%']);
       this.mp = new BaseValue(json.mp, json['mp%']);
       this.atk = new BaseValue(json.atk, json['atk%']);

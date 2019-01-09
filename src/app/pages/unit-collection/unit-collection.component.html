@@ -13,7 +13,11 @@
               <div class="eventName">{{banner.name}}</div>
               <div class="units entries">
                 <ng-container *ngFor="let unit of banner.units">
-                  {{unit.name}}
+                  <mat-card class="unitCard">
+                    <mat-card-content class="unit">
+                      <app-unit-tile [unit]="unit"></app-unit-tile>
+                    </mat-card-content>
+                  </mat-card>
                 </ng-container>
               </div>
             </div>
