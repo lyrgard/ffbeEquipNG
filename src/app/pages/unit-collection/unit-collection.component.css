@@ -8,3 +8,19 @@
   width: 350px;
   margin: 2px;
 }
+
+.unit {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.tmrCounter {
+  position: absolute;
+  right: 4px;
+  top: 42px;
+}
+
+.tmrCounter .actionImg {
+  margin-left: -6px;
+}

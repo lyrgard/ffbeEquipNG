@@ -9,6 +9,7 @@ import {MatRipple} from '@angular/material';
 export class CounterComponent implements OnInit, OnChanges {
 
   @Input() value:number;
+  @Input() denominator:number;
   @ViewChild(MatRipple) ripple: MatRipple;
 
   constructor() { }
@@ -23,4 +24,5 @@ export class CounterComponent implements OnInit, OnChanges {
       })
     }
   }
+
 }

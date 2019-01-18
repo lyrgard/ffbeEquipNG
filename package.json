@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config dev_proxy.conf.json",
-    "start-home": "ng serve --live-reload false",
+    "start-home": "ng serve --proxy-config dev_proxy.conf.json --live-reload false",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

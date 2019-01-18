@@ -11,3 +11,7 @@
   min-height: 32px;
   height: 1px;
 }
+
+.counter .denominator {
+  font-weight: normal;
+}

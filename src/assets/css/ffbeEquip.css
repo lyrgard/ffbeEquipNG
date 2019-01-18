@@ -87,3 +87,54 @@ body.dark {
   justify-content: flex-start !important;
   margin-left: 20px;
 }
+
+.actions {
+  display: flex;
+  align-items: center;
+}
+
+.itemCard .actions .action {
+  visibility: hidden;
+}
+
+.itemCard:hover .actions .action {
+  visibility: visible;
+}
+
+.unitCard .actions .action {
+  visibility: hidden;
+}
+
+.unitCard:hover .actions .action {
+  visibility: visible;
+}
+
+.actionIcon {
+  margin-right: 4px;
+  margin-left: 4px;
+  color: #616161;
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.actionImg {
+  height: 28px;
+  width: 28px;
+  filter: grayscale(100%);
+}
+
+.actionImg:hover {
+  filter: grayscale(50%);
+}
+
+.notOwned {
+  opacity: 0.4;
+}
+
+.notOwned:hover {
+  opacity: 0.6;
+}
+
+.ownedNumber {
+  font-weight: bold;
+}

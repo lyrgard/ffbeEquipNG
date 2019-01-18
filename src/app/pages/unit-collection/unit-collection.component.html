@@ -1,3 +1,27 @@
+<ng-template let-unit="unit" #unitCard>
+  <mat-card class="unitCard">
+    <mat-card-content class="unit">
+      <app-unit-tile [unit]="unit">
+        <div class="actions">
+          <button mat-button class="iconButton" clickPropagationStop (click)="addUnit(unit.id)" matTooltip="Add an instance of this unit to your inventory">
+            <i class="fas fa-plus-square actionIcon action"></i>
+          </button>
+          <button mat-button class="iconButton" clickPropagationStop (click)="removeUnit(unit.id)" matTooltip="Remove an instance of this unit from your inventory">
+            <i class="fas fa-minus-square actionIcon action"></i>
+          </button>
+          <button mat-button class="iconButton" clickPropagationStop (click)="openMoreActions(unit.id)" matTooltip="More actions on this unit">
+            <i class="fas fas fa-ellipsis-h actionIcon action"></i>
+          </button>
+        </div>
+      </app-unit-tile>
+      <app-counter [value]="2"></app-counter>
+      <app-counter class="tmrCounter" [value]="1" [denominator]="2">
+        <img class="action actionIcon actionImg" src="{{environment.baseUrl}}img/units/unit_ills_904000105.png" (click)="farmedThisTMR(unit.id)"  matTooltip="Increase the number of TMR of this unit owned">
+      </app-counter>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
+
 <mat-sidenav-container>
   <mat-tab-group>
     <mat-tab>
@@ -13,11 +37,7 @@
               <div class="eventName">{{banner.name}}</div>
               <div class="units entries">
                 <ng-container *ngFor="let unit of banner.units">
-                  <mat-card class="unitCard">
-                    <mat-card-content class="unit">
-                      <app-unit-tile [unit]="unit"></app-unit-tile>
-                    </mat-card-content>
-                  </mat-card>
+                  <ng-container *ngTemplateOutlet="unitCard; context: {unit:unit}"></ng-container>
                 </ng-container>
               </div>
             </div>
