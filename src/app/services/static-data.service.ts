@@ -25,6 +25,8 @@ export class StaticDataService {
   private $unitsById:AsyncSubject<Map<string, Unit>>;
   private $itemHistory:AsyncSubject<ItemReleaseDay[]>;
   private $unitHistory:AsyncSubject<UnitReleaseDay[]>;
+  private $tmrByUnitId:AsyncSubject<Map<string, Item>>;
+  private $stmrByUnitId:AsyncSubject<Map<string, Item>>;
 
   constructor(private localStorage:LocalStorageService, private http:HttpClient, private context:ContextService) {
   }
@@ -238,6 +240,24 @@ export class StaticDataService {
       });
     }
     return this.$unitsById;
+  }
+
+  getTmrByUnitId():AsyncSubject<Map<string, Item>> {
+    if (!this.$tmrByUnitId) {
+      let tmrByUnitId = new Map();
+      this.getUnitsById().subscribe(unitsById=> {
+        this.getItemsWithoutDuplicates().subscribe(items => {
+          items.forEach(item => {
+            if (item.tmrUnit && unitsById.get(item.tmrUnit)) {
+              tmrByUnitId.set(item.tmrUnit, item);
+            }
+          });
+        });
+      });
+      this.$tmrByUnitId.next(tmrByUnitId);
+      this.$tmrByUnitId.complete();
+    }
+    return this.$tmrByUnitId
   }
 
   private getFilename(base:string, localized:boolean = false): AsyncSubject<string> {
